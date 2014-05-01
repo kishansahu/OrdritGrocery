@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Ordrit</string>
+    <string name="action_settings">Settings</string>
+    <string name="get_started">Get Started</string>
+    <string name="email_or_phonenum">Email Id/Phone No.</string>
+    <string name="password">Password</string>
+    <string name="invalid_email_or_phone_num">Please Enter Valid Email Id or Phone Number</string>
+    <string name="password_error">Please Choose Password of At Least 5 Characters</string>
+    <string name="log_in">Log In</string>
+
+    <string name="grocery_msg"><![CDATA[<center>
+			Your <span><font color="#94C57E">Grocery</font></span> is here<br></center>
+		<center>
+			]]></string>
+			
+    <string name="grocery_sub_msg"><![CDATA[<center>
+			Your <span><font color="#94C57E">Friendly Neighbourhood store</font></span> is here<br></center>
+		<center>
+			]]></string>
+</resources>

@@ -19,4 +19,20 @@
 			Your <span><font color="#94C57E">Friendly Neighbourhood store</font></span> is here<br></center>
 		<center>
 			]]></string>
+			
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="action_websearch">Web search</string>
+    <string name="app_not_available">Sorry, there\'s no web browser available</string>
+    
+    <!-- drawer resource -->
+     <string name="my_accounts">My Accounts</string>
+     <string name="my_bag">My Bag</string>
+     <string name="order_status">Order Status</string>
+     <string name="previous_orders">Previous Orders</string>
+     <string name="coupons">Coupons</string>
+     <string name="help">Help &amp; Faq</string>
+     <string name="shopping_in">Shopping in Andheri / Mumbai....</string>
+     
+     
 </resources>

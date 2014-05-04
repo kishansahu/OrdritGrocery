@@ -6,6 +6,8 @@
     <color name="yellow">#FFB240</color>
     <color name="deep_yellow">#FF9900</color>
     <color name="deep_grey">#343434</color>
+    <color name="white">#ffffffff</color>
+    <color name="transparent">#00000000</color>
     
 	
 </resources>

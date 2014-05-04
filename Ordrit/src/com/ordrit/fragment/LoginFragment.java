@@ -3,6 +3,7 @@ package com.ordrit.fragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.ordrit.R;
+import com.ordrit.activity.HomeActivity;
 import com.ordrit.activity.MainActivity;
 
 public class LoginFragment extends Fragment {
@@ -36,14 +38,15 @@ public class LoginFragment extends Fragment {
 
 			@Override
 			public void onClick(View v) {
-				FragmentManager fragmentManager = getFragmentManager();
+				startActivity(new Intent(mainActivity, HomeActivity.class));
+				/*FragmentManager fragmentManager = getFragmentManager();
 				FragmentTransaction fragmentTransaction = fragmentManager
 						.beginTransaction();
 				Fragment userAddMerchantFragment = new UserAddMerchantFragment();
 
 				fragmentTransaction.replace(R.id.application_container,
 						userAddMerchantFragment);
-				fragmentTransaction.commit();
+				fragmentTransaction.commit();*/
 
 			}
 		});

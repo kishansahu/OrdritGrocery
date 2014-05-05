@@ -23,6 +23,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.drawable.ColorDrawable;
@@ -35,57 +36,50 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.ordrit.R;
 import com.ordrit.adapter.CustomDrawerAdapter;
+import com.ordrit.adapter.NewAdapter;
 import com.ordrit.model.DrawerItem;
 
 
 public class HomeActivity extends Activity {
+	Context context;
     private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
+    private ExpandableListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
 
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
    // private String[] mPlanetTitles;
-    List<DrawerItem> drawerItemList;
-
+    List<DrawerItem> groupItem;
+    //ArrayList<String> groupItem = new ArrayList<String>();
+	ArrayList<Object> childItem = new ArrayList<Object>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
+        context=this;
         mTitle = mDrawerTitle = getTitle();
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+        mDrawerList = (ExpandableListView) findViewById(R.id.left_drawer);
 
         // set a custom shadow that overlays the main content when the drawer opens
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         // set up the drawer's list view with items and click listener
         
-        drawerItemList=new ArrayList<DrawerItem>();
-        DrawerItem drawerItem0 = new DrawerItem(getString(R.string.my_accounts), R.drawable.ic_launcher);
-        drawerItemList.add(drawerItem0);
-        DrawerItem drawerItem1 = new DrawerItem(getString(R.string.my_bag), R.drawable.ic_launcher);
-        drawerItemList.add(drawerItem1);
-        DrawerItem drawerItem2 = new DrawerItem(getString(R.string.order_status), R.drawable.ic_launcher);
-        drawerItemList.add(drawerItem2);
-        DrawerItem drawerItem3 = new DrawerItem(getString(R.string.previous_orders), R.drawable.ic_launcher);
-        drawerItemList.add(drawerItem3);
-        DrawerItem drawerItem4 = new DrawerItem(getString(R.string.coupons), R.drawable.ic_launcher);
-        drawerItemList.add(drawerItem4);
-        DrawerItem drawerItem5 = new DrawerItem(getString(R.string.help), R.drawable.ic_launcher);
-        drawerItemList.add(drawerItem5);
-        DrawerItem drawerItem6 = new DrawerItem(getString(R.string.shopping_in), R.drawable.ic_launcher);
-        drawerItemList.add(drawerItem6);
+  
+        setGroupData();
+        setChildGroupData();
         
-        CustomDrawerAdapter customDrawerAdapter=new CustomDrawerAdapter(getApplicationContext(), R.layout.list_item_drawer, drawerItemList);
+        
+        NewAdapter customDrawerAdapter=new NewAdapter(context,groupItem, childItem);
         
         mDrawerList.setAdapter(customDrawerAdapter);
-        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+       // mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         // enable ActionBar app icon to behave as action to toggle nav drawer
         getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -99,7 +93,7 @@ public class HomeActivity extends Activity {
         mDrawerToggle = new ActionBarDrawerToggle(
                 this,                  /* host Activity */
                 mDrawerLayout,         /* DrawerLayout object */
-                R.drawable.ic_launcher,  /* nav drawer image to replace 'Up' caret */
+                R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
                 R.string.drawer_open,  /* "open drawer" description for accessibility */
                 R.string.drawer_close  /* "close drawer" description for accessibility */
                 ) {
@@ -173,7 +167,7 @@ public class HomeActivity extends Activity {
        
         // update selected item and title, then close the drawer
         mDrawerList.setItemChecked(position, true);
-        setTitle(drawerItemList.get(position).getTitle());
+      //  setTitle(groupItem.get(position).getTitle());
         mDrawerLayout.closeDrawer(mDrawerList);
     }
 
@@ -202,8 +196,80 @@ public class HomeActivity extends Activity {
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-    /**
-     * Fragment that appears in the "content_frame", shows a planet
-     */
+    public void setGroupData() {
+    	
+        groupItem=new ArrayList<DrawerItem>();
+        DrawerItem drawerItem0 = new DrawerItem(getString(R.string.my_accounts), R.drawable.ic_launcher);
+        groupItem.add(drawerItem0);
+        DrawerItem drawerItem1 = new DrawerItem(getString(R.string.my_bag), R.drawable.ic_launcher);
+        groupItem.add(drawerItem1);
+        DrawerItem drawerItem2 = new DrawerItem(getString(R.string.order_status), R.drawable.ic_launcher);
+        groupItem.add(drawerItem2);
+        DrawerItem drawerItem3 = new DrawerItem(getString(R.string.previous_orders), R.drawable.ic_launcher);
+        groupItem.add(drawerItem3);
+        DrawerItem drawerItem4 = new DrawerItem(getString(R.string.coupons), R.drawable.ic_launcher);
+        groupItem.add(drawerItem4);
+        DrawerItem drawerItem5 = new DrawerItem(getString(R.string.help), R.drawable.ic_launcher);
+        groupItem.add(drawerItem5);
+        DrawerItem drawerItem6 = new DrawerItem(getString(R.string.shopping_in), R.drawable.ic_launcher);
+        groupItem.add(drawerItem6);
+        
+    	
+    	
+		/*groupItem.add("TechNology");
+		groupItem.add("Mobile");
+		groupItem.add("Manufacturer");
+		groupItem.add("Extras");*/
+	}
+
+	
+
+	public void setChildGroupData() {
+		/**
+		 * Add Data For TecthNology
+		 */
+		ArrayList<String> child = new ArrayList<String>();
+		childItem.add(child);
+		childItem.add(child);
+		childItem.add(child);
+		childItem.add(child);
+		childItem.add(child);
+		childItem.add(child);
+		child = new ArrayList<String>();
+		child.add("Contact Us");
+		child.add("About Us");
+		child.add("Location");
+		child.add("Root Cause");
+		childItem.add(child);
+
+		/**
+		 * Add Data For Mobile
+		 *//*
+		child = new ArrayList<String>();
+		child.add("Android");
+		child.add("Window Mobile");
+		child.add("iPHone");
+		child.add("Blackberry");
+		childItem.add(child);
+		*//**
+		 * Add Data For Manufacture
+		 *//*
+		child = new ArrayList<String>();
+		child.add("HTC");
+		child.add("Apple");
+		child.add("Samsung");
+		child.add("Nokia");
+		childItem.add(child);
+		*//**
+		 * Add Data For Extras
+		 *//*
+		child = new ArrayList<String>();
+		child.add("Contact Us");
+		child.add("About Us");
+		child.add("Location");
+		child.add("Root Cause");
+		childItem.add(child);*/
+	}
+
 
 }

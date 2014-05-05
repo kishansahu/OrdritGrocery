@@ -1,34 +1,45 @@
 package com.ordrit.adapter;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import com.ordrit.R;
+import com.ordrit.model.DrawerItem;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.CheckedTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ordrit.R;
+@SuppressWarnings("unchecked")
+public class NewAdapter extends BaseExpandableListAdapter {
 
-public class CustomDrawerAdapter extends BaseExpandableListAdapter {
-
-	public ArrayList<String> groupItem, tempChild;
+	public List<DrawerItem> groupItem;
+	List<String> tempChild;
 	public ArrayList<Object> Childtem = new ArrayList<Object>();
 	public LayoutInflater inflater;
-	public Activity activity;
+	//public Activity activity;
+	private final Context context;
 
-	public CustomDrawerAdapter(Context context,ArrayList<String> grList, ArrayList<Object> childItem) {
-		this.groupItem = grList;
+	public NewAdapter(Context context,List<DrawerItem> groupItem, ArrayList<Object> childItem) {
+		this.context = context;
+		this.groupItem = groupItem;
 		this.Childtem = childItem;
 		 inflater = (LayoutInflater )context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 
-	
-
+/*	public void setInflater(LayoutInflater mInflater, Activity act) {
+		this.minflater = mInflater;
+		activity = act;
+	}
+*/
 	@Override
 	public Object getChild(int groupPosition, int childPosition) {
 		return null;
@@ -45,19 +56,23 @@ public class CustomDrawerAdapter extends BaseExpandableListAdapter {
 		tempChild = (ArrayList<String>) Childtem.get(groupPosition);
 		TextView text = null;
 		if (convertView == null) {
+			//convertView = new TextView(context);
 			convertView = inflater.inflate(R.layout.list_item_drawer_chield, null);
 		}
 		text = (TextView) convertView.findViewById(R.id.drawerListItemChieldTitle);
-		text.setText(tempChild.get(childPosition));
+		text.setText(">"+tempChild.get(childPosition));
 		convertView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(activity, tempChild.get(childPosition),
+				Toast.makeText(context, tempChild.get(childPosition),
 						Toast.LENGTH_SHORT).show();
 			}
 		});
+		convertView.setTag(tempChild.get(childPosition));
 		return convertView;
 	}
+
+	
 
 	@Override
 	public int getChildrenCount(int groupPosition) {
@@ -92,13 +107,16 @@ public class CustomDrawerAdapter extends BaseExpandableListAdapter {
 	@Override
 	public View getGroupView(int groupPosition, boolean isExpanded,
 			View convertView, ViewGroup parent) {
+	
 		if (convertView == null) {
-			convertView = inflater.inflate(R.layout.list_item_drawer_group, null);
+			//convertView = new TextView(context);
+			LayoutInflater inflater1 = (LayoutInflater )context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			convertView = inflater1.inflate(R.layout.list_item_drawer_group, null);
 		}
-		TextView text = (TextView) convertView.findViewById(R.id.drawerListItemGroupTitle);
-		text.setText(groupItem.get(groupPosition));
-		/*((CheckedTextView) convertView).setText(groupItem.get(groupPosition));
-		((CheckedTextView) convertView).setChecked(isExpanded);*/
+		CheckedTextView checkedTextTitle =(CheckedTextView) convertView.findViewById(R.id.drawerListItemGroupTitle);
+		checkedTextTitle.setText(groupItem.get(groupPosition).getTitle());
+		//checkedTextTitle.setChecked(isExpanded);
+		convertView.setTag(groupItem.get(groupPosition));
 		return convertView;
 	}
 

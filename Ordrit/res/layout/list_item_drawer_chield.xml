@@ -11,7 +11,7 @@
         android:layout_marginLeft="50dp"
         android:src="@drawable/ic_launcher" />
 
-    <TextView
+    <com.ordrit.util.CalibriTextView
         android:id="@+id/drawerListItemChieldTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

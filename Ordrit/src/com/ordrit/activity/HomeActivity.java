@@ -79,6 +79,11 @@ public class HomeActivity extends Activity {
         NewAdapter customDrawerAdapter=new NewAdapter(context,groupItem, childItem);
         
         mDrawerList.setAdapter(customDrawerAdapter);
+      /*  if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+        	mDrawerList.setIndicatorBounds(mDrawerList.getWidth()- 40, mDrawerList.getWidth());
+         } else {
+        	 mDrawerList.setIndicatorBounds(mDrawerList.getWidth()- 40, mDrawerList.getWidth());
+         }*/
        // mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         // enable ActionBar app icon to behave as action to toggle nav drawer

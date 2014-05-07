@@ -13,8 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckedTextView;
+import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,15 +61,19 @@ public class NewAdapter extends BaseExpandableListAdapter {
 			//convertView = new TextView(context);
 			convertView = inflater.inflate(R.layout.list_item_drawer_chield, null);
 		}
-		text = (TextView) convertView.findViewById(R.id.drawerListItemChieldTitle);
-		text.setText(">"+tempChild.get(childPosition));
+		  ExpandableListView elv = new ExpandableListView(context);
+          elv.setLayoutParams(new AbsListView.LayoutParams(AbsListView.LayoutParams.WRAP_CONTENT,  AbsListView.LayoutParams.WRAP_CONTENT));
+          elv.setAdapter(new NewAdapter(context, groupItem, Childtem));
+          ((ViewGroup)convertView).addView(elv);
+		/*text = (TextView) convertView.findViewById(R.id.drawerListItemChieldTitle);
+		text.setText(""+tempChild.get(childPosition));
 		convertView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Toast.makeText(context, tempChild.get(childPosition),
 						Toast.LENGTH_SHORT).show();
 			}
-		});
+		});*/
 		convertView.setTag(tempChild.get(childPosition));
 		return convertView;
 	}
@@ -113,7 +119,7 @@ public class NewAdapter extends BaseExpandableListAdapter {
 			LayoutInflater inflater1 = (LayoutInflater )context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = inflater1.inflate(R.layout.list_item_drawer_group, null);
 		}
-		CheckedTextView checkedTextTitle =(CheckedTextView) convertView.findViewById(R.id.drawerListItemGroupTitle);
+		TextView checkedTextTitle =(TextView) convertView.findViewById(R.id.drawerListItemGroupTitle);
 		checkedTextTitle.setText(groupItem.get(groupPosition).getTitle());
 		//checkedTextTitle.setChecked(isExpanded);
 		convertView.setTag(groupItem.get(groupPosition));

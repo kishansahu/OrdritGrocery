@@ -11,12 +11,11 @@
         android:layout_marginLeft="10dp"
         android:src="@drawable/ic_launcher" />
 
-    <CheckedTextView
+    <com.ordrit.util.CalibriTextView
         android:id="@+id/drawerListItemGroupTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:drawableRight="@drawable/plusminus"
         android:background="@drawable/drawer_button_selector"
         android:gravity="left|center_vertical"
         android:text="@string/my_bag"

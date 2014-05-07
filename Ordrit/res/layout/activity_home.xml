@@ -43,6 +43,5 @@
         android:choiceMode="singleChoice"
         android:dividerHeight="1dp"
         android:divider="@color/deep_grey"
-        android:groupIndicator="@drawable/plusminus"
         android:background="@android:color/darker_gray"/>
 </android.support.v4.widget.DrawerLayout>

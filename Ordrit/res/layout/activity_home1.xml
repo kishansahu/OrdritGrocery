@@ -1,0 +1,45 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_launcher"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <FrameLayout
+        android:id="@+id/mainContainer"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentRight="true" >
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/leftMenuContainerLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal"
+         android:visibility="gone"
+       >
+
+        <FrameLayout
+            android:id="@+id/leftMenuContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+         
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="100dp"
+            
+            android:background="@color/blue" >
+        </FrameLayout>
+
+        <View
+            android:id="@+id/shaddow"
+            android:layout_width="100dp"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+             android:visibility="gone"
+            android:background="#80000000" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

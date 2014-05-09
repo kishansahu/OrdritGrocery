@@ -14,18 +14,18 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="15dp"
         android:gravity="center_horizontal"
         android:text="@string/app_name"
         android:textColor="@color/blue"
-        android:textSize="35sp" />
+        android:textSize="45sp" />
 
     <com.ordrit.util.CalibriTextView
-        android:id="@+id/login_heading"
+        android:id="@+id/signupHeading"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:gravity="center_horizontal"
         android:textSize="17sp" />
 
@@ -51,8 +51,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
                 android:ems="10"
-                android:background="@drawable/edit_text_style"
                 android:hint="@string/username"
+                android:background="@drawable/edit_text_style"
+                android:maxLength="35"
                 android:padding="5dp"
                 android:textColor="@android:color/black"
                 android:textCursorDrawable="@null" >
@@ -72,11 +73,25 @@
                 android:id="@+id/editTextPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/edit_text_style"
                 android:layout_margin="2dp"
                 android:ems="10"
-                android:inputType="textPassword"
                 android:hint="@string/password"
+                android:inputType="textPassword"
+                android:background="@drawable/edit_text_style"
+                android:padding="5dp"
+                android:textColor="@android:color/black"
+                android:textCursorDrawable="@null" >
+            </EditText>
+
+            <EditText
+                android:id="@+id/editTextConfirmPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:ems="10"
+                android:background="@drawable/edit_text_style"
+                android:hint="@string/confirm_password"
+                android:inputType="textPassword"
                 android:padding="5dp"
                 android:textColor="@android:color/black"
                 android:textCursorDrawable="@null" >
@@ -91,34 +106,47 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="@android:color/holo_red_dark"
                 android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/editTextUserEmailId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_style"
+                android:layout_margin="2dp"
+                android:ems="10"
+                android:hint="@string/email_id"
+                android:inputType="textEmailAddress"
+                android:padding="5dp"
+                android:textColor="@android:color/black"
+                android:textCursorDrawable="@null" >
+            </EditText>
+
+            <com.ordrit.util.CalibriTextView
+                android:id="@+id/textUserEmailIdError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/invalid_email_or_phone_num"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@android:color/holo_red_dark"
+                android:visibility="gone" />
         </LinearLayout>
     </ScrollView>
-
-    <com.ordrit.util.CalibriButton
-                android:id="@+id/buttonLogin"
+	<com.ordrit.util.CalibriButton
+                android:id="@+id/buttonSignUp"
                 android:layout_width="220dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:background="@drawable/btn_style"
                 android:gravity="center"
                 android:layout_gravity="center_horizontal"
                 android:padding="6dp"
-                android:text="@string/log_in"
                 android:textSize="20sp"
+                android:text="@string/sign_up"
                 android:textColor="@android:color/white" />
-    
-   
-	<com.ordrit.util.CalibriTextView
-        android:id="@+id/signUpLink"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:gravity="center_horizontal"
-        android:textSize="19sp" />
-	
-    <ProgressBar
-        android:id="@+id/progressBarLogin"
+  
+	 <ProgressBar
+        android:id="@+id/progressBarSignUp"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
@@ -126,5 +154,4 @@
         android:background="@drawable/progress_bar"
         android:visibility="invisible"
          />
-
 </LinearLayout>

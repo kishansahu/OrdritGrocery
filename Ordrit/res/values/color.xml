@@ -9,6 +9,8 @@
     <color name="white">#ffffffff</color>
     <color name="transparent">#00000000</color>
     <color name="actionbar_background">#2B78E4</color>
-    
+    <color name="grey">#CCCCCC</color>
+     <color name="light_yellow">#fff200</color>
+	
 	
 </resources>

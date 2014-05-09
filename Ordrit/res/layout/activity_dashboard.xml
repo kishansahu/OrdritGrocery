@@ -16,8 +16,9 @@
         android:id="@+id/leftMenuContainerLayout"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:visibility="gone"
         android:orientation="horizontal"
-         android:visibility="gone"
+        
        >
 
         <FrameLayout
@@ -27,18 +28,27 @@
             android:layout_alignParentLeft="true"
          
             android:layout_alignParentRight="true"
-            android:layout_marginRight="100dp"
+            android:layout_marginRight="50dp"
             
             android:background="@color/blue" >
         </FrameLayout>
 
         <View
             android:id="@+id/shaddow"
-            android:layout_width="100dp"
+            android:layout_width="50dp"
             android:layout_height="fill_parent"
             android:layout_alignParentRight="true"
-             android:visibility="gone"
+            android:layout_below="@+id/menu"
+            android:visibility="gone"
             android:background="#80000000" />
+
+        <Button
+            android:id="@+id/menu"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/ic_drawer" />
 
     </RelativeLayout>
 

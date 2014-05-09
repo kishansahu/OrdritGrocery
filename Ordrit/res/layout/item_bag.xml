@@ -80,7 +80,6 @@
             android:paddingLeft="3dp"
             android:paddingRight="3dp"
             android:gravity="center"
-            android:textAlignment="center"
             android:background="@drawable/btn_style"
             android:textSize="13sp"
             android:layout_marginRight="15dp"

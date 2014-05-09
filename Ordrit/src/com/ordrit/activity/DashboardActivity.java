@@ -27,33 +27,46 @@ import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.internal.el;
 import com.ordrit.R;
-import com.ordrit.fragment.DrawerFragment;
+import com.ordrit.fragment.MenuFragment;
 import com.ordrit.fragment.MapDetailFragment;
+import com.ordrit.fragment.MapDetailFragment;
+import com.ordrit.util.FragmentConstant;
 
 
-public class HomeActivity extends Activity {
+public class DashboardActivity extends Activity {
 	Context context;
     RelativeLayout leftMenuContainerLayout; 
+    Button menu;
     Animation leftToright, rightToleft;
     View shaddow;
-    public String previousTitle;
    
     public boolean isMenuOpen=false;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_home1);
+		setContentView(R.layout.activity_dashboard);
 		context = this;
 		shaddow=(View)findViewById(R.id.shaddow);
 		shaddow.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-			hideMenu();
+			clickMenu();
+				
+			}
+		});
+		menu=(Button)findViewById(R.id.menu);
+		menu.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				clickMenu();
 				
 			}
 		});
@@ -65,8 +78,7 @@ public class HomeActivity extends Activity {
 			public void onAnimationStart(Animation animation) {
 				
 				shaddow.setVisibility(View.GONE);
-				TextView title=(TextView)getActionBar().getCustomView().findViewById(R.id.title);
-				title.setText(previousTitle);
+				
 			}
 			
 			@Override
@@ -101,48 +113,53 @@ public class HomeActivity extends Activity {
 			public void onAnimationEnd(Animation animation) {
 				
 				shaddow.setVisibility(View.VISIBLE);
-				TextView title=(TextView)getActionBar().getCustomView().findViewById(R.id.title);
-				title.setText("Menu");
+				
 			}
 		}) ; 
 		leftMenuContainerLayout=(RelativeLayout)findViewById(R.id.leftMenuContainerLayout);
-		MapDetailFragment loginFragment = new MapDetailFragment();
-		commitFragment(loginFragment);
+		MapDetailFragment mapDetailFragment = new MapDetailFragment();
+		commitFragment(mapDetailFragment,FragmentConstant.MAP_DETAIL_FRAGMENT);
 		commitMenuFragment();
 		
 	}
 
-	public void commitFragment(Fragment fragment) {
+	public void commitFragment(Fragment fragment,String tag) {
 		FragmentManager fragmentManager = getFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager
 				.beginTransaction();
-
-
-		fragmentTransaction.replace(R.id.mainContainer, fragment);
+        fragmentTransaction.replace(R.id.mainContainer, fragment);
+        if (tag!=null) {
+        	 fragmentTransaction.addToBackStack(tag);
+		}
+       
 		fragmentTransaction.commit();
 	}
-
+    public void popFragment(String tag) {
+    	 FragmentManager fragmentManager = getFragmentManager();
+    	 fragmentManager.popBackStack (tag, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+    
+     }
 	public void commitMenuFragment() {
 		
 		FragmentManager fragmentManager = getFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager
 				.beginTransaction();
-		DrawerFragment drawerFragment= new DrawerFragment();
+		MenuFragment drawerFragment= new MenuFragment();
 		fragmentTransaction.add(R.id.leftMenuContainer, drawerFragment);
 		fragmentTransaction.commit();
 	}
 
-public void showMenu() {
-	
-	leftMenuContainerLayout.setVisibility(View.VISIBLE);
-	leftMenuContainerLayout.startAnimation(leftToright);
-    isMenuOpen=true;
-}
-
-public void hideMenu() {
-	leftMenuContainerLayout.setVisibility(View.GONE);
-	leftMenuContainerLayout.startAnimation(rightToleft);
-	isMenuOpen=false;
-}
+public void clickMenu() {
+	if (isMenuOpen) {
+		leftMenuContainerLayout.setVisibility(View.GONE);
+		leftMenuContainerLayout.startAnimation(rightToleft);
+		isMenuOpen=false;
+	}else {
 		
+		leftMenuContainerLayout.setVisibility(View.VISIBLE);
+		leftMenuContainerLayout.startAnimation(leftToright);
+	    isMenuOpen=true;
+	}
+	
+}		
 }

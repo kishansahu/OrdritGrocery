@@ -64,8 +64,8 @@
     <string name="password_field_empty">Password field cannot be left blank</string>
     
     <!-- drawer resource -->
-     <string name="my_accounts">My Accounts</string>
-     <string name="my_bag">My Bag</string>
+     <string name="accounts">My Accounts</string>
+     <string name="bag">My Bag</string>
      <string name="order_status">Order Status</string>
      <string name="previous_orders">Previous Orders</string>
      <string name="coupons">Coupons</string>
@@ -73,4 +73,7 @@
      <string name="shopping_in">Shopping in Andheri / Mumbai....</string>
      
      <string name="add_note_for_item"> Add note for this item</string>
+   
+     <!-- button resource -->
+     <string name="checkout">Checkout</string>
 </resources>

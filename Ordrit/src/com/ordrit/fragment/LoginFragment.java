@@ -7,13 +7,10 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.location.Address;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -26,7 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ordrit.R;
-import com.ordrit.activity.HomeActivity;
+import com.ordrit.activity.DashboardActivity;
 import com.ordrit.activity.MainActivity;
 import com.ordrit.util.CalibriTextView;
 import com.ordrit.util.CommonUtils;
@@ -122,7 +119,7 @@ public class LoginFragment extends Fragment {
 								.show();
 					}
 				}
-				startActivity(new Intent(mainActivity, HomeActivity.class));
+				startActivity(new Intent(mainActivity, DashboardActivity.class));
 				}
 		});
 

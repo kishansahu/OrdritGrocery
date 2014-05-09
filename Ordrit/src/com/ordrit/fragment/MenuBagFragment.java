@@ -14,20 +14,21 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class DrawerFragment extends BaseFragment {
+public class MenuBagFragment extends BaseFragment {
 	
-	View drawerFragmentView;
-@Override
-public void onCreate(Bundle savedInstanceState) {
-	// TODO Auto-generated method stub
-	super.onCreate(savedInstanceState);
+	View menuFragment;
 	
-}
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		drawerFragmentView=inflater.inflate(R.layout.fragment_drawer, container,false);
-		return drawerFragmentView;
+		menuFragment=inflater.inflate(R.layout.fragment_menu_bag, container,false);
+		return menuFragment;
+	}
+	@Override
+	void setupUiComponent() {
+		
+		
 	}
 
 }

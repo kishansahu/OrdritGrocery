@@ -120,6 +120,7 @@ public class LoginFragment extends Fragment {
 					}
 				}
 				startActivity(new Intent(mainActivity, DashboardActivity.class));
+				mainActivity.finish();
 				}
 		});
 

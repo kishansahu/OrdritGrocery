@@ -4,9 +4,9 @@ import javax.security.auth.PrivateCredentialPermission;
 
 import android.R.integer;
 
-public class DrawerItem {
+public class MenuBagItem {
 	
-	public DrawerItem(String title, int icon) {
+	public MenuBagItem(String title, int icon) {
 		super();
 		this.title = title;
 		this.icon = icon;

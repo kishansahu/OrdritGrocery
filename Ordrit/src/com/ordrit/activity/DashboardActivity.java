@@ -22,6 +22,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
@@ -40,6 +41,7 @@ import com.ordrit.util.FragmentConstant;
 
 
 public class DashboardActivity extends Activity {
+	private final String TAG="DashboardActivity";
 	Context context;
     RelativeLayout leftMenuContainerLayout; 
     Button menu;
@@ -118,12 +120,13 @@ public class DashboardActivity extends Activity {
 		}) ; 
 		leftMenuContainerLayout=(RelativeLayout)findViewById(R.id.leftMenuContainerLayout);
 		MapDetailFragment mapDetailFragment = new MapDetailFragment();
-		commitFragment(mapDetailFragment,FragmentConstant.MAP_DETAIL_FRAGMENT);
+		commitFragment(mapDetailFragment,null);
 		commitMenuFragment();
 		
 	}
 
 	public void commitFragment(Fragment fragment,String tag) {
+		
 		FragmentManager fragmentManager = getFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager
 				.beginTransaction();
@@ -133,11 +136,13 @@ public class DashboardActivity extends Activity {
 		}
        
 		fragmentTransaction.commit();
+		
 	}
     public void popFragment(String tag) {
+    	 
     	 FragmentManager fragmentManager = getFragmentManager();
     	 fragmentManager.popBackStack (tag, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-    
+    			
      }
 	public void commitMenuFragment() {
 		

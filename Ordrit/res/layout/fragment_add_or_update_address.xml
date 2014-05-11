@@ -1,0 +1,176 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="100dp"
+        android:orientation="vertical"
+        android:padding="10dp" >
+        
+        <RadioGroup
+        android:id="@+id/radioGroup1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp" 
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <RadioButton
+            android:id="@+id/radioGroupButton0"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/home" />
+
+        <RadioButton
+            android:id="@+id/radioGroupButton1"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/apartment" />
+
+    </RadioGroup>
+        
+
+        <EditText
+            android:id="@+id/editTextHomeOrApartmentName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:background="@drawable/edit_text_style"
+            android:ems="10"
+            android:hint="@string/apartment"
+            android:maxLength="35"
+            android:padding="5dp"
+            android:textColor="@android:color/black"
+            android:textCursorDrawable="@null" >
+        </EditText>
+
+        <com.ordrit.util.CalibriTextView
+            android:id="@+id/textHomeOrApartmentNameError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@android:color/holo_red_dark"
+            android:visibility="gone" />
+
+       <EditText
+            android:id="@+id/editTextStreet1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:background="@drawable/edit_text_style"
+            android:ems="10"
+            android:hint="@string/street_address_1"
+            android:maxLength="35"
+            android:padding="5dp"
+            android:textColor="@android:color/black"
+            android:textCursorDrawable="@null" >
+        </EditText>
+
+        <com.ordrit.util.CalibriTextView
+            android:id="@+id/textStreet1Error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@android:color/holo_red_dark"
+            android:visibility="gone" />
+        
+        <EditText
+            android:id="@+id/editTextStreet2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:background="@drawable/edit_text_style"
+            android:ems="10"
+            android:hint="@string/street_address_2"
+            android:maxLength="35"
+            android:padding="5dp"
+            android:textColor="@android:color/black"
+            android:textCursorDrawable="@null" >
+        </EditText>
+
+        <com.ordrit.util.CalibriTextView
+            android:id="@+id/textStreet2Error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@android:color/holo_red_dark"
+            android:visibility="gone" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2"
+            android:orientation="horizontal" >
+             <EditText
+            android:id="@+id/editTextCity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:background="@drawable/edit_text_style"
+            android:ems="10"
+            android:hint="@string/city"
+            android:layout_weight="1"
+            android:inputType="textPersonName"
+            android:maxLength="20"
+            android:padding="5dp"
+            android:textColor="@android:color/black"
+            android:textCursorDrawable="@null" >
+        </EditText>
+         <EditText
+            android:id="@+id/editTextZipcode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:background="@drawable/edit_text_style"
+            android:ems="10"
+            android:layout_weight="1"
+            android:hint="@string/zipcode"
+            android:inputType="number"
+            android:maxLength="6"
+            android:padding="5dp"
+            android:textColor="@android:color/black"
+            android:textCursorDrawable="@null" >
+        </EditText>
+        </LinearLayout>
+        
+      
+        <com.ordrit.util.CalibriTextView
+            android:id="@+id/textCityOrZipcodeError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@android:color/holo_red_dark"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <com.ordrit.util.CalibriButton
+        android:id="@+id/buttonSaveOrUpdate"
+        android:layout_height="wrap_content"
+        android:layout_width="220dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:background="@drawable/yellow_btn_style"
+        android:gravity="center"
+        android:padding="6dp"
+        android:text="@string/save"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
+
+</LinearLayout>

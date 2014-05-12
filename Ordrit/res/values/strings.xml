@@ -75,7 +75,9 @@
     <string name="email_field_invalid">Email id is invalid</string>
     <string name="ph_num_invalid">Phone number is invalid</string>
     <string name="password_field_empty">Password field cannot be left blank</string>
-    
+    <string name="share_merchant_with_your_local_friend ">Share Merchant With Your Local Friend</string>
+    <string name="add_your_address ">Add Your Address</string>
+   
     <!-- drawer resource -->
      <string name="accounts">My Accounts</string>
      <string name="bag">My Bag</string>
@@ -92,4 +94,8 @@
    
      <!-- button resource -->
      <string name="checkout">Checkout</string>
+     
+     <!-- title text resource -->
+     <string name="add_address">Add Address</string> 
+     <string name="update_account">Update Account</string> 
 </resources>

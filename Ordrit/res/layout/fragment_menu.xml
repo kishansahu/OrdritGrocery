@@ -9,21 +9,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+         android:background="@color/menu_background_color"
         android:orientation="vertical" >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/deep_grey"
+            android:layout_height="wrap_content"
+            android:background="@color/menu_background_seperator_color"
             android:orientation="vertical" >
 
             <com.ordrit.util.CalibriButton
                 android:id="@+id/menuAccount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/menu_text_margin_top"
                 android:background="@drawable/menu_button_selector"
                 android:gravity="left|center_vertical"
+                android:height="@dimen/menu_button_height"
                 android:paddingLeft="@dimen/menu_text_padding_left"
                 android:text="@string/accounts"
                 android:textColor="@color/white"
@@ -33,9 +34,10 @@
                 android:id="@+id/menuBag"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/menu_text_margin_top"
+                android:layout_marginTop="1dp"
                 android:background="@drawable/menu_button_selector"
                 android:gravity="left|center_vertical"
+                android:height="@dimen/menu_button_height"
                 android:paddingLeft="@dimen/menu_text_padding_left"
                 android:text="@string/bag"
                 android:textColor="@color/white"
@@ -45,9 +47,10 @@
                 android:id="@+id/menuOrderStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/menu_text_margin_top"
+                android:layout_marginTop="1dp"
                 android:background="@drawable/menu_button_selector"
                 android:gravity="left|center_vertical"
+                android:height="@dimen/menu_button_height"
                 android:paddingLeft="@dimen/menu_text_padding_left"
                 android:text="@string/order_status"
                 android:textColor="@color/white"
@@ -57,9 +60,10 @@
                 android:id="@+id/menuPreviousOrder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/menu_text_margin_top"
+                android:layout_marginTop="1dp"
                 android:background="@drawable/menu_button_selector"
                 android:gravity="left|center_vertical"
+                android:height="@dimen/menu_button_height"
                 android:paddingLeft="@dimen/menu_text_padding_left"
                 android:text="@string/previous_orders"
                 android:textColor="@color/white"
@@ -69,9 +73,10 @@
                 android:id="@+id/menuCoupon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/menu_text_margin_top"
+                android:layout_marginTop="1dp"
                 android:background="@drawable/menu_button_selector"
                 android:gravity="left|center_vertical"
+                android:height="@dimen/menu_button_height"
                 android:paddingLeft="@dimen/menu_text_padding_left"
                 android:text="@string/coupons"
                 android:textColor="@color/white"
@@ -81,9 +86,10 @@
                 android:id="@+id/menuHelp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/menu_text_margin_top"
+                android:layout_marginTop="1dp"
                 android:background="@drawable/menu_button_selector"
                 android:gravity="left|center_vertical"
+                android:height="@dimen/menu_button_height"
                 android:paddingLeft="@dimen/menu_text_padding_left"
                 android:text="@string/help"
                 android:textColor="@color/white"
@@ -93,9 +99,10 @@
                 android:id="@+id/menuShoping"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/menu_text_margin_top"
+                android:layout_marginTop="1dp"
                 android:background="@drawable/menu_button_selector"
                 android:gravity="left|center_vertical"
+                android:height="@dimen/menu_button_height"
                 android:paddingLeft="@dimen/menu_text_padding_left"
                 android:text="@string/shopping_in"
                 android:textColor="@color/white"
@@ -109,6 +116,7 @@
                 android:smoothScrollbar="true"
                 treeView:indicator_gravity="right|center_vertical" />
         </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>

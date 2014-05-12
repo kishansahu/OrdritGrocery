@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/header_height"
+        android:background="@color/actionbar_background"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/menu"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:background="@drawable/logo_ordrit" />
+
+        <TextView
+            android:id="@+id/menuMapTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:text=""
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+    <fragment
+        android:id="@+id/detailMap"
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:weightSum="1" >
+
+        <com.ordrit.util.CalibriButton
+            android:id="@+id/menuShareWithFriends"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="1dp"
+            android:layout_weight=".5"
+            android:background="@drawable/btn_style"
+            android:text="@string/share_merchant_with_your_local_friend "
+            android:textColor="@color/white"
+            android:textSize="@dimen/menu_text_size" />
+
+        <com.ordrit.util.CalibriButton
+            android:id="@+id/menuAddAddress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="1dp"
+            android:layout_weight=".5"
+            android:background="@drawable/btn_style"
+            android:text="@string/add_address"
+            android:textColor="@color/white"
+            android:textSize="@dimen/menu_text_size" />
+
+    </LinearLayout>
+
+</LinearLayout>

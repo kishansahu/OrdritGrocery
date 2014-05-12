@@ -3,6 +3,7 @@ package com.ordrit.fragment;
 import java.util.HashSet;
 import java.util.Set;
 
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,6 +50,10 @@ public class MenuFragment extends BaseFragment {
 			
 			@Override
 			public void onClick(View v) {
+				dashboardActivity.clickMenu();
+				ManageUserInfoFragment manageUserInfoFragment = new ManageUserInfoFragment();
+				dashboardActivity.commitFragment(manageUserInfoFragment,FragmentConstant.MENU_BAG_FRAGMENT);
+				
 			
 				
 			}

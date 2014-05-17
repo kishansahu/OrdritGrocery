@@ -1,17 +1,28 @@
 package com.ordrit.util;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.ParseException;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.util.Log;
 
 public class ServerConnection {
 	// http://localhost:8080/RESTfulExample/json/product/post
@@ -30,65 +41,36 @@ public class ServerConnection {
 	 * @param requestUrl
 	 * @return JSONObject
 	 */
-	public JSONObject postHttpUrlConnection(String postInput, String requestUrl, String token) {
-
-		JSONObject responseObject = null;
-		InputStream in = null;
-		HttpURLConnection conn = null;
-		String jsonString = null;
-		try {
-			URL url = new URL(requestUrl);
-
-			conn = (HttpURLConnection) url.openConnection();
-			conn.setDoOutput(true);
-			conn.setRequestMethod("POST");
-			conn.setRequestProperty("Content-Type", "application/json");
-			if(null!= token){
-				conn.setRequestProperty("Authorization", "Token token=" + token);
-			}
-
-			
-			String input = postInput;
-
-			OutputStream os = conn.getOutputStream();
-			os.write(input.getBytes());
-			os.flush();
-
-			if (conn.getResponseCode() != HttpURLConnection.HTTP_CREATED) {
-				throw new RuntimeException("Failed : HTTP error code : "
-						+ conn.getResponseCode());
-			}
-
-			in = new BufferedInputStream(conn.getInputStream());
-			jsonString = getStringFromInputStream(in);
-			System.out.println("JSON Response : " + jsonString);
-			responseObject = new JSONObject(jsonString);
-
-			conn.disconnect();
-
-		} catch (MalformedURLException e) {
-
+	public JSONObject postHttpUrlConnection(String postInput, String requestUrl) {
+		JSONObject responseObject = null; 
+		// Creating HTTP client
+        HttpClient httpClient = new DefaultHttpClient();
+        // Creating HTTP Post
+        HttpPost httpPost = new HttpPost(requestUrl);
+  
+        // Making HTTP Request
+        try {
+        	 httpPost.setEntity(new StringEntity(postInput));
+        	 httpPost.setHeader("Accept", "application/json");
+             httpPost.setHeader("Content-type", "application/json");
+            HttpResponse response = httpClient.execute(httpPost);
+            responseObject = new JSONObject(EntityUtils.toString(response.getEntity()));
+        } catch (ClientProtocolException e) {
+            // writing exception to log
+            e.printStackTrace();
+        } catch (IOException e) {
+            // writing exception to log
+            e.printStackTrace();
+ 
+        } catch (ParseException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-
-		} catch (IOException e) {
-
-			e.printStackTrace();
-
-		} catch (RuntimeException e) {
-			jsonString = "{\"message\":\"Internal server error\",\"statusCode\":\"err001\",\"statustext\":\""+e.toString()+"\"}";
-			try {
-				responseObject = new JSONObject(jsonString);
-			} catch (JSONException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		return responseObject;
-
-	}
+		} 
+        return responseObject;
+  }
 
 	/**
 	 * Method returns String from input stream.

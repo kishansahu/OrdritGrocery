@@ -1,6 +1,14 @@
 package com.ordrit.fragment;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONObject;
+
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +28,9 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.ordrit.R;
+import com.ordrit.util.CommonUtils;
+import com.ordrit.util.OrdritConstants;
+import com.ordrit.util.ServerConnection;
 
 public class MapDetailFragment extends BaseFragment {
 private static 	View mapDetailFragment;
@@ -62,7 +73,8 @@ private Button menu,menuShareWithFriends,menuAddAddress;
 				try {
 					// Loading map
 					initilizeMap();
-                    setupMapData();
+                   // setupMapData();
+					new UserAuthenticationTask().execute((Void) null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -185,16 +197,15 @@ private Button menu,menuShareWithFriends,menuAddAddress;
 	@Override
 	public void onDestroyView() {
 	    super.onDestroyView();
-	    try {
+	/*    try {
 	        android.app.Fragment fragment =  dashboardActivity
 	                                          .getFragmentManager().findFragmentById(
 	                                              R.id.detailMap);
 	        if (fragment != null) getFragmentManager().beginTransaction().remove(fragment).commit();
 
-	    } catch (IllegalStateException e) {
-	        //handle this situation because you are necessary will get 
-	        //an exception here :-(
-	    }
+	    } catch (Exception e) {
+	      
+	    }*/
 	}
 
 
@@ -230,5 +241,29 @@ private Button menu,menuShareWithFriends,menuAddAddress;
 			}
 		});
 	}
+	private class UserAuthenticationTask extends AsyncTask<Void, Void, String> {
+
 	
+
+		@Override
+		protected String doInBackground(Void... params) {
+			
+			List<NameValuePair> paramlist = new ArrayList<NameValuePair>();
+			paramlist.add(new BasicNameValuePair("distance", "1000"));
+			//paramlist.add(new BasicNameValuePair("point", "POINT(77.128036 28.694839)"));
+			paramlist.add(new BasicNameValuePair("point", "POINT%2877.128036+28.694839%29"));
+			Log.e("MapDetailFragment", CommonUtils.getParamListJSONString(paramlist));
+			ServerConnection connection = new ServerConnection();
+			JSONObject response = connection.postHttpUrlConnection(
+					CommonUtils.getParamListJSONString(paramlist), OrdritConstants.SERVER_BASE_URL+"stores/"/*+OrdritConstants.SUPER_USER_TOKEN_ID*/);		
+           Log.e("MapDetailFragment", ""+response);
+			String message = null;
+			return message;
+		}
+
+		@Override
+		protected void onPostExecute(final String status) {
+			
+		}
+	}
 }

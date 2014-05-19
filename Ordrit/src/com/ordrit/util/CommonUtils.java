@@ -1,5 +1,11 @@
 package com.ordrit.util;
 
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -40,5 +46,21 @@ public class CommonUtils {
 
 		}
 		return false;
+	}
+	public static String getParamListJSONString(List<NameValuePair> paramList) {
+		String paramListString = new String();
+		JSONObject userObject = new JSONObject();
+		try {
+			for (int i = 0; i < paramList.size(); i++) {
+				userObject.put(paramList.get(i).getName(), paramList.get(i).getValue());
+			}
+				
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+	
+		paramListString = userObject.toString();
+
+		return paramListString;
 	}
 }

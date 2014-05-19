@@ -1,5 +1,8 @@
 package com.ordrit.fragment;
 
+import java.util.List;
+
+import org.apache.http.NameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -10,6 +13,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +34,7 @@ import com.ordrit.util.CommonUtils;
 import com.ordrit.util.OrdritConstants;
 import com.ordrit.util.OrdritJsonKeys;
 import com.ordrit.util.ServerConnection;
+import com.ordrit.util.WebServicesRawDataUtil;
 
 public class LoginFragment extends Fragment {
 
@@ -100,16 +105,20 @@ public class LoginFragment extends Fragment {
 				}
 				
 				if(!errorFound){
+					
 					progressBarLogin.setVisibility(View.VISIBLE);
 					if (new CommonUtils(getActivity()).isConnectingToInternet()) {
-						getUserDataDataJSONString(editTextUserName.getText()
+						/*getUserDataDataJSONString(editTextUserName.getText()
 								.toString(), editTextPassword.getText()
-								.toString());
+								.toString());*/
 						UserAuthenticationTask userAuthenticationTask = new UserAuthenticationTask(
-								getUserDataDataJSONString(editTextUserName
-										.getText().toString(), editTextPassword
-										.getText().toString()),
-								OrdritConstants.SERVER_BASE_URL+OrdritConstants.API_TOKEN);
+						/*
+						 * getUserDataDataJSONString(editTextUserName
+						 * .getText().toString(), editTextPassword
+						 * .getText().toString())
+						 */WebServicesRawDataUtil
+								.getUsersAuthenticationTokenJSONObjectString(),
+								OrdritConstants.API_TOKEN_URL);
 						userAuthenticationTask.execute((Void) null);
 					}else{
 						Toast.makeText(
@@ -145,7 +154,7 @@ public class LoginFragment extends Fragment {
 		return userCredentialsString;
 	}
 
-	
+
 	
 	// Create User Token
 	
@@ -162,10 +171,12 @@ public class LoginFragment extends Fragment {
 
 		@Override
 		protected String doInBackground(Void... params) {
+			Log.e("login", authenticationData);
+			Log.e("login", requestUrl);
 			ServerConnection connection = new ServerConnection();
 			JSONObject response = connection.postHttpUrlConnection(
-					authenticationData, requestUrl, null);		
-
+					authenticationData, requestUrl);		
+			Log.e("login", ""+response);
 			if (response != null) {
 				//TODO
 			}else{
@@ -197,7 +208,7 @@ public class LoginFragment extends Fragment {
 
 		@Override
 		protected void onPostExecute(final String status) {
-			
+			Toast.makeText(mainActivity, status, 1).show();
 		}
 	}
 	

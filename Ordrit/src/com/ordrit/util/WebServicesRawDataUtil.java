@@ -7,10 +7,10 @@ public class WebServicesRawDataUtil {
 
 	// Getting a User’s Authentication Token
 
-	public static String getUsersAuthenticationTokenJSONObjectString(String email, String password) {
+	public static String getUsersAuthenticationTokenJSONObjectString() {
 		String userCredentialsString = new String();
-		email="kishansahu87@gmail.com";
-		password="kishansahu";
+		String email = "kishansahu87@gmail.com";
+		String password = "kishansahu";
 		
 		
 		JSONObject userObject = new JSONObject();

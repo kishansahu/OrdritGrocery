@@ -10,7 +10,8 @@ public class User {
 	private String password;
 	private String joinDate;
 	private String lastLoginDate;
-	private String url;
+	private String userId;
+	private String userToken;
 	
 	public String getEmailId() {
 		return emailId;
@@ -54,10 +55,16 @@ public class User {
 	public void setLastLoginDate(String lastLoginDate) {
 		this.lastLoginDate = lastLoginDate;
 	}
-	public String getUrl() {
-		return url;
+	public String getUserId() {
+		return userId;
 	}
-	public void setUrl(String url) {
-		this.url = url;
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public String getUserToken() {
+		return userToken;
+	}
+	public void setUserToken(String userToken) {
+		this.userToken = userToken;
 	}	
 }

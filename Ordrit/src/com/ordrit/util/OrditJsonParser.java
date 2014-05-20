@@ -70,7 +70,7 @@ public class OrditJsonParser {
 			merchant.setEmailId(storeJsonObj.getJSONObject(
 					OrdritJsonKeys.TAG_MERCHANT).getString(
 					OrdritJsonKeys.TAG_NAME));
-			merchant.setUserId(storeJsonObj.getJSONObject(
+			merchant.setId(storeJsonObj.getJSONObject(
 					OrdritJsonKeys.TAG_MERCHANT).getString(
 					OrdritJsonKeys.TAG_ID));
 			store.setUser(merchant);
@@ -93,7 +93,20 @@ public class OrditJsonParser {
 			store.setAddress(merchantAddress);
 			storeList.add(store);
 		}
-		return null;
+		return storeList;
 	}
-
+	public static User getUserFromJSON(JSONObject obj) throws JSONException{
+		User user = new User();
+		user.setEmailId(obj.getString(OrdritJsonKeys.USER_EMAIL));
+		user.setFirstName(obj.getString(OrdritJsonKeys.USER_FIRSTNAME));
+		user.setLastName(obj.getString(OrdritJsonKeys.USER_LASTNAME));
+		user.setRole(obj.getString(OrdritJsonKeys.USER_ROLE));
+		user.setJoinDate(obj.getString(OrdritJsonKeys.USER_DATE_JOINED));
+		user.setLastLoginDate(obj.getString(OrdritJsonKeys.USER_LAST_LOGIN));
+		user.setPhoneNumber(obj.getString(OrdritJsonKeys.USER_PHONE_NUMBER));
+		user.setGcmRegistrationId(obj.getString(OrdritJsonKeys.USER_GCM_REGISTRATION_ID));
+		user.setId(obj.getString(OrdritJsonKeys.USER_ID));
+		user.setUrl(obj.getString(OrdritJsonKeys.USER_URL));
+		return user;
+	}
 }

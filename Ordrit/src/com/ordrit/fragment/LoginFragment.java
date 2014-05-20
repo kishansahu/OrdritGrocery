@@ -1,19 +1,13 @@
 package com.ordrit.fragment;
 
-import java.util.List;
-
-import org.apache.http.NameValuePair;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,13 +25,15 @@ import com.ordrit.activity.DashboardActivity;
 import com.ordrit.activity.MainActivity;
 import com.ordrit.util.CalibriTextView;
 import com.ordrit.util.CommonUtils;
+import com.ordrit.util.OrditJsonParser;
 import com.ordrit.util.OrdritConstants;
 import com.ordrit.util.OrdritJsonKeys;
-import com.ordrit.util.ServerConnection;
+import com.ordrit.util.SharedPreferencesUtil;
+import com.ordrit.util.WebServiceProcessingTask;
 import com.ordrit.util.WebServicesRawDataUtil;
 
 public class LoginFragment extends Fragment {
-
+    private final String tag= "LoginFragment";
 	private View loginFragment;
 	private MainActivity mainActivity = null;
 	private EditText editTextUserName, editTextPassword=null;
@@ -108,18 +104,60 @@ public class LoginFragment extends Fragment {
 					
 					progressBarLogin.setVisibility(View.VISIBLE);
 					if (new CommonUtils(getActivity()).isConnectingToInternet()) {
-						/*getUserDataDataJSONString(editTextUserName.getText()
-								.toString(), editTextPassword.getText()
-								.toString());*/
-						UserAuthenticationTask userAuthenticationTask = new UserAuthenticationTask(
-						/*
-						 * getUserDataDataJSONString(editTextUserName
-						 * .getText().toString(), editTextPassword
-						 * .getText().toString())
-						 */WebServicesRawDataUtil
-								.getUsersAuthenticationTokenJSONObjectString(),
-								OrdritConstants.API_TOKEN_URL);
-						userAuthenticationTask.execute((Void) null);
+						
+						new WebServiceProcessingTask() {
+							
+							@Override
+							public void preExecuteTask() {
+								TAG=tag;
+								
+							}
+							
+							@Override
+							public void postExecuteTask() {
+								
+								String token = null;
+								try {
+									token = OrditJsonParser
+											.getTokenStringFromJSON(jSONObject);
+								} catch (JSONException e) {
+									e.printStackTrace();
+								}
+								if (token != null) {
+									SharedPreferencesUtil
+											.saveStringPreferences(
+													mainActivity,
+													OrdritJsonKeys.TAG_TOKEN,
+													token);
+									progressBarLogin.setVisibility(View.GONE);
+									startActivity(new Intent(mainActivity,
+											DashboardActivity.class));
+									mainActivity.finish();
+								} else {
+                                    //handle api call faild
+								}
+								
+								
+	
+							}
+							
+							@Override
+							public void backgroundTask() {
+								
+								jSONObject  = connection.postHttpUrlConnection(
+										WebServicesRawDataUtil
+												.getUsersAuthenticationTokenJSONObjectString(
+														editTextUserName
+																.getText()
+																.toString(),
+														editTextPassword
+																.getText()
+																.toString()),
+										OrdritConstants.API_TOKEN_URL);	
+								
+							}
+						}.execute();
+						
 					}else{
 						Toast.makeText(
 								getActivity(),
@@ -128,88 +166,11 @@ public class LoginFragment extends Fragment {
 								.show();
 					}
 				}
-				startActivity(new Intent(mainActivity, DashboardActivity.class));
-				mainActivity.finish();
+				
 				}
 		});
 
 		return loginFragment;
-	}
-
-	// Create Registration data
-	
-	private String getUserDataDataJSONString(String username, String password) {
-		String userCredentialsString = new String();
-		JSONObject userObject = new JSONObject();
-		try {
-			userObject.put(OrdritJsonKeys.USER_NAME, "username");
-			userObject.put(OrdritJsonKeys.USER_PASSWORD, "password");
-		
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-	
-		userCredentialsString = userObject.toString();
-
-		return userCredentialsString;
-	}
-
-
-	
-	// Create User Token
-	
-	private class UserAuthenticationTask extends AsyncTask<Void, Void, String> {
-
-		String authenticationData = null;
-		String requestUrl = null;
-		String message = new String();
-
-		public UserAuthenticationTask(String data, String type) {
-			authenticationData = data;
-			requestUrl = type;
-		}
-
-		@Override
-		protected String doInBackground(Void... params) {
-			Log.e("login", authenticationData);
-			Log.e("login", requestUrl);
-			ServerConnection connection = new ServerConnection();
-			JSONObject response = connection.postHttpUrlConnection(
-					authenticationData, requestUrl);		
-			Log.e("login", ""+response);
-			if (response != null) {
-				//TODO
-			}else{
-				// ERROR OCCOURRED
-				/*
-				new Thread() {
-		            public void run() {
-
-
-		                    appLaunchActivity.runOnUiThread(new Runnable(){
-
-		                         @Override
-		                         public void run(){
-		                        	 Toast.makeText(appLaunchActivity, "Something went wrong, Please try again later.",
-		             						Toast.LENGTH_LONG).show();
-		                        	 buttonRegister.setVisibility(View.VISIBLE);
-		             				progressBarRegister.setVisibility(View.GONE);
-		                         }
-		                    });
-		                    
-		                   }
-		              
-		          }.start();
-				
-				
-			*/}
-			return message;
-		}
-
-		@Override
-		protected void onPostExecute(final String status) {
-			Toast.makeText(mainActivity, status, 1).show();
-		}
 	}
 	
 }

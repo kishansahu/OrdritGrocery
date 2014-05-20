@@ -1,14 +1,9 @@
 package com.ordrit.fragment;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONObject;
+import org.json.JSONException;
 
-import android.app.Activity;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,14 +23,20 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.ordrit.R;
-import com.ordrit.util.CommonUtils;
+import com.ordrit.adapter.IconizedWindowAdapter;
+import com.ordrit.model.Store;
+import com.ordrit.util.OrditJsonParser;
 import com.ordrit.util.OrdritConstants;
-import com.ordrit.util.ServerConnection;
+import com.ordrit.util.OrdritJsonKeys;
+import com.ordrit.util.SharedPreferencesUtil;
+import com.ordrit.util.WebServiceProcessingTask;
 
 public class MapDetailFragment extends BaseFragment {
-private static 	View mapDetailFragment;
-private GoogleMap googleMap;
-private Button menu,menuShareWithFriends,menuAddAddress;
+	private final String tag = "MapDetailFragment";
+	private static View mapDetailFragment;
+	private GoogleMap googleMap;
+	private Button menu, menuShareWithFriends, menuAddAddress;
+	List<Store> list;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,7 +75,41 @@ private Button menu,menuShareWithFriends,menuAddAddress;
 					// Loading map
 					initilizeMap();
                    // setupMapData();
-					new UserAuthenticationTask().execute((Void) null);
+					new WebServiceProcessingTask() {
+						
+						@Override
+						public void preExecuteTask() {
+						TAG=tag;
+							
+						}
+						
+						@Override
+						public void postExecuteTask() {
+							if (list!=null) {
+								setupMapData(list);
+							}
+							
+						}
+						
+						@Override
+						public void backgroundTask() {
+						
+							jSONObject = connection.getHttpUrlConnection(
+									OrdritConstants.SERVER_BASE_URL
+											+ "stores?distance=100000&point=POINT%2877.128036+28.694839%29",
+									SharedPreferencesUtil.getStringPreferences(
+											dashboardActivity, OrdritJsonKeys.TAG_TOKEN));
+						
+							try {
+								 list=OrditJsonParser.getAllStoresFromJSON(jSONObject);
+							} catch (JSONException e) {
+								
+								e.printStackTrace();
+							}
+							
+						}
+					}.execute();
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -94,7 +129,8 @@ private Button menu,menuShareWithFriends,menuAddAddress;
 				R.id.detailMap);
 		
 		googleMap=mapFragment.getMap();
-
+		googleMap.setInfoWindowAdapter(new IconizedWindowAdapter(
+                getActivity().getLayoutInflater()));
 			if (googleMap == null) {
 				Toast.makeText(getActivity(), "Sorry! unable to create maps",
 						Toast.LENGTH_SHORT).show();
@@ -102,7 +138,7 @@ private Button menu,menuShareWithFriends,menuAddAddress;
 		}
 		
 	}
-	private void setupMapData() {
+	private void setupMapData(List<Store> list) {
 		// Changing map type
 		// googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 		 googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
@@ -126,67 +162,48 @@ private Button menu,menuShareWithFriends,menuAddAddress;
 		// Enable / Disable zooming functionality
 		googleMap.getUiSettings().setZoomGesturesEnabled(true);
 
-		double latitude = 28.6666700;
-		double longitude = 77.2166700;
+		
 
 		// lets place some 10 random markers
-		for (int i = 0; i < 10; i++) {
-			// random latitude and logitude
-			double[] randomLocation = createRandLocation(latitude,
-					longitude);
+		for (int i = 0; i < list.size(); i++) {
+			Store store=list.get(i);
+			String locationLatLong= store.getLocationLatLong();
+			
+			double[] randomLocation = createRandLocation(locationLatLong);
 
 			// Adding a marker
 			MarkerOptions marker = new MarkerOptions().position(
-					new LatLng(randomLocation[0], randomLocation[1]))
-					.title("Hello Maps " + (i+10));
+					new LatLng(randomLocation[1], randomLocation[0]))
+					.title(store.getStoreName()+":" + randomLocation[1]+","+ randomLocation[0]);
 			
 			Log.e("Random", "> " + randomLocation[0] + ", "
 					+ randomLocation[1]);
-
-			// changing marker color
-			if (i == 0)
-				marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_red));
-			if (i == 1)
-				marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_red));
-			if (i == 2)
-				marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_red));
-			if (i == 3)
-				marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_red));
-			if (i == 4)
-				marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_red));
-			if (i == 5)
-				marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_red));
-			if (i == 6)
-				marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_red));
-			if (i == 7)
-				marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_red));
-			if (i == 8)
-				marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_red));
-			if (i == 9)
-				marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_red));
-				/*marker.icon(BitmapDescriptorFactory
-						.defaultMarker(BitmapDescriptorFactory.HUE_RED));*/
-
+			marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_red));
+			
 			googleMap.addMarker(marker);
+			
 			
 
 			// Move the camera to last position with a zoom level
-			if (i == 9) {
-				CameraPosition cameraPosition = new CameraPosition.Builder()
-						.target(new LatLng(randomLocation[0],
-								randomLocation[1])).zoom(15).build();
-
-				googleMap.animateCamera(CameraUpdateFactory
-						.newCameraPosition(cameraPosition));
-			}
+			
+				
+			
 		}
+		CameraPosition cameraPosition = new CameraPosition.Builder()
+		.target(new LatLng(28.49851388386366,
+				77.08356393548581)).zoom(10).build();
+
+googleMap.animateCamera(CameraUpdateFactory
+		.newCameraPosition(cameraPosition));
 	}
 	
-	private double[] createRandLocation(double latitude, double longitude) {
-
-		return new double[] { latitude + ((Math.random() - 0.8) / 100),
-				longitude + ((Math.random() - 0.8) / 100),
-				500 + ((Math.random() - 0.5) * 20) };
+	private double[] createRandLocation(String locationLatLong) {
+		
+		locationLatLong = locationLatLong.substring(locationLatLong.indexOf("(") + 1);
+		locationLatLong = locationLatLong.substring(0, locationLatLong.indexOf(")"));
+		String[] splited = locationLatLong.split("\\s+");
+		return new double []{Double.parseDouble(splited[0]),Double.parseDouble(splited[1])};
+		
 	}
 	@Override
 	public void onResume() {
@@ -241,29 +258,6 @@ private Button menu,menuShareWithFriends,menuAddAddress;
 			}
 		});
 	}
-	private class UserAuthenticationTask extends AsyncTask<Void, Void, String> {
-
 	
 
-		@Override
-		protected String doInBackground(Void... params) {
-			
-			List<NameValuePair> paramlist = new ArrayList<NameValuePair>();
-			paramlist.add(new BasicNameValuePair("distance", "1000"));
-			//paramlist.add(new BasicNameValuePair("point", "POINT(77.128036 28.694839)"));
-			paramlist.add(new BasicNameValuePair("point", "POINT%2877.128036+28.694839%29"));
-			Log.e("MapDetailFragment", CommonUtils.getParamListJSONString(paramlist));
-			ServerConnection connection = new ServerConnection();
-			JSONObject response = connection.postHttpUrlConnection(
-					CommonUtils.getParamListJSONString(paramlist), OrdritConstants.SERVER_BASE_URL+"stores/"/*+OrdritConstants.SUPER_USER_TOKEN_ID*/);		
-           Log.e("MapDetailFragment", ""+response);
-			String message = null;
-			return message;
-		}
-
-		@Override
-		protected void onPostExecute(final String status) {
-			
-		}
-	}
 }

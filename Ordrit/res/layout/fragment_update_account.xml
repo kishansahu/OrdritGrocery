@@ -31,17 +31,27 @@
 
      
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/progress_bar"
+        android:visibility="visible" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="40dp"
         android:orientation="vertical"
         android:padding="10dp" >
 
         <EditText
-            android:id="@+id/txtUpdateAccountFirstName"
+            android:id="@+id/etUpdateAccountFirstName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
@@ -154,5 +164,6 @@
         android:text="@string/update"
         android:textColor="@android:color/white"
         android:textSize="20sp" />
-
+  
+    
 </LinearLayout>

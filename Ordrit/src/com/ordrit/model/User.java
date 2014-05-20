@@ -7,12 +7,12 @@ public class User {
 	private String firstName;
 	private String lastName;
 	private String role;
-	private String password;
 	private String joinDate;
 	private String lastLoginDate;
-	private String userId;
-	private String userToken;
-	
+	private String id;
+	private String phoneNumber;
+	private String gcmRegistrationId;
+	private String url;
 	public String getEmailId() {
 		return emailId;
 	}
@@ -37,12 +37,6 @@ public class User {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
 	public String getJoinDate() {
 		return joinDate;
 	}
@@ -55,16 +49,30 @@ public class User {
 	public void setLastLoginDate(String lastLoginDate) {
 		this.lastLoginDate = lastLoginDate;
 	}
-	public String getUserId() {
-		return userId;
+	public String getId() {
+		return id;
 	}
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setId(String id) {
+		this.id = id;
 	}
-	public String getUserToken() {
-		return userToken;
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
-	public void setUserToken(String userToken) {
-		this.userToken = userToken;
-	}	
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+	public String getGcmRegistrationId() {
+		return gcmRegistrationId;
+	}
+	public void setGcmRegistrationId(String gcmRegistrationId) {
+		this.gcmRegistrationId = gcmRegistrationId;
+	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	
+	
 }

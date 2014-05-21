@@ -17,10 +17,12 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.ordrit.R;
 import com.ordrit.adapter.IconizedWindowAdapter;
@@ -166,22 +168,29 @@ public class MapDetailFragment extends BaseFragment {
 
 		// lets place some 10 random markers
 		for (int i = 0; i < list.size(); i++) {
-			Store store=list.get(i);
+			final Store store=list.get(i);
 			String locationLatLong= store.getLocationLatLong();
 			
 			double[] randomLocation = createRandLocation(locationLatLong);
 
 			// Adding a marker
-			MarkerOptions marker = new MarkerOptions().position(
-					new LatLng(randomLocation[1], randomLocation[0]))
-					.title(store.getStoreName()+":" + randomLocation[1]+","+ randomLocation[0]);
+			MarkerOptions marker = new MarkerOptions()
+			.position(new LatLng(randomLocation[1], randomLocation[0]))
+			.title(store.getStoreName()+":" + randomLocation[1]+","+ randomLocation[0]);
 			
 			Log.e("Random", "> " + randomLocation[0] + ", "
 					+ randomLocation[1]);
 			marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_red));
 			
 			googleMap.addMarker(marker);
-			
+			googleMap.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
+				
+				@Override
+				public void onInfoWindowClick(Marker arg0) {
+					Toast.makeText(dashboardActivity, ""+arg0.getTitle(), 1).show();
+					
+				}
+			});
 			
 
 			// Move the camera to last position with a zoom level

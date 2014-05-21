@@ -174,9 +174,9 @@ public class MapDetailFragment extends BaseFragment {
 			double[] randomLocation = createRandLocation(locationLatLong);
 
 			// Adding a marker
-			MarkerOptions marker = new MarkerOptions()
+			 MarkerOptions marker = new MarkerOptions()
 			.position(new LatLng(randomLocation[1], randomLocation[0]))
-			.title(store.getStoreName()+":" + randomLocation[1]+","+ randomLocation[0]);
+			.title(store.getStoreName());
 			
 			Log.e("Random", "> " + randomLocation[0] + ", "
 					+ randomLocation[1]);

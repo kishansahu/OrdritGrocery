@@ -29,7 +29,7 @@ public class WebServicesRawDataUtil {
 		
 		JSONObject userObject = new JSONObject();
 		try {
-			userObject.put(OrdritJsonKeys.USER_PASSWORD, user.getPassword());
+			//userObject.put(OrdritJsonKeys.USER_PASSWORD, user.getPassword());
 			userObject.put(OrdritJsonKeys.USER_EMAIL, user.getEmailId());
 			userObject.put(OrdritJsonKeys.USER_FIRSTNAME, user.getFirstName());
 			userObject.put(OrdritJsonKeys.USER_LASTNAME, user.getLastName());

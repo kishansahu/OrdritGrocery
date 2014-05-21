@@ -7,6 +7,7 @@ public class Address {
 	private String city;
 	private String State;
 	private String pincode;
+	private String url;
 
 	public String getId() {
 		return id;
@@ -46,6 +47,14 @@ public class Address {
 
 	public void setPincode(String pincode) {
 		this.pincode = pincode;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 }

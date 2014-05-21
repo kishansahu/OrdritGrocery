@@ -109,4 +109,19 @@ public class OrditJsonParser {
 		user.setUrl(obj.getString(OrdritJsonKeys.USER_URL));
 		return user;
 	}
+	public static Address getMerchantAddressFromJSON(JSONObject jsonObject) throws JSONException{
+		Address merchantAddress = new Address();
+
+		merchantAddress.setStreetAddress(jsonObject.getString(
+				OrdritJsonKeys.TAG_STREET_ADDRESS));
+		merchantAddress.setState(jsonObject.getString(
+				OrdritJsonKeys.TAG_STATE));
+		merchantAddress.setCity(jsonObject.getString(
+				OrdritJsonKeys.TAG_CITY));
+		merchantAddress.setPincode(jsonObject.getString(
+				OrdritJsonKeys.TAG_PINCODE));
+		merchantAddress.setUrl(jsonObject.getString(
+				OrdritJsonKeys.TAG_URL));
+		return merchantAddress;
+	}
 }

@@ -38,7 +38,7 @@ public class ServerConnection {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
+			// TODO Auto-generated catch block 
 			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -85,7 +85,38 @@ public class ServerConnection {
 		} 
         return responseObject;
   }
-
+	public JSONObject postHttpUrlConnection(String postInput, String requestUrl,String token) {
+		JSONObject responseObject = null; 
+		// Creating HTTP client
+        HttpClient httpClient = new DefaultHttpClient();
+        // Creating HTTP Post
+        HttpPost httpPost = new HttpPost(requestUrl);
+  
+        // Making HTTP Request
+        try {
+        	 httpPost.setEntity(new StringEntity(postInput));
+        	 httpPost.setHeader("Accept", "application/json");
+             httpPost.setHeader("Content-type", "application/json");
+             httpPost.setHeader("Authorization", "Token "+token );
+      	   
+            HttpResponse response = httpClient.execute(httpPost);
+            responseObject = new JSONObject(EntityUtils.toString(response.getEntity()));
+        } catch (ClientProtocolException e) {
+            // writing exception to log
+            e.printStackTrace();
+        } catch (IOException e) {
+            // writing exception to log
+            e.printStackTrace();
+ 
+        } catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+        return responseObject;
+  }
 	
 	/**
 	 * Method returns String from input stream.

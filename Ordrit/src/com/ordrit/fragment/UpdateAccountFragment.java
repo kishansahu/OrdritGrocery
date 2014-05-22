@@ -90,14 +90,9 @@ public class UpdateAccountFragment extends BaseFragment {
 			
 			@Override
 			public void postExecuteTask() {
-				if (user!=null) {
-					
-					etUpdateAccountFirstName.setText(user.getFirstName());
-					etUpdateAccountLastName.setText(user.getLastName());
-					etUpdateAccountMobileNumber.setText(user.getPhoneNumber());
-					etUpdateAccountUserEmailId.setText(user.getEmailId());
-					progressBar.setVisibility(View.GONE);
-				}
+				
+				setData();
+				progressBar.setVisibility(View.GONE);
 				
 			}
 			
@@ -120,6 +115,16 @@ public class UpdateAccountFragment extends BaseFragment {
 			}
 		}.execute();
 		
+	}
+	private void  setData() {
+		if (user!=null) {
+			
+			etUpdateAccountFirstName.setText(user.getFirstName());
+			etUpdateAccountLastName.setText(user.getLastName());
+			etUpdateAccountMobileNumber.setText(user.getPhoneNumber());
+			etUpdateAccountUserEmailId.setText(user.getEmailId());
+			
+		}
 	}
 
 }

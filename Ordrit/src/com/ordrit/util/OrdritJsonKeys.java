@@ -20,7 +20,8 @@ public interface OrdritJsonKeys {
 	 public final static String USER_URL = "url";
 	
 	// TAGS
-	
+
+		public final static String TAG_USER = "user";
 	public final static String TAG_TOKEN = "token";
 	public final static String TAG_RESULTS = "results";
 	public final static String TAG_NAME = "name";

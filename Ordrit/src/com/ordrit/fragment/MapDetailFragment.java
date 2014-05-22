@@ -54,7 +54,7 @@ public class MapDetailFragment extends BaseFragment {
 		
 	
 				try {
-					mapDetailFragment = inflater.inflate(R.layout.detail_map_fragment,
+					mapDetailFragment = inflater.inflate(R.layout.fragment_map_detail,
 							container, false);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block

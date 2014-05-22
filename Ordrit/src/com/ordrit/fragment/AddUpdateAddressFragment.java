@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.ordrit.R;
 import com.ordrit.model.Address;
+import com.ordrit.util.CommonUtils;
 import com.ordrit.util.FragmentConstant;
 import com.ordrit.util.OrditJsonParser;
 import com.ordrit.util.OrdritConstants;
@@ -74,8 +75,15 @@ public class AddUpdateAddressFragment extends BaseFragment {
 
 			@Override
 			public void onClick(View v) {
+
+				final String strAddUpdateAddressHomeOrApartmentName = etAddUpdateAddressHomeOrApartmentName.getText().toString();
+				String strAddUpdateAddressStreet1 =etAddUpdateAddressStreet1.getText().toString();
+				final String strAddUpdateAddressStreet2 =etAddUpdateAddressStreet2.getText().toString();
+				final String strAddUpdateAddressCity=etAddUpdateAddressCity.getText().toString();
+				final String strAddUpdateAddressZipcode=etAddUpdateAddressZipcode.getText().toString();
+				// validation if true
 				
-				
+
 				new WebServiceProcessingTask() {
 					
 					@Override
@@ -88,6 +96,7 @@ public class AddUpdateAddressFragment extends BaseFragment {
 					public void postExecuteTask() {
 						if (null!=address) {
 							etAddUpdateAddressHomeOrApartmentName.setText(address.getStreetAddress());
+							etAddUpdateAddressStreet2.setText(address.getState());
 							etAddUpdateAddressCity.setText(address.getCity());
 							etAddUpdateAddressZipcode.setText(address.getCity());
 							
@@ -96,11 +105,21 @@ public class AddUpdateAddressFragment extends BaseFragment {
 					}
 					
 					@Override
-					public void backgroundTask() {/*
+					public void backgroundTask() {
 					 
-					List<NameValuePair> list=new ArrayList<NameValuePair>();
-					list.add(new BasicNameValuePair(name, value));
-						jSONObject  = connection.postHttpUrlConnection(comm);
+						List<NameValuePair> list=new ArrayList<NameValuePair>();
+						list.add(new BasicNameValuePair(OrdritJsonKeys.TAG_USER, OrdritConstants.SERVER_BASE_URL
+								+ OrdritConstants.USERS+"/8"));
+						list.add(new BasicNameValuePair(OrdritJsonKeys.TAG_STREET_ADDRESS, strAddUpdateAddressHomeOrApartmentName));
+						list.add(new BasicNameValuePair(OrdritJsonKeys.TAG_CITY, strAddUpdateAddressCity));
+						list.add(new BasicNameValuePair(OrdritJsonKeys.TAG_STATE, strAddUpdateAddressStreet2));
+		                list.add(new BasicNameValuePair(OrdritJsonKeys.TAG_PINCODE, strAddUpdateAddressZipcode));
+						
+						
+						jSONObject  = connection.postHttpUrlConnection(CommonUtils.getParamListJSONString(list),OrdritConstants.SERVER_BASE_URL
+								+ OrdritConstants.USERS_ADDRESS,
+						SharedPreferencesUtil.getStringPreferences(
+								dashboardActivity, OrdritJsonKeys.TAG_TOKEN));
 								
 						try {
 							address = OrditJsonParser.getMerchantAddressFromJSON(jSONObject);
@@ -108,12 +127,12 @@ public class AddUpdateAddressFragment extends BaseFragment {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-					*/}
+					}
 				}.execute();
 			}
 		});
 		
-//edittext
+        //edittext
 		etAddUpdateAddressHomeOrApartmentName = (EditText) addUpdateAddressFragment
 				.findViewById(R.id.etAddUpdateAddressHomeOrApartmentName);
 		etAddUpdateAddressStreet1 = (EditText) addUpdateAddressFragment
@@ -144,12 +163,7 @@ public class AddUpdateAddressFragment extends BaseFragment {
 			
 			@Override
 			public void postExecuteTask() {
-				if (null!=address) {
-					etAddUpdateAddressHomeOrApartmentName.setText(address.getStreetAddress());
-					etAddUpdateAddressCity.setText(address.getCity());
-					etAddUpdateAddressZipcode.setText(address.getCity());
-					
-				}
+				setAddress();
 				progressBar.setVisibility(View.GONE);
 			}
 			
@@ -169,6 +183,14 @@ public class AddUpdateAddressFragment extends BaseFragment {
 				}
 			}
 		}.execute();
+	}
+	public void setAddress() {
+		if (null!=address) {
+			etAddUpdateAddressHomeOrApartmentName.setText(address.getStreetAddress());
+			etAddUpdateAddressCity.setText(address.getCity());
+			etAddUpdateAddressZipcode.setText(address.getCity());
+			
+		}
 	}
 
 }

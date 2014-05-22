@@ -6,20 +6,32 @@ import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONException;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.internal.el;
 import com.ordrit.R;
+import com.ordrit.adapter.StateListAdapter;
 import com.ordrit.model.Address;
+import com.ordrit.model.States;
 import com.ordrit.util.CommonUtils;
 import com.ordrit.util.FragmentConstant;
 import com.ordrit.util.OrditJsonParser;
@@ -27,7 +39,6 @@ import com.ordrit.util.OrdritConstants;
 import com.ordrit.util.OrdritJsonKeys;
 import com.ordrit.util.SharedPreferencesUtil;
 import com.ordrit.util.WebServiceProcessingTask;
-import com.ordrit.util.WebServicesRawDataUtil;
 
 public class AddUpdateAddressFragment extends BaseFragment {
 	private ProgressBar progressBar;
@@ -36,13 +47,14 @@ public class AddUpdateAddressFragment extends BaseFragment {
 	private Button addUpdateAddressBack,btnAddUpdateAddressSaveOrUpdate;
 	
 	private EditText etAddUpdateAddressHomeOrApartmentName,
-	etAddUpdateAddressStreet1,etAddUpdateAddressStreet2,etAddUpdateAddressCity,
+	etAddUpdateAddressStreet1,etAddUpdateAddressState,etAddUpdateAddressCity,
 	etAddUpdateAddressZipcode;
 	
 	private TextView txtAddUpdateAddressHomeOrApartmentNameError,
 	txtAddUpdateAddressStreet1Error,txtAddUpdateAddressStreet2Error,
 	txtAddUpdateAddressCityOrZipcodeError;
 	private Address address;
+	List<States> statesList;
 	
 	
 
@@ -78,7 +90,7 @@ public class AddUpdateAddressFragment extends BaseFragment {
 
 				final String strAddUpdateAddressHomeOrApartmentName = etAddUpdateAddressHomeOrApartmentName.getText().toString();
 				String strAddUpdateAddressStreet1 =etAddUpdateAddressStreet1.getText().toString();
-				final String strAddUpdateAddressStreet2 =etAddUpdateAddressStreet2.getText().toString();
+				final String strAddUpdateAddressStreet2 =getStateUrl(etAddUpdateAddressState.getText().toString());
 				final String strAddUpdateAddressCity=etAddUpdateAddressCity.getText().toString();
 				final String strAddUpdateAddressZipcode=etAddUpdateAddressZipcode.getText().toString();
 				// validation if true
@@ -96,7 +108,7 @@ public class AddUpdateAddressFragment extends BaseFragment {
 					public void postExecuteTask() {
 						if (null!=address) {
 							etAddUpdateAddressHomeOrApartmentName.setText(address.getStreetAddress());
-							etAddUpdateAddressStreet2.setText(address.getState());
+							etAddUpdateAddressState.setText(address.getState());
 							etAddUpdateAddressCity.setText(address.getCity());
 							etAddUpdateAddressZipcode.setText(address.getCity());
 							
@@ -137,8 +149,16 @@ public class AddUpdateAddressFragment extends BaseFragment {
 				.findViewById(R.id.etAddUpdateAddressHomeOrApartmentName);
 		etAddUpdateAddressStreet1 = (EditText) addUpdateAddressFragment
 				.findViewById(R.id.etAddUpdateAddressStreet1);
-		etAddUpdateAddressStreet2 = (EditText) addUpdateAddressFragment
-				.findViewById(R.id.etAddUpdateAddressStreet2);
+		etAddUpdateAddressState = (EditText) addUpdateAddressFragment
+				.findViewById(R.id.etAddUpdateAddressState);
+		etAddUpdateAddressState.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+			showStateDialog();
+				
+			}
+		});
 		etAddUpdateAddressCity = (EditText) addUpdateAddressFragment
 				.findViewById(R.id.etAddUpdateAddressCity);
 		etAddUpdateAddressZipcode = (EditText) addUpdateAddressFragment
@@ -193,4 +213,78 @@ public class AddUpdateAddressFragment extends BaseFragment {
 		}
 	}
 
+	private void showStateDialog() {
+		final Dialog dialog = new Dialog(dashboardActivity);
+		dialog.getWindow();
+	    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(R.layout.dialog_states_list);
+        final TextView dialogTitle=(TextView)dialog.findViewById(R.id.dialogTitle);
+        final ProgressBar progressBar =(ProgressBar)dialog.findViewById(R.id.progressBar);
+		final ListView lv = (ListView) dialog.findViewById(R.id.lv);
+		lv.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				etAddUpdateAddressState.setText(statesList.get(position).getName());
+				dialog.dismiss();
+				
+			}
+		});
+		dialog.setCancelable(true);
+		
+	new WebServiceProcessingTask() {
+			JSONArray jsonArray;
+			@Override
+			public void preExecuteTask() {
+			TAG=tag;
+			dialogTitle.setText("Getting State List");
+			progressBar.setVisibility(View.VISIBLE);
+			}
+			
+			@Override
+			public void postExecuteTask() {
+				if (statesList!=null) {
+					StateListAdapter adapter = new StateListAdapter(dashboardActivity, R.layout.states_list_item,statesList);
+				    lv.setAdapter(adapter);
+				    dialogTitle.setText("Select State");	
+				}else {
+					Toast.makeText(dashboardActivity, "server not responds", 1).show();
+				}
+			
+			    
+				progressBar.setVisibility(View.GONE);
+			}
+			
+			@Override
+			public void backgroundTask() {
+			
+				jsonArray = connection.getHttpUrlConnectionForArray(
+						OrdritConstants.SERVER_BASE_URL
+								+ OrdritConstants.STATES,
+						SharedPreferencesUtil.getStringPreferences(
+								dashboardActivity, OrdritJsonKeys.TAG_TOKEN));
+				try {
+					statesList = OrditJsonParser.getStateFromJSONArray(jsonArray);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}.execute();
+	
+		dialog.show();
+	}
+	private String getStateUrl(String name) {
+		String url = null;
+		for (int i = 0; i < statesList.size(); i++) {
+			States states =statesList.get(i);
+			if (states.getName().equals(name)) {
+				url=states.getUrl();
+				break;
+			}
+		}
+		
+		return url;
+	}
 }

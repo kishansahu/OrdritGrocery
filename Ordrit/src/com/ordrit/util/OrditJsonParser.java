@@ -1,6 +1,7 @@
 package com.ordrit.util;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -8,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.ordrit.model.Address;
+import com.ordrit.model.States;
 import com.ordrit.model.Store;
 import com.ordrit.model.User;
 
@@ -123,5 +125,22 @@ public class OrditJsonParser {
 		merchantAddress.setUrl(jsonObject.getString(
 				OrdritJsonKeys.TAG_URL));
 		return merchantAddress;
+	}
+
+	public static List<States> getStateFromJSONArray(JSONArray jsonArray)throws JSONException {
+		List<States> states = new ArrayList<States>();
+		for (int i = 0; i < jsonArray.length(); i++) {
+			states.add(getStateFromJSON(jsonArray.getJSONObject(i)));
+		}
+
+		return states;
+	}
+	
+	public static States getStateFromJSON(JSONObject jsonObject) throws JSONException{
+		States states=new States();
+		states.setName(jsonObject.getString(OrdritJsonKeys.TAG_NAME));
+		states.setUrl(jsonObject.getString(OrdritJsonKeys.TAG_URL));
+
+		return states;
 	}
 }

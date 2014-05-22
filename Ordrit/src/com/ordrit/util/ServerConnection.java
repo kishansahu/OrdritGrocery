@@ -16,6 +16,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -47,7 +48,32 @@ public class ServerConnection {
 
 		return responseObject;
 	}
+public JSONArray getHttpUrlConnectionForArray(String requestUrl,String token)
+ {
+		JSONArray jSONArray = null;
+		HttpClient httpClient = new DefaultHttpClient();
+		HttpGet get = new HttpGet(requestUrl);
+		get.setHeader("Authorization", "Token " + token);
+		try {
+			HttpResponse response = httpClient.execute(get);
+			jSONArray = new JSONArray(
+					EntityUtils.toString(response.getEntity()));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
+		return jSONArray;
+	}
 	/**
 	 * Method takes the data for post call and the request url.
 	 * 

@@ -125,12 +125,14 @@
             android:visibility="gone" />
         
         <EditText
-            android:id="@+id/etAddUpdateAddressStreet2"
+            android:id="@+id/etAddUpdateAddressState"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
             android:background="@drawable/edit_text_style"
             android:ems="10"
+            android:editable="false"
+            android:inputType="none"
             android:hint="@string/street_address_2"
             android:maxLength="35"
             android:padding="5dp"

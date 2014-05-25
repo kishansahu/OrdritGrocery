@@ -1,5 +1,7 @@
 package com.ordrit.database;
 
+import com.ordrit.model.Store;
+
 import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -12,14 +14,24 @@ public class OrdrItdataBaseHelper {
 		ordrItDataBase = new OrdrItDataBase(context);
 	}
 
-	public void open() throws SQLException {
+	private void open() throws SQLException {
 		sqLiteDatabase = ordrItDataBase.getWritableDatabase();
 	}
 
-	public void close() {
+	private void close() {
 		ordrItDataBase.close();
 	}
 	
-	
+	public Store getStore() {
+		open();
+		Store store=new Store();
+		
+		//get user table data
+		
+		
+		close();
+		return store;
+		
+	}
 	
 }

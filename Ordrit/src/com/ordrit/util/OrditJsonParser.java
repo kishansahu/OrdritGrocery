@@ -10,6 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.ordrit.model.Address;
+import com.ordrit.model.Item;
 import com.ordrit.model.ItemCategory;
 import com.ordrit.model.ItemSubCategory;
 import com.ordrit.model.States;
@@ -144,4 +145,29 @@ public class OrditJsonParser {
 
 		return states;
 	}
+	
+	public static List<Item> getItemsUnderSubCategory(String storeId, String itemSubCategoryId) throws JSONException{
+		String str="{\"results\":[{\"id\":28,\"price\":\"24.00\",\"store\":{\"estimated_delivery_time\":45,\"location\":\"POINT (77.2799241000000023 28.3809262999999987)\",\"merchant\":\"http://staging.ankursethi.in/merchants/1\",\"created_on\":\"2014-04-22T11:43:06.247Z\",\"closes_at\":\"11:30:00\",\"phone_number_2\":\"\",\"opens_at\":\"09:00:00\",\"phone_number_1\":\"9958746143\",\"url\":\"http://staging.ankursethi.in/stores/1\",\"id\":1,\"address\":\"http://staging.ankursethi.in/store_addresses/1\",\"name\":\"Sunil Store 1\",\"sub_category\":null,\"minimum_order\":\"200.00\"},\"merchant\":{\"id\":1,\"stores\":[\"http://staging.ankursethi.in/stores/1\",\"http://staging.ankursethi.in/stores/2\",\"http://staging.ankursethi.in/stores/3\"],\"user\":\"http://staging.ankursethi.in/users/1\",\"url\":\"http://staging.ankursethi.in/merchants/1\",\"created_on\":\"2014-04-21T08:54:11.769Z\",\"name\":\"bowser@ordrit.in\"},\"created_on\":\"2014-04-22T19:35:39.241Z\",\"price_units\":\"KG\",\"description\":\"White Chawli\",\"name\":\"White Chawli\",\"image\":{\"id\":29,\"image\":\"inventory_item_images/2014/04/22/White_Chawli.jpeg\",\"sub_category\":\"http://staging.ankursethi.in/item_sub_categories/14\",\"url\":\"http://staging.ankursethi.in/product_images/29\",\"created_on\":\"2014-04-22T19:35:21.903Z\",\"name\":\"White Chawli\"},\"sub_category\":{\"id\":14,\"category\":\"http://staging.ankursethi.in/item_categories/5\",\"url\":\"http://staging.ankursethi.in/item_sub_categories/14\",\"created_on\":\"2014-04-21T15:39:49.139Z\",\"name\":\"Dal & Pulses\"},\"url\":\"http://staging.ankursethi.in/inventory_items/28\"},{\"id\":27,\"price\":\"61.00\",\"store\":{\"estimated_delivery_time\":45,\"location\":\"POINT (77.2799241000000023 28.3809262999999987)\",\"merchant\":\"http://staging.ankursethi.in/merchants/1\",\"created_on\":\"2014-04-22T11:43:06.247Z\",\"closes_at\":\"11:30:00\",\"phone_number_2\":\"\",\"opens_at\":\"09:00:00\",\"phone_number_1\":\"9958746143\",\"url\":\"http://staging.ankursethi.in/stores/1\",\"id\":1,\"address\":\"http://staging.ankursethi.in/store_addresses/1\",\"name\":\"Sunil Store 1\",\"sub_category\":null,\"minimum_order\":\"200.00\"},\"merchant\":{\"id\":1,\"stores\":[\"http://staging.ankursethi.in/stores/1\",\"http://staging.ankursethi.in/stores/2\",\"http://staging.ankursethi.in/stores/3\"],\"user\":\"http://staging.ankursethi.in/users/1\",\"url\":\"http://staging.ankursethi.in/merchants/1\",\"created_on\":\"2014-04-21T08:54:11.769Z\",\"name\":\"bowser@ordrit.in\"},\"created_on\":\"2014-04-22T19:30:39.887Z\",\"price_units\":\"KG\",\"description\":\"White urad Dal whole\",\"name\":\"White urad Dal whole\",\"image\":{\"id\":28,\"image\":\"inventory_item_images/2014/04/22/White_urad_Dal_whole.jpeg\",\"sub_category\":\"http://staging.ankursethi.in/item_sub_categories/14\",\"url\":\"http://staging.ankursethi.in/product_images/28\",\"created_on\":\"2014-04-22T19:30:20.850Z\",\"name\":\"White urad Dal whole\"},\"sub_category\":{\"id\":14,\"category\":\"http://staging.ankursethi.in/item_categories/5\",\"url\":\"http://staging.ankursethi.in/item_sub_categories/14\",\"created_on\":\"2014-04-21T15:39:49.139Z\",\"name\":\"Dal & Pulses\"},\"url\":\"http://staging.ankursethi.in/inventory_items/27\"}]}";
+		List<Item> itemList= new ArrayList<Item>();
+		JSONObject jsonObj = new JSONObject(str);
+		JSONArray jsonArray = jsonObj.getJSONArray(OrdritJsonKeys.TAG_RESULTS);
+		for (int i = 0; i < jsonArray.length(); i++) {
+			JSONObject itemJsonObj = jsonArray.getJSONObject(i);
+			String currentObjsubCategoryId= itemJsonObj.getJSONObject(OrdritJsonKeys.TAG_SUB_CATEGORY).getString(OrdritJsonKeys.TAG_ID);
+			String currentObjStoreId= itemJsonObj.getJSONObject(OrdritJsonKeys.TAG_STORE).getString(OrdritJsonKeys.TAG_ID);
+			if(storeId.equalsIgnoreCase(currentObjStoreId) && itemSubCategoryId.equalsIgnoreCase(currentObjsubCategoryId)){
+				Item item= new Item();
+				item.setId(itemJsonObj.getString(OrdritJsonKeys.TAG_ID));
+				item.setPricePerUnit(itemJsonObj.getString(OrdritJsonKeys.TAG_PRICE));
+				item.setUnitName(itemJsonObj.getString(OrdritJsonKeys.TAG_PRICE_UNITS));
+				item.setName(itemJsonObj.getString(OrdritJsonKeys.TAG_NAME));
+				item.setImageURL(OrdritConstants.SERVER_BASE_URL
+						+ itemJsonObj.getJSONObject(OrdritJsonKeys.TAG_IMAGE)
+								.getString(OrdritJsonKeys.TAG_IMAGE));
+				itemList.add(item);
+			}
+		}
+		return itemList;
+	}
+	
 }

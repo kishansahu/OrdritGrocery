@@ -38,5 +38,10 @@ public interface OrdritJsonKeys {
 	public final static String TAG_STATE = "state";
 	public final static String TAG_PINCODE = "pin_code";
 	public final static String TAG_CATEGORY = "category";
+	public final static String TAG_SUB_CATEGORY = "sub_category";
+	public final static String TAG_PRICE = "price";
+	public final static String TAG_PRICE_UNITS = "price_units";
+	public final static String TAG_STORE = "store";
+	public final static String TAG_IMAGE = "image";
 	
 }

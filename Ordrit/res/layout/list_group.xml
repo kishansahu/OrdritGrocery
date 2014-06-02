@@ -7,7 +7,7 @@
     android:background="#000000">
  
  
-    <TextView
+    <com.ordrit.util.CalibriTextView
         android:id="@+id/lblListHeader"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

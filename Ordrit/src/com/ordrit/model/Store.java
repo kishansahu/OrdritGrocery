@@ -72,6 +72,15 @@ public class Store {
 		return storeName;
 	}
 
+	@Override
+	public String toString() {
+		return "Store [storeName=" + storeName + ", locationLatLong="
+				+ locationLatLong + ", id=" + id + ", Url=" + Url
+				+ ", phoneNumber1=" + phoneNumber1 + ", phoneNumber2="
+				+ phoneNumber2 + ", user=" + user + ", address=" + address
+				+ "]";
+	}
+
 	public void setStoreName(String storeName) {
 		this.storeName = storeName;
 	}

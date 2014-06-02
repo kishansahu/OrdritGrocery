@@ -113,7 +113,7 @@ public class MenuFragment extends BaseFragment {
 			public void onClick(View v) {
 				dashboardActivity.clickMenu();
 				CatogeryFragment catogeryFragment = new CatogeryFragment();
-				dashboardActivity.commitFragment(catogeryFragment,FragmentConstant.CATOGERY_FRAGMENT);
+				dashboardActivity.commitFragment(catogeryFragment,FragmentConstant.CATEGORY_FRAGMENT);
 				
 				
 			}

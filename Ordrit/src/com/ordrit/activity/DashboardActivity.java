@@ -33,6 +33,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.internal.el;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.ordrit.R;
 import com.ordrit.fragment.MenuFragment;
 import com.ordrit.fragment.MapDetailFragment;
@@ -47,7 +48,7 @@ public class DashboardActivity extends Activity {
     Button menu;
     Animation leftToright, rightToleft;
     View shaddow;
-   
+  
     public boolean isMenuOpen=false;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

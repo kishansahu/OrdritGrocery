@@ -18,12 +18,15 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.ordrit.R;
+import com.ordrit.adapter.ExpandableListAdapter;
 import com.ordrit.adapter.MenuBagAdapter;
 import com.ordrit.model.ItemCategory;
+import com.ordrit.model.ItemSubCategory;
 import com.ordrit.model.MenuBagItem;
 import com.ordrit.util.FragmentConstant;
 import com.ordrit.util.OrditJsonParser;
@@ -38,7 +41,9 @@ public class CatogeryFragment extends BaseFragment {
 	private View catogeryFragment;
 	private Button catogeryBack;
     private ExpandableListView catoreryListView;
+    private ExpandableListAdapter expandableListAdapter;
     private Map<String, ItemCategory> itemCategoryMap = null;
+    private String storeId;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,12 +56,29 @@ public class CatogeryFragment extends BaseFragment {
 	void setupUiComponent() {
 		
 		catoreryListView=(ExpandableListView)catogeryFragment.findViewById(R.id.catoreryListView);
+		catoreryListView.setOnChildClickListener(new OnChildClickListener() {
+			
+			@Override
+			public boolean onChildClick(ExpandableListView parent, View v,
+					int groupPosition, int childPosition, long id) {
+				ItemSubCategory itemSubCategory=(ItemSubCategory) expandableListAdapter.getChild(groupPosition,childPosition);
+				ItemListFragment itemListFragment =new ItemListFragment();
+				Bundle bundle=new Bundle();
+				bundle.putSerializable("data", itemSubCategory);
+				//TODO
+				// remove id
+				bundle.putString(OrdritConstants.STORE_ID, "1");
+				itemListFragment.setArguments(bundle);
+				dashboardActivity.commitFragment(itemListFragment, FragmentConstant.ITEM_LIST_FRAGMENT);
+				return false;
+			}
+		});
 		catogeryBack=(Button)catogeryFragment.findViewById(R.id.catogeryBack); 
 		catogeryBack.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				dashboardActivity.popFragment(FragmentConstant.CATOGERY_FRAGMENT);
+				dashboardActivity.popFragment(FragmentConstant.ITEM_LIST_FRAGMENT);
 			}
 		});
 		
@@ -71,7 +93,8 @@ public class CatogeryFragment extends BaseFragment {
 			
 			@Override
 			public void postExecuteTask() {
-				
+				 expandableListAdapter =new ExpandableListAdapter(getItemCatogery(itemCategoryMap),dashboardActivity );
+				catoreryListView.setAdapter(expandableListAdapter);
 			}
 			
 			@Override
@@ -82,9 +105,10 @@ public class CatogeryFragment extends BaseFragment {
 								+ "item_sub_categories?store=1",
 						SharedPreferencesUtil.getStringPreferences(
 								dashboardActivity, OrdritJsonKeys.TAG_TOKEN));
-				 Log.e(TAG,jSONString);
+				// Log.e(TAG,jSONString);
 				try {
 					 itemCategoryMap=OrditJsonParser.getItemCategoryMap(jSONString);
+					  Log.e(TAG, ""+itemCategoryMap.size());
 				} catch (JSONException e) {
 					
 					e.printStackTrace();
@@ -93,7 +117,7 @@ public class CatogeryFragment extends BaseFragment {
 				    while (it.hasNext()) {
 				        Map.Entry pairs = (Map.Entry)it.next();
 				       
-				        Log.e(TAG, pairs.getKey()+ " "+(ItemCategory) pairs.getValue());
+				      //  Log.e(TAG, pairs.getKey()+ " "+(ItemCategory) pairs.getValue());
 		//		        it.remove(); // avoids a ConcurrentModificationException
 				    }
 				
@@ -113,7 +137,7 @@ public class CatogeryFragment extends BaseFragment {
 		        	 listItemvCategories.add((ItemCategory) pairs.getValue());
 				}
 		       
-		        it.remove(); // avoids a ConcurrentModificationException
+		       // it.remove(); // avoids a ConcurrentModificationException
 		    }
 		
 		return listItemvCategories;

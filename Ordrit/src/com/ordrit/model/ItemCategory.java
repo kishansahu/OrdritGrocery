@@ -1,11 +1,18 @@
 package com.ordrit.model;
 
-public class ItemCategory {
+import java.io.Serializable;
+import java.util.List;
 
+public class ItemCategory implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String id;
 	private String name;
 	private String url;
-	private ItemSubCategory itemSubCategory;
+	private List<ItemSubCategory> itemSubCategory;
 	
 	public String getId() {
 		return id;
@@ -25,10 +32,11 @@ public class ItemCategory {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	public ItemSubCategory getItemSubCategory() {
+
+	public List<ItemSubCategory> getItemSubCategory() {
 		return itemSubCategory;
 	}
-	public void setItemSubCategory(ItemSubCategory itemSubCategory) {
+	public void setItemSubCategory(List<ItemSubCategory> itemSubCategory) {
 		this.itemSubCategory = itemSubCategory;
 	}
 	@Override
@@ -36,6 +44,6 @@ public class ItemCategory {
 		return "ItemCategory [id=" + id + ", name=" + name + ", url=" + url
 				+ ", itemSubCategory=" + itemSubCategory + "]";
 	}
-	
+
 	
 }

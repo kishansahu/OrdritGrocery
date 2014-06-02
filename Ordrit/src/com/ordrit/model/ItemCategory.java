@@ -31,6 +31,11 @@ public class ItemCategory {
 	public void setItemSubCategory(ItemSubCategory itemSubCategory) {
 		this.itemSubCategory = itemSubCategory;
 	}
+	@Override
+	public String toString() {
+		return "ItemCategory [id=" + id + ", name=" + name + ", url=" + url
+				+ ", itemSubCategory=" + itemSubCategory + "]";
+	}
 	
 	
 }

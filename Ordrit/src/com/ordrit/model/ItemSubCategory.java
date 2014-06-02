@@ -24,6 +24,11 @@ public class ItemSubCategory {
 	public void setUrl(String url) {
 		this.url = url;
 	}
+	@Override
+	public String toString() {
+		return "ItemSubCategory [id=" + id + ", name=" + name + ", url=" + url
+				+ "]";
+	}
 	
 	
 }

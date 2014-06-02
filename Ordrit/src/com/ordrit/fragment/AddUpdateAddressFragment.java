@@ -128,13 +128,13 @@ public class AddUpdateAddressFragment extends BaseFragment {
 		                list.add(new BasicNameValuePair(OrdritJsonKeys.TAG_PINCODE, strAddUpdateAddressZipcode));
 						
 						
-						jSONObject  = connection.postHttpUrlConnection(CommonUtils.getParamListJSONString(list),OrdritConstants.SERVER_BASE_URL
+						jSONString  = connection.postHttpUrlConnection(CommonUtils.getParamListJSONString(list),OrdritConstants.SERVER_BASE_URL
 								+ OrdritConstants.USERS_ADDRESS,
 						SharedPreferencesUtil.getStringPreferences(
 								dashboardActivity, OrdritJsonKeys.TAG_TOKEN));
 								
 						try {
-							address = OrditJsonParser.getMerchantAddressFromJSON(jSONObject);
+							address = OrditJsonParser.getMerchantAddressFromJSON(jSONString);
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -190,13 +190,13 @@ public class AddUpdateAddressFragment extends BaseFragment {
 			@Override
 			public void backgroundTask() {
 			
-				jSONObject = connection.getHttpUrlConnection(
+				jSONString = connection.getHttpUrlConnection(
 						OrdritConstants.SERVER_BASE_URL
 								+ OrdritConstants.USERS_ADDRESS+"/8",
 						SharedPreferencesUtil.getStringPreferences(
 								dashboardActivity, OrdritJsonKeys.TAG_TOKEN));
 				try {
-					address = OrditJsonParser.getMerchantAddressFromJSON(jSONObject);
+					address = OrditJsonParser.getMerchantAddressFromJSON(jSONString);
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -259,13 +259,13 @@ public class AddUpdateAddressFragment extends BaseFragment {
 			@Override
 			public void backgroundTask() {
 			
-				jsonArray = connection.getHttpUrlConnectionForArray(
+				jSONString = connection.getHttpUrlConnectionForArray(
 						OrdritConstants.SERVER_BASE_URL
 								+ OrdritConstants.STATES,
 						SharedPreferencesUtil.getStringPreferences(
 								dashboardActivity, OrdritJsonKeys.TAG_TOKEN));
 				try {
-					statesList = OrditJsonParser.getStateFromJSONArray(jsonArray);
+					statesList = OrditJsonParser.getStateFromJSONArray(jSONString);
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

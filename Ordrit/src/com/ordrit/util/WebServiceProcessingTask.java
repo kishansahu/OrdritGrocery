@@ -7,7 +7,7 @@ import android.util.Log;
 
 public abstract class WebServiceProcessingTask extends AsyncTask<Void, Void, Void>{
 
-	protected JSONObject jSONObject=null;
+	protected String jSONString=null;
 	protected ServerConnection connection;
 	protected String TAG="WebServiceProcessingTask";
 	

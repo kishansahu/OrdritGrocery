@@ -119,7 +119,7 @@ public class LoginFragment extends Fragment {
 								String token = null;
 								try {
 									token = OrditJsonParser
-											.getTokenStringFromJSON(jSONObject);
+											.getTokenStringFromJSON(jSONString);
 								} catch (JSONException e) {
 									e.printStackTrace();
 								}
@@ -144,7 +144,7 @@ public class LoginFragment extends Fragment {
 							@Override
 							public void backgroundTask() {
 								
-								jSONObject  = connection.postHttpUrlConnection(
+								jSONString  = connection.postHttpUrlConnection(
 										WebServicesRawDataUtil
 												.getUsersAuthenticationTokenJSONObjectString(
 														editTextUserName

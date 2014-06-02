@@ -99,13 +99,13 @@ public class UpdateAccountFragment extends BaseFragment {
 			@Override
 			public void backgroundTask() {
 			
-				jSONObject = connection.getHttpUrlConnection(
+				jSONString = connection.getHttpUrlConnection(
 						OrdritConstants.SERVER_BASE_URL
 								+ OrdritConstants.USERS+"/8",
 						SharedPreferencesUtil.getStringPreferences(
 								dashboardActivity, OrdritJsonKeys.TAG_TOKEN));
 			    try {
-					user=OrditJsonParser.getUserFromJSON(jSONObject);
+					user=OrditJsonParser.getUserFromJSON(jSONString);
 				} catch (JSONException e) {
 					
 					e.printStackTrace();

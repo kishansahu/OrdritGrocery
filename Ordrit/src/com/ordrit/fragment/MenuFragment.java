@@ -111,6 +111,9 @@ public class MenuFragment extends BaseFragment {
 			
 			@Override
 			public void onClick(View v) {
+				dashboardActivity.clickMenu();
+				CatogeryFragment catogeryFragment = new CatogeryFragment();
+				dashboardActivity.commitFragment(catogeryFragment,FragmentConstant.CATOGERY_FRAGMENT);
 				
 				
 			}

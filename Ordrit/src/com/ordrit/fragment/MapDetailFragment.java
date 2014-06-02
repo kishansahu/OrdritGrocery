@@ -1,7 +1,9 @@
 package com.ordrit.fragment;
 
 import java.util.List;
+import java.util.Map;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 
 import android.os.Bundle;
@@ -26,6 +28,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.ordrit.R;
 import com.ordrit.adapter.IconizedWindowAdapter;
+import com.ordrit.model.ItemCategory;
 import com.ordrit.model.Store;
 import com.ordrit.util.OrditJsonParser;
 import com.ordrit.util.OrdritConstants;
@@ -96,14 +99,16 @@ public class MapDetailFragment extends BaseFragment {
 						@Override
 						public void backgroundTask() {
 						
-							jSONObject = connection.getHttpUrlConnection(
+							jSONString = connection.getHttpUrlConnection(
 									OrdritConstants.SERVER_BASE_URL
 											+ "stores?distance=100000&point=POINT%2877.128036+28.694839%29",
 									SharedPreferencesUtil.getStringPreferences(
 											dashboardActivity, OrdritJsonKeys.TAG_TOKEN));
 						
+							
+							
 							try {
-								 list=OrditJsonParser.getAllStoresFromJSON(jSONObject);
+								 list=OrditJsonParser.getAllStoresFromJSON(jSONString);
 							} catch (JSONException e) {
 								
 								e.printStackTrace();

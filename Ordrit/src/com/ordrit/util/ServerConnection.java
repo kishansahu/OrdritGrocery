@@ -23,22 +23,19 @@ import org.json.JSONObject;
 public class ServerConnection {
 	// http://localhost:8080/RESTfulExample/json/product/post
 
-	public JSONObject getHttpUrlConnection(String requestUrl,String token)
+	public String getHttpUrlConnection(String requestUrl,String token)
 			{
-		JSONObject responseObject = null; 
+		String jsonString = null; 
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpGet get = new HttpGet(requestUrl);
 		get.setHeader("Authorization", "Token "+token );
 	     try {
 		HttpResponse response = httpClient.execute(get);
-     	responseObject = new JSONObject(EntityUtils.toString(response.getEntity()));
+		jsonString = EntityUtils.toString(response.getEntity());
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClientProtocolException e) {
+		}catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block 
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -46,25 +43,22 @@ public class ServerConnection {
 			e.printStackTrace();
 		}
 
-		return responseObject;
+		return jsonString;
 	}
-public JSONArray getHttpUrlConnectionForArray(String requestUrl,String token)
+public String getHttpUrlConnectionForArray(String requestUrl,String token)
  {
-		JSONArray jSONArray = null;
+	String jsonString = null; 
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpGet get = new HttpGet(requestUrl);
 		get.setHeader("Authorization", "Token " + token);
 		try {
 			HttpResponse response = httpClient.execute(get);
-			jSONArray = new JSONArray(
-					EntityUtils.toString(response.getEntity()));
+			jsonString =
+					EntityUtils.toString(response.getEntity());
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClientProtocolException e) {
+		}catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -72,7 +66,7 @@ public JSONArray getHttpUrlConnectionForArray(String requestUrl,String token)
 			e.printStackTrace();
 		}
 
-		return jSONArray;
+		return jsonString;
 	}
 	/**
 	 * Method takes the data for post call and the request url.
@@ -81,8 +75,8 @@ public JSONArray getHttpUrlConnectionForArray(String requestUrl,String token)
 	 * @param requestUrl
 	 * @return JSONObject
 	 */
-	public JSONObject postHttpUrlConnection(String postInput, String requestUrl) {
-		JSONObject responseObject = null; 
+	public String postHttpUrlConnection(String postInput, String requestUrl) {
+		String jsonString = null; 
 		// Creating HTTP client
         HttpClient httpClient = new DefaultHttpClient();
         // Creating HTTP Post
@@ -94,7 +88,7 @@ public JSONArray getHttpUrlConnectionForArray(String requestUrl,String token)
         	 httpPost.setHeader("Accept", "application/json");
              httpPost.setHeader("Content-type", "application/json");
             HttpResponse response = httpClient.execute(httpPost);
-            responseObject = new JSONObject(EntityUtils.toString(response.getEntity()));
+            jsonString = EntityUtils.toString(response.getEntity());
         } catch (ClientProtocolException e) {
             // writing exception to log
             e.printStackTrace();
@@ -105,14 +99,11 @@ public JSONArray getHttpUrlConnectionForArray(String requestUrl,String token)
         } catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-        return responseObject;
+		}
+        return jsonString;
   }
-	public JSONObject postHttpUrlConnection(String postInput, String requestUrl,String token) {
-		JSONObject responseObject = null; 
+	public String postHttpUrlConnection(String postInput, String requestUrl,String token) {
+		String jsonString = null; 
 		// Creating HTTP client
         HttpClient httpClient = new DefaultHttpClient();
         // Creating HTTP Post
@@ -126,7 +117,7 @@ public JSONArray getHttpUrlConnectionForArray(String requestUrl,String token)
              httpPost.setHeader("Authorization", "Token "+token );
       	   
             HttpResponse response = httpClient.execute(httpPost);
-            responseObject = new JSONObject(EntityUtils.toString(response.getEntity()));
+            jsonString =EntityUtils.toString(response.getEntity());
         } catch (ClientProtocolException e) {
             // writing exception to log
             e.printStackTrace();
@@ -137,11 +128,8 @@ public JSONArray getHttpUrlConnectionForArray(String requestUrl,String token)
         } catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} 
-        return responseObject;
+        return jsonString;
   }
 	
 	/**

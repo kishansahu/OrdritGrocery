@@ -1,5 +1,6 @@
 package com.ordrit.fragment;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +29,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.ordrit.R;
 import com.ordrit.adapter.IconizedWindowAdapter;
+import com.ordrit.database.OrdrItdataBaseHelper;
 import com.ordrit.model.ItemCategory;
 import com.ordrit.model.Store;
 import com.ordrit.util.OrditJsonParser;
@@ -42,12 +44,14 @@ public class MapDetailFragment extends BaseFragment {
 	private GoogleMap googleMap;
 	private Button menu, menuShareWithFriends, menuAddAddress;
 	List<Store> list;
+	Store tempStore;
+	 private HashMap<String, Store> eventMarkerMap;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		
-		
+		 eventMarkerMap = new HashMap<String, Store>();
 
 		  if (mapDetailFragment != null) {
 		        ViewGroup parent = (ViewGroup) mapDetailFragment.getParent();
@@ -179,29 +183,29 @@ public class MapDetailFragment extends BaseFragment {
 			double[] randomLocation = createRandLocation(locationLatLong);
 
 			// Adding a marker
-			 MarkerOptions marker = new MarkerOptions()
-			.position(new LatLng(randomLocation[1], randomLocation[0]))
-			.title(store.getStoreName());
+			 MarkerOptions marker = new MarkerOptions();
+			 marker.position(new LatLng(randomLocation[1], randomLocation[0]));
+			 marker.title(store.getStoreName());
+			 
+			 
 			
 			Log.e("Random", "> " + randomLocation[0] + ", "
 					+ randomLocation[1]);
 			marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_red));
 			
 			googleMap.addMarker(marker);
+			eventMarkerMap.put(store.getStoreName(), store);
 			googleMap.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
 				
 				@Override
-				public void onInfoWindowClick(Marker arg0) {
-					Toast.makeText(dashboardActivity, ""+arg0.getTitle(), 1).show();
+				public void onInfoWindowClick(Marker marker) {
+					tempStore=eventMarkerMap.get(marker.getTitle());
+					Toast.makeText(dashboardActivity,"Store selected", Toast.LENGTH_SHORT).show();
+					
 					
 				}
 			});
-			
-
-			// Move the camera to last position with a zoom level
-			
-				
-			
+		
 		}
 		CameraPosition cameraPosition = new CameraPosition.Builder()
 		.target(new LatLng(28.49851388386366,
@@ -267,8 +271,16 @@ googleMap.animateCamera(CameraUpdateFactory
 
 			@Override
 			public void onClick(View v) {
+			
+				OrdrItdataBaseHelper ordrItdataBaseHelper=new OrdrItdataBaseHelper(dashboardActivity);
+				boolean isAdded=ordrItdataBaseHelper.insertStore(tempStore);
+				if (isAdded) {
+					Toast.makeText(dashboardActivity, "Store Added", Toast.LENGTH_LONG).show();
+				}else {
+					Toast.makeText(dashboardActivity, "Store Already Added", Toast.LENGTH_LONG).show();
+				}
 				
-
+             
 			}
 		});
 	}

@@ -67,7 +67,7 @@ public class CatogeryFragment extends BaseFragment {
 				bundle.putSerializable("data", itemSubCategory);
 				//TODO
 				// remove id
-				bundle.putString(OrdritConstants.STORE_ID, "1");
+				bundle.putString(OrdritConstants.STORE_ID, "4");
 				itemListFragment.setArguments(bundle);
 				dashboardActivity.commitFragment(itemListFragment, FragmentConstant.ITEM_LIST_FRAGMENT);
 				return false;
@@ -102,7 +102,7 @@ public class CatogeryFragment extends BaseFragment {
 			
 				jSONString = connection.getHttpUrlConnectionForArray(
 						OrdritConstants.SERVER_BASE_URL
-								+ "item_sub_categories?store=1",
+								+ "item_sub_categories?store=4",
 						SharedPreferencesUtil.getStringPreferences(
 								dashboardActivity, OrdritJsonKeys.TAG_TOKEN));
 				// Log.e(TAG,jSONString);

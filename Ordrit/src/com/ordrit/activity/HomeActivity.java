@@ -10,12 +10,12 @@ import android.view.Menu;
 import com.ordrit.R;
 import com.ordrit.fragment.WelcomeFragment;
 
-public class MainActivity extends Activity {
+public class HomeActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.home_main);
 		FragmentManager fragmentManager = getFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager
 				.beginTransaction();

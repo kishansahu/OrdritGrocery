@@ -20,13 +20,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ordrit.R;
-import com.ordrit.activity.MainActivity;
+import com.ordrit.activity.HomeActivity;
 import com.ordrit.util.ValidationUtils;
 
 public class UserSignUp extends Fragment {
 
 	private View signUpFragment;
-	private MainActivity mainActivity = null;
+	private HomeActivity mainActivity = null;
 	private Button buttonSignUp;
 	private EditText userNameEditText, passwordEditText,
 			confirmPasswordEditText, emailIdEditText;
@@ -38,7 +38,7 @@ public class UserSignUp extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		mainActivity = (MainActivity) getActivity();
+		mainActivity = (HomeActivity) getActivity();
 		mainActivity.getActionBar().hide();
 		signUpFragment = inflater.inflate(R.layout.fragment_signup, container,
 				false);

@@ -2,6 +2,7 @@ package com.ordrit.util;
 
 import org.json.JSONObject;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -10,6 +11,7 @@ public abstract class WebServiceProcessingTask extends AsyncTask<Void, Void, Voi
 	protected String jSONString=null;
 	protected ServerConnection connection;
 	protected String TAG="WebServiceProcessingTask";
+	
 	
 	@Override
 	protected void onPreExecute() {

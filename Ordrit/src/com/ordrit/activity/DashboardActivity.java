@@ -1,13 +1,12 @@
 package com.ordrit.activity;
 
 
-import java.util.ArrayList;
-
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -16,46 +15,38 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.ordrit.R;
 import com.ordrit.adapter.NavDrawerListAdapter;
+import com.ordrit.adapter.SeparatedListAdapter;
 import com.ordrit.fragment.CatogeryFragment;
 import com.ordrit.fragment.ManageUserInfoFragment;
 import com.ordrit.fragment.MapDetailFragment;
 import com.ordrit.fragment.MenuBagFragment;
 import com.ordrit.model.NavDrawerItem;
 import com.ordrit.util.CommonUtils;
+import com.ordrit.util.OrdritConstants;
 
 public class DashboardActivity extends Activity {
+	private Context context;
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
-
-	 public boolean isMenuOpen=false;
-	
-	
-
-	private ArrayList<NavDrawerItem> navDrawerItems;
-	private NavDrawerListAdapter adapter;
+    public boolean isMenuOpen=false;
+    public boolean updateListView=false;
+	private SeparatedListAdapter adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+        context=this;
 
-		navDrawerItems = CommonUtils.getNavDrawerItem(this);
-
-		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
-
-	
-
-		mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
-
-		// setting the nav drawer list adapter
-		adapter = new NavDrawerListAdapter(getApplicationContext(),
-				navDrawerItems);
-		mDrawerList.setAdapter(adapter);
+        mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
+		updateMenu();
 
 		// enabling action bar app icon and behaving it as toggle button
 		ActionBar actionBar =getActionBar();
@@ -72,17 +63,23 @@ public class DashboardActivity extends Activity {
 		) {
 			public void onDrawerClosed(View view) {
 				isMenuOpen=false;
+				
 			}
 
 			public void onDrawerOpened(View drawerView) {
 				isMenuOpen=true;
+				if (updateListView) {
+					updateMenu();
+					updateListView=false;
+				}
+				
 			}
 		};
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 
 		if (savedInstanceState == null) {
 			// on first time display view for first nav item
-			displayView(-1);
+			displayView(new NavDrawerItem(), -1);
 		}
 	}
 
@@ -94,8 +91,8 @@ public class DashboardActivity extends Activity {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
-			// display view for selected nav drawer item
-			displayView(position);
+			NavDrawerItem navDrawerItem=(NavDrawerItem) parent.getAdapter().getItem(position);
+			displayView(navDrawerItem, position);
 		}
 	}
 
@@ -105,29 +102,30 @@ public class DashboardActivity extends Activity {
 	/**
 	 * Diplaying fragment view for selected nav drawer list item
 	 * */
-	private void displayView(int position) {
+	private void displayView(NavDrawerItem navDrawerItem,int position) {
 		// update the main content by replacing fragments
 		Fragment fragment = null;
-		switch (position) {
-		case -1:
-			fragment = new MapDetailFragment();
-			break;
-		case 0:
-			fragment = new ManageUserInfoFragment();;
-			break;
-		case 1:
-			fragment = new MenuBagFragment();
-			break;
-		case 2:
-			fragment =  new CatogeryFragment();;
-			break;
-	
-		
-
-		default:
-			break;
+		if (navDrawerItem.getId()==null) {
+			switch (position) {
+			case -1:
+				fragment = new MapDetailFragment();
+				break;
+			case 1:
+				fragment = new ManageUserInfoFragment();;
+				break;
+			case 2:
+				fragment = new MenuBagFragment();
+				break;
+			default:
+				break;
+			}
+		}else {
+			fragment = new CatogeryFragment();
+			Bundle bundle=new Bundle();
+		    bundle.putString(OrdritConstants.STORE_ID, navDrawerItem.getId());
+		    Toast.makeText(context,""+navDrawerItem.getId() , 1).show();
+		    fragment.setArguments(bundle);
 		}
-
 		if (fragment != null) {
 			commitFragment(fragment, null);
 			mDrawerList.setItemChecked(position, true);
@@ -186,5 +184,17 @@ public void popFragment(String tag) {
 		    isMenuOpen=true;
 		}
 		
+	}
+	private void updateMenu() {
+		
+		        adapter=null;
+		        mDrawerList.setAdapter(null);
+				adapter =new SeparatedListAdapter(context);
+				adapter.addSection("Menu", new NavDrawerListAdapter(context, CommonUtils.getNavDrawerItem(context)));
+				adapter.addSection("Stores", new NavDrawerListAdapter(context, CommonUtils.getNavDrawerItemStore(context)));
+				mDrawerList.setAdapter(adapter);
+				adapter.notifyDataSetChanged();
+				
+				
 	}
 }

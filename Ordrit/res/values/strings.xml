@@ -104,11 +104,19 @@
         <item >My Bag</item>
         <item >Order Status</item>
         <item >Previous Orders</item>
-        <item >Coupons</item>
+       <!--  <item >Coupons</item> -->
         <item >Help &amp; Faq</item>
-         <item >Shopping in Andheri / Mumbai....</item>
+       <!--   <item >Shopping in Andheri / Mumbai....</item> -->
     </string-array>
     
+    
+    <integer-array name="nav_drawer_id">
+        <item >0</item>
+        <item >1</item>
+        <item >2</item>
+        <item >3</item>
+        <item >4</item>  
+    </integer-array>
     <!-- Nav Drawer List Item Icons -->
     <!-- Keep them in order as the titles are in -->
     <array name="nav_drawer_icons">
@@ -117,7 +125,7 @@
         <item>@drawable/ic_drawer</item>
         <item>@drawable/ic_drawer</item>
         <item>@drawable/ic_drawer</item>
-        <item>@drawable/ic_drawer</item>
-         <item>@drawable/ic_drawer</item>
+       <!--  <item>@drawable/ic_drawer</item>
+        <item>@drawable/ic_drawer</item> -->
     </array>
 </resources>

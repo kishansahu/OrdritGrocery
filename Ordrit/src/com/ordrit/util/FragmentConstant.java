@@ -9,5 +9,6 @@ public class FragmentConstant {
 	public static final String ADD_UPDATE_ADDRESS_FRAGMENT = "addupdateaddressfragment";
 	public static final String CATEGORY_FRAGMENT ="catogeryfragment";
 	public static final String ITEM_LIST_FRAGMENT="itemlistfragment";
+	public static final String ITEM_DETAIL_FRAGMENT="itemdetailfragment";
 	
 }

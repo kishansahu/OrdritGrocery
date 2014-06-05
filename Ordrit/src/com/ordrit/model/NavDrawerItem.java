@@ -4,53 +4,61 @@ public class NavDrawerItem {
 	
 	private String title;
 	private int icon;
-	private String count = "0";
-	// boolean to set visiblity of the counter
-	private boolean isCounterVisible = false;
+	private String id ;
 	
 	public NavDrawerItem(){}
 
-	public NavDrawerItem(String title, int icon){
+	
+	public NavDrawerItem(String title, int icon,String id){
 		this.title = title;
 		this.icon = icon;
+		this.id=id;
+		
 	}
+
+
+	public String getTitle() {
+		return title;
+	}
+
+
+	public int getIcon() {
+		return icon;
+	}
+
+
+	public String getId() {
+		return id;
+	}
+
+
 	
-	public NavDrawerItem(String title, int icon, boolean isCounterVisible, String count){
+
+
+
+	@Override
+	public String toString() {
+		return "NavDrawerItem [title=" + title + ", icon=" + icon + ", id="
+				+ id + "]";
+	}
+
+
+	public void setTitle(String title) {
 		this.title = title;
-		this.icon = icon;
-		this.isCounterVisible = isCounterVisible;
-		this.count = count;
 	}
-	
-	public String getTitle(){
-		return this.title;
-	}
-	
-	public int getIcon(){
-		return this.icon;
-	}
-	
-	public String getCount(){
-		return this.count;
-	}
-	
-	public boolean getCounterVisibility(){
-		return this.isCounterVisible;
-	}
-	
-	public void setTitle(String title){
-		this.title = title;
-	}
-	
-	public void setIcon(int icon){
+
+
+	public void setIcon(int icon) {
 		this.icon = icon;
 	}
-	
-	public void setCount(String count){
-		this.count = count;
+
+
+	public void setId(String id) {
+		this.id = id;
 	}
+
+
 	
-	public void setCounterVisibility(boolean isCounterVisible){
-		this.isCounterVisible = isCounterVisible;
-	}
+	
+	
 }

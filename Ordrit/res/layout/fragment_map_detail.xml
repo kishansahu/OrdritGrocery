@@ -50,7 +50,7 @@
             android:background="@drawable/btn_style"
             android:text="@string/share_merchant_with_your_local_friend "
             android:textColor="@color/white"
-            android:textSize="@dimen/menu_text_size" />
+            android:textSize="15dp" />
 
        
         <com.ordrit.util.CalibriButton
@@ -63,7 +63,7 @@
             android:background="@drawable/btn_style"
             android:text="@string/add_address"
             android:textColor="@color/white"
-            android:textSize="@dimen/menu_text_size" />
+            android:textSize="15dp" />
 
     </LinearLayout>
 

@@ -37,6 +37,14 @@ public class User {
 	public void setRole(String role) {
 		this.role = role;
 	}
+	@Override
+	public String toString() {
+		return "User [emailId=" + emailId + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", role=" + role + ", joinDate="
+				+ joinDate + ", lastLoginDate=" + lastLoginDate + ", id=" + id
+				+ ", phoneNumber=" + phoneNumber + ", gcmRegistrationId="
+				+ gcmRegistrationId + ", url=" + url + "]";
+	}
 	public String getJoinDate() {
 		return joinDate;
 	}

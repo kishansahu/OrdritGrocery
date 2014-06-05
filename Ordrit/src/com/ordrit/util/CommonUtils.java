@@ -14,6 +14,7 @@ import com.ordrit.database.OrdrItdataBaseHelper;
 import com.ordrit.model.NavDrawerItem;
 import com.ordrit.model.Store;
 
+import android.R.integer;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.net.ConnectivityManager;
@@ -81,45 +82,34 @@ public class CommonUtils {
 		// load slide menu items
 		String[] navMenuTitles = context.getResources().getStringArray(
 				R.array.nav_drawer_items);
-
+		
 		// nav drawer icons from resources
 		TypedArray navMenuIcons = context.getResources().obtainTypedArray(
 				R.array.nav_drawer_icons);
 
-		// adding nav drawer items to array
-		// Home
-		navDrawerItemList.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons
-				.getResourceId(0, -1)));
-		// Find People
-		navDrawerItemList.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons
-				.getResourceId(1, -1)));
-		// Photos
-		navDrawerItemList.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons
-				.getResourceId(2, -1)));
-		// Communities, Will add a counter here
-		navDrawerItemList.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons
-				.getResourceId(3, -1), true, "22"));
-		// Pages
-		navDrawerItemList.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons
-				.getResourceId(4, -1)));
-		// What's hot, We will add a counter here
-		navDrawerItemList.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons
-				.getResourceId(5, -1), true, "50+"));
-		navDrawerItemList.add(new NavDrawerItem(navMenuTitles[6], navMenuIcons
-				.getResourceId(6, -1), true, "50+"));
 		
+		navDrawerItemList.add(new NavDrawerItem(navMenuTitles[0],navMenuIcons.getResourceId(0, -1),null));
+		navDrawerItemList.add(new NavDrawerItem(navMenuTitles[1],navMenuIcons.getResourceId(1, -1),null));
+		navDrawerItemList.add(new NavDrawerItem(navMenuTitles[2],navMenuIcons.getResourceId(2, -1),null));
+		navDrawerItemList.add(new NavDrawerItem(navMenuTitles[3],navMenuIcons.getResourceId(3, -1),null));
+		navDrawerItemList.add(new NavDrawerItem(navMenuTitles[4],navMenuIcons.getResourceId(4, -1),null));
+		navMenuIcons.recycle();
 
+		return navDrawerItemList;
+	}
+	public static ArrayList<NavDrawerItem> getNavDrawerItemStore(Context context) {
+		ArrayList<NavDrawerItem> navDrawerItemList = new ArrayList<NavDrawerItem>();
+
+		TypedArray navMenuIcons = context.getResources().obtainTypedArray(
+				R.array.nav_drawer_icons);
 		OrdrItdataBaseHelper ordrItdataBaseHelper=new OrdrItdataBaseHelper(context);
 		List<Store> list=ordrItdataBaseHelper.getAllAddedStore();
 		Iterator<Store> iterator = list.iterator();
 		while (iterator.hasNext()) {
 			Store store=iterator.next();
 			navDrawerItemList.add(new NavDrawerItem(store.getStoreName(), navMenuIcons
-					.getResourceId(6, -1)));
+					.getResourceId(5, -1),store.getId()));
 		}
-		
-		navMenuIcons.recycle();
-
 		return navDrawerItemList;
 	}
 }

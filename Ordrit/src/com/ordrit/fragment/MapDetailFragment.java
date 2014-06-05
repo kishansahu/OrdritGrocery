@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -140,8 +141,7 @@ public class MapDetailFragment extends BaseFragment {
 				R.id.detailMap);
 		
 		googleMap=mapFragment.getMap();
-		googleMap.setInfoWindowAdapter(new IconizedWindowAdapter(
-                getActivity().getLayoutInflater()));
+		
 			if (googleMap == null) {
 				Toast.makeText(getActivity(), "Sorry! unable to create maps",
 						Toast.LENGTH_SHORT).show();
@@ -195,14 +195,19 @@ public class MapDetailFragment extends BaseFragment {
 			
 			googleMap.addMarker(marker);
 			eventMarkerMap.put(store.getStoreName(), store);
+			final IconizedWindowAdapter iconizedWindowAdapter=new IconizedWindowAdapter(
+	                dashboardActivity.getLayoutInflater());
+			googleMap.setInfoWindowAdapter(iconizedWindowAdapter);
+			
 			googleMap.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
 				
 				@Override
 				public void onInfoWindowClick(Marker marker) {
 					tempStore=eventMarkerMap.get(marker.getTitle());
 					Toast.makeText(dashboardActivity,"Store selected", Toast.LENGTH_SHORT).show();
-					
-					
+					/*View view=iconizedWindowAdapter.getInfoContents(marker);
+					final ImageView image= (ImageView) view.findViewById(R.id.image);
+					image.setImageResource(R.drawable.ic_launcher);*/
 				}
 			});
 		
@@ -271,15 +276,23 @@ googleMap.animateCamera(CameraUpdateFactory
 
 			@Override
 			public void onClick(View v) {
-			
-				OrdrItdataBaseHelper ordrItdataBaseHelper=new OrdrItdataBaseHelper(dashboardActivity);
-				boolean isAdded=ordrItdataBaseHelper.insertStore(tempStore);
-				if (isAdded) {
-					Toast.makeText(dashboardActivity, "Store Added", Toast.LENGTH_LONG).show();
+			    if (tempStore!=null) {
+			    	OrdrItdataBaseHelper ordrItdataBaseHelper=new OrdrItdataBaseHelper(dashboardActivity);
+					boolean isAdded=ordrItdataBaseHelper.insertStore(tempStore);
+					if (isAdded) {
+						Toast.makeText(dashboardActivity, "Store Added", Toast.LENGTH_LONG).show();
+						dashboardActivity.updateListView=true;
+					}else {
+						
+						Toast.makeText(dashboardActivity, "Store Already Added", Toast.LENGTH_LONG).show();
+					}	
+					
 				}else {
-					Toast.makeText(dashboardActivity, "Store Already Added", Toast.LENGTH_LONG).show();
+					Toast.makeText(dashboardActivity, "Select a Store", Toast.LENGTH_LONG).show();
 				}
 				
+			    tempStore=null;
+			    
              
 			}
 		});

@@ -22,7 +22,7 @@ import android.widget.Toast;
 
 import com.ordrit.R;
 import com.ordrit.activity.DashboardActivity;
-import com.ordrit.activity.MainActivity;
+import com.ordrit.activity.HomeActivity;
 import com.ordrit.util.CalibriTextView;
 import com.ordrit.util.CommonUtils;
 import com.ordrit.util.OrditJsonParser;
@@ -35,7 +35,7 @@ import com.ordrit.util.WebServicesRawDataUtil;
 public class LoginFragment extends Fragment {
     private final String tag= "LoginFragment";
 	private View loginFragment;
-	private MainActivity mainActivity = null;
+	private HomeActivity mainActivity = null;
 	private EditText editTextUserName, editTextPassword=null;
 	private CalibriTextView editTextUserNameError, passwordError, SignUpText=null;
 	private ProgressBar progressBarLogin;
@@ -43,7 +43,7 @@ public class LoginFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		mainActivity = (MainActivity) getActivity();
+		mainActivity = (HomeActivity) getActivity();
 		mainActivity.getActionBar().hide();
 		loginFragment = inflater.inflate(R.layout.fragment_login, container,
 				false);

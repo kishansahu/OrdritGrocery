@@ -1,5 +1,9 @@
 package com.ordrit.fragment;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+
 import com.ordrit.activity.DashboardActivity;
 
 import android.app.ActionBar;
@@ -16,6 +20,7 @@ public abstract class BaseFragment extends Fragment{
 		
 		super.onAttach(activity);
 		dashboardActivity=(DashboardActivity) activity;
+		
 	}
 	
 	abstract void setupUiComponent(); 

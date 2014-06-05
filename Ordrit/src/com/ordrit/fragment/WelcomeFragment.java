@@ -15,18 +15,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ordrit.R;
-import com.ordrit.activity.MainActivity;
+import com.ordrit.activity.HomeActivity;
 
 
 public class WelcomeFragment extends Fragment {
 
 	private View welcomeFragment;
-	private MainActivity mainActivity = null;
+	private HomeActivity mainActivity = null;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		mainActivity = (MainActivity) getActivity();
+		mainActivity = (HomeActivity) getActivity();
 		mainActivity.getActionBar().hide();
 		welcomeFragment = inflater.inflate(R.layout.fragment_welcome,
 				container, false);

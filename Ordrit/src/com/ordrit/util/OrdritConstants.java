@@ -8,6 +8,7 @@ public interface OrdritConstants {
 	public final static String USERS_ADDRESS ="user_addresses";
 	public final static String STATES="states";
 	public final static String STORE_ID="storeid";
+	public final static String ITEM="item";
 	//doc
 	public final static String SUPER_USER_TOKEN_ID = "f8217f2bfca176c7c2ef6c45a7c582d17668a0ec";
 	//current

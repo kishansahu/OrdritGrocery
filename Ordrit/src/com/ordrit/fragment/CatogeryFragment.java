@@ -9,6 +9,7 @@ import javax.security.auth.PrivateCredentialPermission;
 
 import org.json.JSONException;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -43,12 +44,14 @@ public class CatogeryFragment extends BaseFragment {
     private ExpandableListView catoreryListView;
     private ExpandableListAdapter expandableListAdapter;
     private Map<String, ItemCategory> itemCategoryMap = null;
-    private String storeId;
+    String storeId;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		catogeryFragment=inflater.inflate(R.layout.fragment_catogery, container,false);
+		Bundle bundle=getArguments();
+		storeId=bundle.getString(OrdritConstants.STORE_ID);
 		setupUiComponent();
 		return catogeryFragment;
 	}
@@ -67,65 +70,72 @@ public class CatogeryFragment extends BaseFragment {
 				bundle.putSerializable("data", itemSubCategory);
 				//TODO
 				// remove id
-				bundle.putString(OrdritConstants.STORE_ID, "4");
+				bundle.putString(OrdritConstants.STORE_ID, storeId);
 				itemListFragment.setArguments(bundle);
 				dashboardActivity.commitFragment(itemListFragment, FragmentConstant.ITEM_LIST_FRAGMENT);
 				return false;
 			}
 		});
-		catogeryBack=(Button)catogeryFragment.findViewById(R.id.catogeryBack); 
+	/*	catogeryBack=(Button)catogeryFragment.findViewById(R.id.catogeryBack); 
 		catogeryBack.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				dashboardActivity.popFragment(FragmentConstant.ITEM_LIST_FRAGMENT);
+				dashboardActivity.popFragment(FragmentConstant.CATEGORY_FRAGMENT);
 			}
-		});
-		
-		
-		new WebServiceProcessingTask() {
-			
-			@Override
-			public void preExecuteTask() {
-			TAG=tag;
+		});*/
+		if (itemCategoryMap==null) {
+			new WebServiceProcessingTask() {
 				
-			}
+				@Override
+				public void preExecuteTask() {
+				TAG=tag;
 			
-			@Override
-			public void postExecuteTask() {
-				 expandableListAdapter =new ExpandableListAdapter(getItemCatogery(itemCategoryMap),dashboardActivity );
-				catoreryListView.setAdapter(expandableListAdapter);
-			}
-			
-			@Override
-			public void backgroundTask() {
-			
-				jSONString = connection.getHttpUrlConnectionForArray(
-						OrdritConstants.SERVER_BASE_URL
-								+ "item_sub_categories?store=4",
-						SharedPreferencesUtil.getStringPreferences(
-								dashboardActivity, OrdritJsonKeys.TAG_TOKEN));
-				// Log.e(TAG,jSONString);
-				try {
-					 itemCategoryMap=OrditJsonParser.getItemCategoryMap(jSONString);
-					  Log.e(TAG, ""+itemCategoryMap.size());
-				} catch (JSONException e) {
 					
-					e.printStackTrace();
 				}
-				 Iterator it = itemCategoryMap.entrySet().iterator();
-				    while (it.hasNext()) {
-				        Map.Entry pairs = (Map.Entry)it.next();
-				       
-				      //  Log.e(TAG, pairs.getKey()+ " "+(ItemCategory) pairs.getValue());
-		//		        it.remove(); // avoids a ConcurrentModificationException
-				    }
 				
+				@Override
+				public void postExecuteTask() {
+					 expandableListAdapter =new ExpandableListAdapter(getItemCatogery(itemCategoryMap),dashboardActivity );
+					 catoreryListView.setAdapter(expandableListAdapter);
+					
+				}
 				
+				@Override
+				public void backgroundTask() {
 				
-				
-			}
-		}.execute();
+					jSONString = connection.getHttpUrlConnectionForArray(
+							OrdritConstants.SERVER_BASE_URL
+									+ "item_sub_categories?store="+storeId,
+							SharedPreferencesUtil.getStringPreferences(
+									dashboardActivity, OrdritJsonKeys.TAG_TOKEN));
+					// Log.e(TAG,jSONString);
+					try {
+						 itemCategoryMap=OrditJsonParser.getItemCategoryMap(jSONString);
+						  Log.e(TAG, ""+itemCategoryMap.size());
+					} catch (JSONException e) {
+						
+						e.printStackTrace();
+					}
+					 Iterator it = itemCategoryMap.entrySet().iterator();
+					    while (it.hasNext()) {
+					        Map.Entry pairs = (Map.Entry)it.next();
+					       
+					      //  Log.e(TAG, pairs.getKey()+ " "+(ItemCategory) pairs.getValue());
+			//		        it.remove(); // avoids a ConcurrentModificationException
+					    }
+					
+					
+					
+					
+				}
+			}.execute();
+		}else {
+			
+			 catoreryListView.setAdapter(expandableListAdapter);
+		}
+		
+		
 	}
 	private List<ItemCategory> getItemCatogery(Map<String, ItemCategory> itemCategoryMap) {
 		List<ItemCategory> listItemvCategories = new ArrayList<ItemCategory>();

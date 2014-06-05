@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ordrit.R;
 import com.ordrit.model.User;
@@ -118,7 +119,7 @@ public class UpdateAccountFragment extends BaseFragment {
 	}
 	private void  setData() {
 		if (user!=null) {
-			
+			Toast.makeText(dashboardActivity, user.toString(), 3).show();
 			etUpdateAccountFirstName.setText(user.getFirstName());
 			etUpdateAccountLastName.setText(user.getLastName());
 			etUpdateAccountMobileNumber.setText(user.getPhoneNumber());

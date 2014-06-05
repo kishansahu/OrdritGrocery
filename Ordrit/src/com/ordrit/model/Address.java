@@ -13,6 +13,13 @@ public class Address {
 		return id;
 	}
 
+	@Override
+	public String toString() {
+		return "Address [id=" + id + ", streetAddress=" + streetAddress
+				+ ", city=" + city + ", State=" + State + ", pincode="
+				+ pincode + ", url=" + url + "]";
+	}
+
 	public void setId(String id) {
 		this.id = id;
 	}

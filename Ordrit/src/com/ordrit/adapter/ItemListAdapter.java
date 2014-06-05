@@ -1,27 +1,26 @@
 package com.ordrit.adapter;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.pm.PackageManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.ordrit.R;
-import com.ordrit.activity.DashboardActivity;
 import com.ordrit.model.Item;
 
 public class ItemListAdapter extends ArrayAdapter<Item>{
 
 	private List<Item> itemList;
+	private List<Item> tempItemList;
 	private Context context;
 	
 	public ItemListAdapter(Activity context, int textViewResourceId,
@@ -29,6 +28,8 @@ public class ItemListAdapter extends ArrayAdapter<Item>{
 		super(context, textViewResourceId, applicationList);
 		this.context = context;
 		this.itemList=applicationList;
+		this.tempItemList=new ArrayList<Item>();
+        this.tempItemList.addAll(itemList);
 		this.context =  context;
 	}
 
@@ -86,5 +87,20 @@ public class ItemListAdapter extends ArrayAdapter<Item>{
 		return convertView;
 
 	}
-
+	public void filter(String charText) {
+		charText = charText.toLowerCase(Locale.getDefault());
+		itemList.clear();
+		if (charText.length() == 0) {
+			itemList.addAll(tempItemList);
+		} else {
+			for (Item wp : tempItemList) {
+				if (wp.getName()
+						.toLowerCase(Locale.getDefault())
+						.contains(charText)) {
+					itemList.add(wp);
+				}
+			}
+		}
+		notifyDataSetChanged();
+	}
 }

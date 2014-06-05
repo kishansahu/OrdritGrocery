@@ -69,6 +69,7 @@ public class OrdrItdataBaseHelper {
 			do {
 				Store store=new Store();
 				store.setStoreName(cursor.getString(cursor.getColumnIndex(OrdrItDataBase.COLUMN_STORE_NAME)));
+				store.setId(cursor.getString(cursor.getColumnIndex(OrdrItDataBase.COLUMN_STORE_ID)));
 				list.add(store);
 
 			} while (cursor.moveToNext());

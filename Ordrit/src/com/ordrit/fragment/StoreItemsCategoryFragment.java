@@ -36,7 +36,7 @@ import com.ordrit.util.OrdritJsonKeys;
 import com.ordrit.util.SharedPreferencesUtil;
 import com.ordrit.util.WebServiceProcessingTask;
 
-public class CatogeryFragment extends BaseFragment {
+public class StoreItemsCategoryFragment extends BaseFragment {
 	
 	private static final String tag="CatogeryFragment";
 	private View catogeryFragment;
@@ -90,7 +90,8 @@ public class CatogeryFragment extends BaseFragment {
 				@Override
 				public void preExecuteTask() {
 				TAG=tag;
-			
+				progressDialog=new ProgressDialog(dashboardActivity);
+				progressDialog.setMessage("Loading...");
 					
 				}
 				

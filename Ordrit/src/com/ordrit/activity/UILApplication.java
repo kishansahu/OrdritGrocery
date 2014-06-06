@@ -1,19 +1,41 @@
 package com.ordrit.activity;
 
 
-import android.annotation.TargetApi;
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Application;
 import android.content.Context;
 import android.os.Build;
 import android.os.StrictMode;
+
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.ordrit.model.SelectedItem;
 
 
 public class UILApplication extends Application {
-	@TargetApi(Build.VERSION_CODES.GINGERBREAD)
+	private	List<SelectedItem> selectedItemList;
+	public List<SelectedItem> getSelectedItemList() {
+		return selectedItemList;
+	}
+
+	public void setSelectedItemList(List<SelectedItem> selectedItemList) {
+		this.selectedItemList = selectedItemList;
+	}
+
+	public String getStoreId() {
+		return storeId;
+	}
+
+	public void setStoreId(String storeId) {
+		this.storeId = storeId;
+	}
+
+	private String storeId;
+	
 	@SuppressWarnings("unused")
 	@Override
 	public void onCreate() {
@@ -24,7 +46,7 @@ public class UILApplication extends Application {
 			StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
 					.detectAll().penaltyDeath().build());
 		}
-
+		selectedItemList=new ArrayList<SelectedItem>();
 		super.onCreate();
 
 		initImageLoader(getApplicationContext());
@@ -46,7 +68,8 @@ public class UILApplication extends Application {
 		// Initialize ImageLoader with configuration.
 		ImageLoader.getInstance().init(config);
 	}
+
 	public static class Config {
-public static final boolean DEVELOPER_MODE = false;
+    public static final boolean DEVELOPER_MODE = false;
 }
 }

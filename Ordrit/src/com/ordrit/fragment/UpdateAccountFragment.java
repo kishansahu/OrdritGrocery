@@ -119,7 +119,6 @@ public class UpdateAccountFragment extends BaseFragment {
 	}
 	private void  setData() {
 		if (user!=null) {
-			Toast.makeText(dashboardActivity, user.toString(), 3).show();
 			etUpdateAccountFirstName.setText(user.getFirstName());
 			etUpdateAccountLastName.setText(user.getLastName());
 			etUpdateAccountMobileNumber.setText(user.getPhoneNumber());

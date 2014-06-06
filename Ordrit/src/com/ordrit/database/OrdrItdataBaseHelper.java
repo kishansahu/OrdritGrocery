@@ -77,4 +77,21 @@ public class OrdrItdataBaseHelper {
 		close();
 		return list;
 	}
+	public String getStoreName(String id) {
+		String storeName= null;
+			open();
+			String whereClause = OrdrItDataBase.COLUMN_STORE_ID + "=\""
+					+ id + "\"";
+			String selectQuery = "SELECT  * FROM " + OrdrItDataBase.TABLE_STORE + " WHERE "
+					+ whereClause;
+
+			Cursor cursor = sqLiteDatabase.rawQuery(selectQuery, null);
+
+			if (cursor.moveToFirst()) {
+             storeName=cursor.getString(cursor.getColumnIndex(OrdrItDataBase.COLUMN_STORE_NAME));
+			}
+			close();
+	  
+		return storeName;
+	}
 }

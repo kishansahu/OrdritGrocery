@@ -206,7 +206,7 @@ public class AddUpdateAddressFragment extends BaseFragment {
 	}
 	public void setAddress() {
 		if (null!=address) {
-			  Toast.makeText(dashboardActivity,""+address , 1).show();
+			
 			etAddUpdateAddressHomeOrApartmentName.setText(address.getStreetAddress());
 			etAddUpdateAddressCity.setText(address.getCity());
 			etAddUpdateAddressZipcode.setText(address.getCity());

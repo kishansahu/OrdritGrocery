@@ -7,6 +7,7 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -90,7 +91,8 @@ public class MapDetailFragment extends BaseFragment {
 						@Override
 						public void preExecuteTask() {
 						TAG=tag;
-							
+						progressDialog=new ProgressDialog(dashboardActivity);
+						progressDialog.setMessage("Loading...");	
 						}
 						
 						@Override

@@ -7,7 +7,7 @@ public class FragmentConstant {
 	public static final String MANAGE_USER_INFO_FRAGMENT = "manageuserinfofragment";
 	public static final String UPDATE_ACCOUNT_FRAGMENT = "updateaccountfragment";
 	public static final String ADD_UPDATE_ADDRESS_FRAGMENT = "addupdateaddressfragment";
-	public static final String CATEGORY_FRAGMENT ="catogeryfragment";
+	public static final String STORE_ITEMS_CATEGORY_FRAGMENT ="storeitemscategoryfragment";
 	public static final String ITEM_LIST_FRAGMENT="itemlistfragment";
 	public static final String ITEM_DETAIL_FRAGMENT="itemdetailfragment";
 	

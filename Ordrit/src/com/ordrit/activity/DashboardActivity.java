@@ -20,7 +20,7 @@ import android.widget.Toast;
 import com.ordrit.R;
 import com.ordrit.adapter.NavDrawerListAdapter;
 import com.ordrit.adapter.SeparatedListAdapter;
-import com.ordrit.fragment.CatogeryFragment;
+import com.ordrit.fragment.StoreItemsCategoryFragment;
 import com.ordrit.fragment.ManageUserInfoFragment;
 import com.ordrit.fragment.MapDetailFragment;
 import com.ordrit.fragment.MenuBagFragment;
@@ -120,10 +120,10 @@ public class DashboardActivity extends Activity {
 				break;
 			}
 		}else {
-			fragment = new CatogeryFragment();
+			fragment = new StoreItemsCategoryFragment();
 			Bundle bundle=new Bundle();
 		    bundle.putString(OrdritConstants.STORE_ID, navDrawerItem.getId());
-		    Toast.makeText(context,""+navDrawerItem.getId() , 1).show();
+		  //  Toast.makeText(context,""+navDrawerItem.getId() , 1).show();
 		    fragment.setArguments(bundle);
 		}
 		if (fragment != null) {

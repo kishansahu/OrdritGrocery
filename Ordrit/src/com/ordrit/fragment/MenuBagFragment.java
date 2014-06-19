@@ -1,9 +1,16 @@
 package com.ordrit.fragment;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -12,15 +19,18 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.ordrit.R;
 import com.ordrit.activity.UILApplication;
 import com.ordrit.adapter.MenuBagAdapter;
 import com.ordrit.database.OrdrItdataBaseHelper;
 import com.ordrit.model.Item;
-import com.ordrit.model.NavDrawerItem;
+import com.ordrit.model.Items;
 import com.ordrit.model.SelectedItem;
-import com.ordrit.model.Store;
+import com.ordrit.util.CommonUtils;
 import com.ordrit.util.FragmentConstant;
+import com.ordrit.util.OrdritConstants;
+import com.ordrit.util.OrdritJsonKeys;
 
 public class MenuBagFragment extends BaseFragment {
 	
@@ -59,8 +69,27 @@ public class MenuBagFragment extends BaseFragment {
 			
 			@Override
 			public void onClick(View v) {
-				MenuBagFragment menuBagFragment = new MenuBagFragment();
-				dashboardActivity.commitFragment(menuBagFragment,FragmentConstant.MENU_BAG_FRAGMENT);
+				
+				List<Items> orderedItemsList=new ArrayList<Items>();
+				Log.e("selectedItemList", selectedItemList.toString());
+				// todo
+				Iterator<SelectedItem> iterator=selectedItemList.iterator();
+				while (iterator.hasNext()) {
+					SelectedItem selectedItem=iterator.next();
+					Item item=selectedItem.getItem();
+					Items orderedItem=new Items();
+					orderedItem.setItem("/inventory_items/"+item.getId());
+					orderedItem.setQuantity(selectedItem.getQuantity());
+					orderedItemsList.add(orderedItem);
+					
+					
+				}
+				
+				
+				Gson gson = new Gson();
+				String jsonRepresentation = gson.toJson(orderedItemsList);
+				 
+				Log.e("jsonRepresentation", jsonRepresentation);
 		
 			}
 		});

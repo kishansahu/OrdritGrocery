@@ -27,7 +27,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.internal.el;
 import com.ordrit.R;
 import com.ordrit.adapter.StateListAdapter;
 import com.ordrit.model.Address;

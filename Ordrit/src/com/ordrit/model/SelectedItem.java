@@ -20,4 +20,9 @@ public class SelectedItem {
 	public void setItem(Item item) {
 		this.item = item;
 	}
+
+	@Override
+	public String toString() {
+		return "SelectedItem [item=" + item + ", quantity=" + quantity + "]";
+	}
 }

@@ -1,6 +1,6 @@
 package com.ordrit.model;
 
-public class Citys {
+public class Cities {
 
 	private String name;
 	private String url;

@@ -96,12 +96,15 @@ public class DashboardActivity extends Activity {
 			displayView(new NavDrawerItem(), -1);
 		}
 		// setting assential data
+		gson= new Gson();
 		String states=SharedPreferencesUtil.getStringPreferences(context, OrdritConstants.STATES);
 		Type listOfObject = new TypeToken<List<State>>(){}.getType();
 		statesList = gson.fromJson(states, listOfObject);
-		String cites=SharedPreferencesUtil.getStringPreferences(context, OrdritConstants.STATES);
-		Type listOfObject1 = new TypeToken<List<State>>(){}.getType();
+		
+		String cites=SharedPreferencesUtil.getStringPreferences(context, OrdritConstants.CITIES);
+		Type listOfObject1 = new TypeToken<List<City>>(){}.getType();
 		cityList = gson.fromJson(cites, listOfObject1);
+		
 		String strUser= SharedPreferencesUtil.getStringPreferences(context, OrdritConstants.USER);
 	    user=gson.fromJson(strUser, User.class);
 	

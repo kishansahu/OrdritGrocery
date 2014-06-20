@@ -173,7 +173,8 @@ public void onActivityCreated(Bundle savedInstanceState) {
 		});
 		etAddUpdateAddressCity = (EditText) addUpdateAddressFragment
 				.findViewById(R.id.etAddUpdateAddressCity);
-		etAddUpdateAddressCity.setText(getCityName(address.getCity().getUrl()));
+		String ciString= getCityName(address.getCity().getUrl());
+		etAddUpdateAddressCity.setText(ciString);
 		etAddUpdateAddressCity.setOnClickListener(new OnClickListener() {
 			
 			@Override

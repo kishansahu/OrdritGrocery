@@ -1,10 +1,14 @@
 package com.ordrit.fragment;
 
+import java.util.List;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
@@ -20,9 +24,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.ordrit.R;
 import com.ordrit.activity.DashboardActivity;
 import com.ordrit.activity.HomeActivity;
+import com.ordrit.adapter.StateListAdapter;
+import com.ordrit.model.City;
+import com.ordrit.model.State;
 import com.ordrit.util.CalibriTextView;
 import com.ordrit.util.CommonUtils;
 import com.ordrit.util.OrditJsonParser;
@@ -130,9 +138,9 @@ public class LoginFragment extends Fragment {
 													OrdritJsonKeys.TAG_TOKEN,
 													token);
 									progressBarLogin.setVisibility(View.GONE);
-									startActivity(new Intent(mainActivity,
-											DashboardActivity.class));
-									mainActivity.finish();
+									
+									//*********************
+									getUserData();
 								} else {
                                     //handle api call faild
 								}
@@ -171,6 +179,63 @@ public class LoginFragment extends Fragment {
 		});
 
 		return loginFragment;
+	}
+	private void getUserData() {
+		
+		new WebServiceProcessingTask() {
+			JSONArray jsonArray;
+			List<State> statesList;
+			List<City> cityList;
+			
+			@Override
+			public void preExecuteTask() {
+			TAG=tag;
+			progressDialog=new ProgressDialog(getActivity());
+			
+			}
+			
+			@Override
+			public void postExecuteTask() {
+				startActivity(new Intent(mainActivity,
+						DashboardActivity.class));
+				mainActivity.finish();
+			
+			    
+			}
+			
+			@Override
+			public void backgroundTask() {
+			
+				Gson gson=new Gson();
+				jSONString = connection.getHttpUrlConnectionForArray(
+						OrdritConstants.SERVER_BASE_URL
+								+ OrdritConstants.STATES,
+						SharedPreferencesUtil.getStringPreferences(
+								getActivity(), OrdritJsonKeys.TAG_TOKEN));
+				try {
+					statesList = OrditJsonParser.getStateFromJSONArray(jSONString);
+					SharedPreferencesUtil.saveStringPreferences(getActivity(), OrdritConstants.STATES, gson.toJson(statesList));
+					gson.toJson(statesList);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				jSONString = connection.getHttpUrlConnectionForArray(
+						OrdritConstants.SERVER_BASE_URL
+								+ OrdritConstants.CITIES,
+						SharedPreferencesUtil.getStringPreferences(
+								getActivity(), OrdritJsonKeys.TAG_TOKEN));
+				try {
+					cityList = OrditJsonParser.getCityFromJSONArray(jSONString);
+					SharedPreferencesUtil.saveStringPreferences(getActivity(), OrdritConstants.CITIES, gson.toJson(cityList));
+					
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}.execute();
+		
 	}
 	
 }

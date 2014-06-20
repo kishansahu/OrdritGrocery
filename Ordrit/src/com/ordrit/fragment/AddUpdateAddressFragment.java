@@ -1,6 +1,7 @@
 package com.ordrit.fragment;
 
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +28,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.reflect.TypeToken;
 import com.ordrit.R;
 import com.ordrit.adapter.StateListAdapter;
 import com.ordrit.model.Address;
@@ -233,45 +235,55 @@ public class AddUpdateAddressFragment extends BaseFragment {
 		});
 		dialog.setCancelable(true);
 		
-	new WebServiceProcessingTask() {
-			JSONArray jsonArray;
-			@Override
-			public void preExecuteTask() {
-			TAG=tag;
-			dialogTitle.setText("Getting State List");
-			progressBar.setVisibility(View.VISIBLE);
-			}
-			
-			@Override
-			public void postExecuteTask() {
-				if (statesList!=null) {
-					StateListAdapter adapter = new StateListAdapter(dashboardActivity, R.layout.states_list_item,statesList);
-				    lv.setAdapter(adapter);
-				    dialogTitle.setText("Select State");	
-				}else {
-					Toast.makeText(dashboardActivity, "server not responds", 1).show();
+		String states=SharedPreferencesUtil.getStringPreferences(dashboardActivity, OrdritConstants.STATES);
+		Type listOfObject = new TypeToken<List<State>>(){}.getType();
+		String s = gson.toJson(states, listOfObject);
+		statesList = gson.fromJson(s, listOfObject);
+		if (statesList!=null) {
+			StateListAdapter adapter = new StateListAdapter(dashboardActivity, R.layout.states_list_item,statesList);
+		    lv.setAdapter(adapter);	
+		} else {
+			new WebServiceProcessingTask() {
+				JSONArray jsonArray;
+				@Override
+				public void preExecuteTask() {
+				TAG=tag;
+				dialogTitle.setText("Getting State List");
+				progressBar.setVisibility(View.VISIBLE);
 				}
-			
-			    
-				progressBar.setVisibility(View.GONE);
-			}
-			
-			@Override
-			public void backgroundTask() {
-			
-				jSONString = connection.getHttpUrlConnectionForArray(
-						OrdritConstants.SERVER_BASE_URL
-								+ OrdritConstants.STATES,
-						SharedPreferencesUtil.getStringPreferences(
-								dashboardActivity, OrdritJsonKeys.TAG_TOKEN));
-				try {
-					statesList = OrditJsonParser.getStateFromJSONArray(jSONString);
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				
+				@Override
+				public void postExecuteTask() {
+					if (statesList!=null) {
+						StateListAdapter adapter = new StateListAdapter(dashboardActivity, R.layout.states_list_item,statesList);
+					    lv.setAdapter(adapter);
+					    dialogTitle.setText("Select State");	
+					}else {
+						Toast.makeText(dashboardActivity, "server not responds", 1).show();
+					}
+				
+				    
+					progressBar.setVisibility(View.GONE);
 				}
-			}
-		}.execute();
+				
+				@Override
+				public void backgroundTask() {
+				
+					jSONString = connection.getHttpUrlConnectionForArray(
+							OrdritConstants.SERVER_BASE_URL
+									+ OrdritConstants.STATES,
+							SharedPreferencesUtil.getStringPreferences(
+									dashboardActivity, OrdritJsonKeys.TAG_TOKEN));
+					try {
+						statesList = OrditJsonParser.getStateFromJSONArray(jSONString);
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}.execute();
+		}
+
 	
 		dialog.show();
 	}

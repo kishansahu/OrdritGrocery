@@ -60,6 +60,7 @@ public class AddUpdateAddressFragment extends BaseFragment {
 	private Address address;
 	List<State> statesList;
 	List<City> cityList;
+	User user;
 	
 
 	@Override
@@ -74,14 +75,9 @@ public class AddUpdateAddressFragment extends BaseFragment {
 public void onActivityCreated(Bundle savedInstanceState) {
 	
 	super.onActivityCreated(savedInstanceState);
-	String states=SharedPreferencesUtil.getStringPreferences(dashboardActivity, OrdritConstants.STATES);
-	Type listOfObject = new TypeToken<List<State>>(){}.getType();
-	statesList = gson.fromJson(states, listOfObject);
-	String cites=SharedPreferencesUtil.getStringPreferences(dashboardActivity, OrdritConstants.STATES);
-	Type listOfObject1 = new TypeToken<List<State>>(){}.getType();
-	cityList = gson.fromJson(cites, listOfObject1);
-	String strUser= SharedPreferencesUtil.getStringPreferences(dashboardActivity, OrdritConstants.USER);
-	User user=gson.fromJson(strUser, User.class);
+	statesList = dashboardActivity.getStatesList();
+	cityList = dashboardActivity.getCityList();
+	user=dashboardActivity.getUser();
 	address=user.getAddress();
 	
 	setupUiComponent();
@@ -108,7 +104,7 @@ public void onActivityCreated(Bundle savedInstanceState) {
 
 				final String strAddUpdateAddressHomeOrApartmentName = etAddUpdateAddressHomeOrApartmentName.getText().toString();
 				final String strAddUpdateAddressState =getStateUrl(etAddUpdateAddressState.getText().toString());
-				final String strAddUpdateAddressCity=etAddUpdateAddressCity.getText().toString();
+				final String strAddUpdateAddressCity=getCityUrl(etAddUpdateAddressCity.getText().toString());
 				final String strAddUpdateAddressZipcode=etAddUpdateAddressZipcode.getText().toString();
 				// validation if true
 				
@@ -177,7 +173,7 @@ public void onActivityCreated(Bundle savedInstanceState) {
 		});
 		etAddUpdateAddressCity = (EditText) addUpdateAddressFragment
 				.findViewById(R.id.etAddUpdateAddressCity);
-		etAddUpdateAddressCity.setText(address.getCity().getUrl());
+		etAddUpdateAddressCity.setText(getCityName(address.getCity().getUrl()));
 		etAddUpdateAddressCity.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -230,9 +226,6 @@ public void onActivityCreated(Bundle savedInstanceState) {
 		});
 		dialog.setCancelable(true);
 		
-		String states=SharedPreferencesUtil.getStringPreferences(dashboardActivity, OrdritConstants.STATES);
-		Type listOfObject = new TypeToken<List<State>>(){}.getType();
-		statesList = gson.fromJson(states, listOfObject);
 		if (statesList!=null) {
 			StateListAdapter adapter = new StateListAdapter(dashboardActivity, R.layout.states_list_item,statesList);
 		    lv.setAdapter(adapter);	
@@ -259,10 +252,6 @@ public void onActivityCreated(Bundle savedInstanceState) {
 			}
 		});
 		dialog.setCancelable(true);
-		
-		String states=SharedPreferencesUtil.getStringPreferences(dashboardActivity, OrdritConstants.CITIES);
-		Type listOfObject = new TypeToken<List<City>>(){}.getType();
-		cityList = gson.fromJson(states, listOfObject);
 		if (cityList!=null) {
 			CityListAdapter adapter = new CityListAdapter(dashboardActivity, R.layout.states_list_item,cityList);
 		    lv.setAdapter(adapter);	
@@ -304,7 +293,7 @@ public void onActivityCreated(Bundle savedInstanceState) {
 			}
 		}
 		
-		return url;
+		return name;
 	}
 	private String getCityName(String url) {
 		String name = null;
@@ -316,6 +305,6 @@ public void onActivityCreated(Bundle savedInstanceState) {
 			}
 		}
 		
-		return url;
+		return name;
 	}
 }

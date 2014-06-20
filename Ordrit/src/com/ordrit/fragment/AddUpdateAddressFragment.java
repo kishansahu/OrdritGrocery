@@ -214,7 +214,8 @@ public void onActivityCreated(Bundle savedInstanceState) {
 	    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.dialog_states_list);
         final TextView dialogTitle=(TextView)dialog.findViewById(R.id.dialogTitle);
-       final ListView lv = (ListView) dialog.findViewById(R.id.lv);
+        dialogTitle.setText("State");
+        final ListView lv = (ListView) dialog.findViewById(R.id.lv);
 		lv.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override

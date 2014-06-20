@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ordrit.R;
-import com.ordrit.model.States;
+import com.ordrit.model.State;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,13 +13,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class StateListAdapter extends ArrayAdapter<States> {
+public class StateListAdapter extends ArrayAdapter<State> {
 
 	private Context context;
-	private List<States> list;
+	private List<State> list;
 
 	public StateListAdapter(Context context, int textViewResourceId,
-			List<States> items) {
+			List<State> items) {
 		super(context, textViewResourceId, items);
 		this.context = context;
 		this.list = items;
@@ -33,7 +33,7 @@ public class StateListAdapter extends ArrayAdapter<States> {
 			view = inflater.inflate(R.layout.states_list_item, null);
 		}
 
-		States states = list.get(position);
+		State states = list.get(position);
 		if (states != null) {
 			// My layout has only one TextView
 			TextView itemView = (TextView) view

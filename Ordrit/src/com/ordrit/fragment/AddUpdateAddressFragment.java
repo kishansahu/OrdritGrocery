@@ -30,7 +30,7 @@ import android.widget.Toast;
 import com.ordrit.R;
 import com.ordrit.adapter.StateListAdapter;
 import com.ordrit.model.Address;
-import com.ordrit.model.States;
+import com.ordrit.model.State;
 import com.ordrit.util.CommonUtils;
 import com.ordrit.util.FragmentConstant;
 import com.ordrit.util.OrditJsonParser;
@@ -53,7 +53,7 @@ public class AddUpdateAddressFragment extends BaseFragment {
 	txtAddUpdateAddressStreet1Error,txtAddUpdateAddressStreet2Error,
 	txtAddUpdateAddressCityOrZipcodeError;
 	private Address address;
-	List<States> statesList;
+	List<State> statesList;
 	
 	
 
@@ -278,7 +278,7 @@ public class AddUpdateAddressFragment extends BaseFragment {
 	private String getStateUrl(String name) {
 		String url = null;
 		for (int i = 0; i < statesList.size(); i++) {
-			States states =statesList.get(i);
+			State states =statesList.get(i);
 			if (states.getName().equals(name)) {
 				url=states.getUrl();
 				break;

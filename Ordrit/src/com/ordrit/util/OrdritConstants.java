@@ -7,6 +7,7 @@ public interface OrdritConstants {
 	public final static String USERS = "users";
 	public final static String USERS_ADDRESS ="user_addresses";
 	public final static String STATES="states";
+	public final static String CITIES="cities";
 	public final static String STORE_ID="storeid";
 	public final static String ITEM="item";
 	//doc

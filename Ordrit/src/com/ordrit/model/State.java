@@ -1,6 +1,6 @@
 package com.ordrit.model;
 
-public class States {
+public class State {
 
 	private String name;
 	private String url;

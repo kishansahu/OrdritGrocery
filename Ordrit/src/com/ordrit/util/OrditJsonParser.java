@@ -10,10 +10,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.ordrit.model.Address;
+import com.ordrit.model.City;
 import com.ordrit.model.Item;
 import com.ordrit.model.ItemCategory;
 import com.ordrit.model.ItemSubCategory;
-import com.ordrit.model.States;
+import com.ordrit.model.State;
 import com.ordrit.model.Store;
 import com.ordrit.model.User;
 
@@ -141,24 +142,38 @@ public class OrditJsonParser {
 		return merchantAddress;
 	}
 
-	public static List<States> getStateFromJSONArray(String jsonString)throws JSONException {
+	public static List<State> getStateFromJSONArray(String jsonString)throws JSONException {
 		JSONArray jsonArray= new JSONArray(jsonString);
-		List<States> states = new ArrayList<States>();
+		List<State> states = new ArrayList<State>();
 		for (int i = 0; i < jsonArray.length(); i++) {
 			states.add(getStateFromJSON(jsonArray.getJSONObject(i)));
 		}
 
 		return states;
 	}
-	
-	public static States getStateFromJSON(JSONObject jsonObject) throws JSONException{
-		States states=new States();
+	public static List<City> getCityFromJSONArray(String jsonString)throws JSONException {
+		JSONArray jsonArray= new JSONArray(jsonString);
+		List<City> cities = new ArrayList<City>();
+		for (int i = 0; i < jsonArray.length(); i++) {
+			cities.add(getCityFromJSON(jsonArray.getJSONObject(i)));
+		}
+
+		return cities;
+	}
+	public static State getStateFromJSON(JSONObject jsonObject) throws JSONException{
+		State states=new State();
 		states.setName(jsonObject.getString(OrdritJsonKeys.TAG_NAME));
 		states.setUrl(jsonObject.getString(OrdritJsonKeys.TAG_URL));
 
 		return states;
 	}
-	
+	public static City getCityFromJSON(JSONObject jsonObject) throws JSONException{
+		City city=new City();
+		city.setName(jsonObject.getString(OrdritJsonKeys.TAG_NAME));
+		city.setUrl(jsonObject.getString(OrdritJsonKeys.TAG_URL));
+
+		return city;
+	}
 	public static List<Item> getItemsUnderSubCategory(String storeId, String itemSubCategoryId,String jSONString) throws JSONException{
 	//	String str="{\"results\":[{\"id\":28,\"price\":\"24.00\",\"store\":{\"estimated_delivery_time\":45,\"location\":\"POINT (77.2799241000000023 28.3809262999999987)\",\"merchant\":\"http://staging.ankursethi.in/merchants/1\",\"created_on\":\"2014-04-22T11:43:06.247Z\",\"closes_at\":\"11:30:00\",\"phone_number_2\":\"\",\"opens_at\":\"09:00:00\",\"phone_number_1\":\"9958746143\",\"url\":\"http://staging.ankursethi.in/stores/1\",\"id\":1,\"address\":\"http://staging.ankursethi.in/store_addresses/1\",\"name\":\"Sunil Store 1\",\"sub_category\":null,\"minimum_order\":\"200.00\"},\"merchant\":{\"id\":1,\"stores\":[\"http://staging.ankursethi.in/stores/1\",\"http://staging.ankursethi.in/stores/2\",\"http://staging.ankursethi.in/stores/3\"],\"user\":\"http://staging.ankursethi.in/users/1\",\"url\":\"http://staging.ankursethi.in/merchants/1\",\"created_on\":\"2014-04-21T08:54:11.769Z\",\"name\":\"bowser@ordrit.in\"},\"created_on\":\"2014-04-22T19:35:39.241Z\",\"price_units\":\"KG\",\"description\":\"White Chawli\",\"name\":\"White Chawli\",\"image\":{\"id\":29,\"image\":\"inventory_item_images/2014/04/22/White_Chawli.jpeg\",\"sub_category\":\"http://staging.ankursethi.in/item_sub_categories/14\",\"url\":\"http://staging.ankursethi.in/product_images/29\",\"created_on\":\"2014-04-22T19:35:21.903Z\",\"name\":\"White Chawli\"},\"sub_category\":{\"id\":14,\"category\":\"http://staging.ankursethi.in/item_categories/5\",\"url\":\"http://staging.ankursethi.in/item_sub_categories/14\",\"created_on\":\"2014-04-21T15:39:49.139Z\",\"name\":\"Dal & Pulses\"},\"url\":\"http://staging.ankursethi.in/inventory_items/28\"},{\"id\":27,\"price\":\"61.00\",\"store\":{\"estimated_delivery_time\":45,\"location\":\"POINT (77.2799241000000023 28.3809262999999987)\",\"merchant\":\"http://staging.ankursethi.in/merchants/1\",\"created_on\":\"2014-04-22T11:43:06.247Z\",\"closes_at\":\"11:30:00\",\"phone_number_2\":\"\",\"opens_at\":\"09:00:00\",\"phone_number_1\":\"9958746143\",\"url\":\"http://staging.ankursethi.in/stores/1\",\"id\":1,\"address\":\"http://staging.ankursethi.in/store_addresses/1\",\"name\":\"Sunil Store 1\",\"sub_category\":null,\"minimum_order\":\"200.00\"},\"merchant\":{\"id\":1,\"stores\":[\"http://staging.ankursethi.in/stores/1\",\"http://staging.ankursethi.in/stores/2\",\"http://staging.ankursethi.in/stores/3\"],\"user\":\"http://staging.ankursethi.in/users/1\",\"url\":\"http://staging.ankursethi.in/merchants/1\",\"created_on\":\"2014-04-21T08:54:11.769Z\",\"name\":\"bowser@ordrit.in\"},\"created_on\":\"2014-04-22T19:30:39.887Z\",\"price_units\":\"KG\",\"description\":\"White urad Dal whole\",\"name\":\"White urad Dal whole\",\"image\":{\"id\":28,\"image\":\"inventory_item_images/2014/04/22/White_urad_Dal_whole.jpeg\",\"sub_category\":\"http://staging.ankursethi.in/item_sub_categories/14\",\"url\":\"http://staging.ankursethi.in/product_images/28\",\"created_on\":\"2014-04-22T19:30:20.850Z\",\"name\":\"White urad Dal whole\"},\"sub_category\":{\"id\":14,\"category\":\"http://staging.ankursethi.in/item_categories/5\",\"url\":\"http://staging.ankursethi.in/item_sub_categories/14\",\"created_on\":\"2014-04-21T15:39:49.139Z\",\"name\":\"Dal & Pulses\"},\"url\":\"http://staging.ankursethi.in/inventory_items/27\"}]}";
 		List<Item> itemList= new ArrayList<Item>();

@@ -159,10 +159,8 @@ public void onActivityCreated(Bundle savedInstanceState) {
         //edittext
 		etAddUpdateAddressHomeOrApartmentName = (EditText) addUpdateAddressFragment
 				.findViewById(R.id.etAddUpdateAddressHomeOrApartmentName);
-		etAddUpdateAddressHomeOrApartmentName.setText(address.getStreetAddress());
 		etAddUpdateAddressState = (EditText) addUpdateAddressFragment
 				.findViewById(R.id.etAddUpdateAddressState);
-		etAddUpdateAddressState.setText(getStateName(address.getState().getUrl()));
 		etAddUpdateAddressState.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -173,8 +171,7 @@ public void onActivityCreated(Bundle savedInstanceState) {
 		});
 		etAddUpdateAddressCity = (EditText) addUpdateAddressFragment
 				.findViewById(R.id.etAddUpdateAddressCity);
-		String ciString= getCityName(address.getCity().getUrl());
-		etAddUpdateAddressCity.setText(ciString);
+		
 		etAddUpdateAddressCity.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -201,8 +198,10 @@ public void onActivityCreated(Bundle savedInstanceState) {
 		if (null!=address) {
 			
 			etAddUpdateAddressHomeOrApartmentName.setText(address.getStreetAddress());
-			etAddUpdateAddressState.setText(address.getState().getName());
-			etAddUpdateAddressCity.setText(address.getCity().getName());
+
+			etAddUpdateAddressState.setText(getStateName(address.getState().getUrl()));
+			String ciString= getCityName(address.getCity().getUrl());
+			etAddUpdateAddressCity.setText(ciString);
 			etAddUpdateAddressZipcode.setText(address.getPincode());
 			
 		}

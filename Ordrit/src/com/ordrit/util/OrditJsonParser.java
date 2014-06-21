@@ -234,10 +234,29 @@ public class OrditJsonParser {
 						OrdritJsonKeys.TAG_URL));
 				userAddress.setState(state);
 				user.setAddress(userAddress);
+				break;
 			}	
 			
 		}
 				
 		return user;
+	}
+	
+	public static User updateUserWithPersonalInfo(User user, String jsonString) throws JSONException{
+		JSONObject itemJsonObj= new JSONObject(jsonString);
+		user.setEmailId(itemJsonObj.getString(
+				OrdritJsonKeys.USER_EMAIL));
+		user.setFirstName(itemJsonObj.getString(
+				OrdritJsonKeys.USER_FIRSTNAME));
+		user.setLastName(itemJsonObj.getString(
+				OrdritJsonKeys.USER_LASTNAME));
+		user.setPhoneNumber(itemJsonObj.getString(
+				OrdritJsonKeys.USER_PHONE_NUMBER));
+		user.setId(itemJsonObj.getString(
+				OrdritJsonKeys.USER_ID));
+		user.setUrl(itemJsonObj.getString(
+				OrdritJsonKeys.USER_URL));
+		return user;
+				
 	}
 }

@@ -225,11 +225,16 @@ public class LoginFragment extends Fragment {
 				
 				cityList = OrditJsonParser.getCityFromJSONArray(jSONString);
 				SharedPreferencesUtil.saveStringPreferences(getActivity(), OrdritConstants.CITIES, gson.toJson(cityList));		
+				User user= new User();
+				jSONString = connection.getHttpUrlConnection(OrdritConstants.SERVER_BASE_URL+ 
+						OrdritConstants.USERS+"/"+ OrdritConstants.CURRENT,SharedPreferencesUtil.getStringPreferences(
+						getActivity(), OrdritJsonKeys.TAG_TOKEN));
+				user= OrditJsonParser.updateUserWithPersonalInfo(user, jSONString);
 				
 				jSONString = connection.getHttpUrlConnection(OrdritConstants.SERVER_BASE_URL+ 
 						OrdritConstants.USERS_ADDRESS,SharedPreferencesUtil.getStringPreferences(
 						getActivity(), OrdritJsonKeys.TAG_TOKEN));
-					User user= new User();
+					
 					user.setToken(SharedPreferencesUtil.getStringPreferences(
 							getActivity(), OrdritJsonKeys.TAG_TOKEN));
 					user= OrditJsonParser.updateUserWithAddress(user, jSONString);

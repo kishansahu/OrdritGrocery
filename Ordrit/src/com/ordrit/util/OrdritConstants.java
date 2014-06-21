@@ -11,6 +11,9 @@ public interface OrdritConstants {
 	public final static String STORE_ID="storeid";
 	public final static String ITEM="item";
 	public final static String USER = "user";
+	public final static String CURRENT = "current";
+	
+	
 	//doc
 	public final static String SUPER_USER_TOKEN_ID = "f8217f2bfca176c7c2ef6c45a7c582d17668a0ec";
 	//current

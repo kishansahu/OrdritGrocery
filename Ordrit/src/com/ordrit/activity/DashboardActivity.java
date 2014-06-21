@@ -95,7 +95,8 @@ public class DashboardActivity extends Activity {
 
 		if (savedInstanceState == null) {
 			// on first time display view for first nav item
-			displayView(new NavDrawerItem(), -1);
+			displayView(new NavDrawerItem(), 1);
+			
 		}
 		// setting assential data
 		gson= new Gson();
@@ -137,13 +138,13 @@ public class DashboardActivity extends Activity {
 		Fragment fragment = null;
 		if (navDrawerItem.getId()==null) {
 			switch (position) {
-			case -1:
+			case 1:
 				fragment = new MapDetailFragment();
 				break;
-			case 1:
+			case 2:
 				fragment = new ManageUserInfoFragment();;
 				break;
-			case 2:
+			case 3:
 				fragment = new MenuBagFragment();
 				break;
 			default:

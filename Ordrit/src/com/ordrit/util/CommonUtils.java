@@ -93,6 +93,7 @@ public class CommonUtils {
 		navDrawerItemList.add(new NavDrawerItem(navMenuTitles[2],navMenuIcons.getResourceId(2, -1),null));
 		navDrawerItemList.add(new NavDrawerItem(navMenuTitles[3],navMenuIcons.getResourceId(3, -1),null));
 		navDrawerItemList.add(new NavDrawerItem(navMenuTitles[4],navMenuIcons.getResourceId(4, -1),null));
+		navDrawerItemList.add(new NavDrawerItem(navMenuTitles[5],navMenuIcons.getResourceId(5, -1),null));
 		navMenuIcons.recycle();
 
 		return navDrawerItemList;

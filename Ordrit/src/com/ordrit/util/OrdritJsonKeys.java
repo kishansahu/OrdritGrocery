@@ -43,5 +43,5 @@ public interface OrdritJsonKeys {
 	public final static String TAG_PRICE_UNITS = "price_units";
 	public final static String TAG_STORE = "store";
 	public final static String TAG_IMAGE = "image";
-	
+	public final static String TAG_USERS = "users";
 }

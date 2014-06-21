@@ -13,6 +13,8 @@ public class User {
 	private String phoneNumber;
 	private String gcmRegistrationId;
 	private String url;
+	private Address address;
+	
 	public String getEmailId() {
 		return emailId;
 	}
@@ -80,6 +82,12 @@ public class User {
 	}
 	public void setUrl(String url) {
 		this.url = url;
+	}
+	public Address getAddress() {
+		return address;
+	}
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 	
 	

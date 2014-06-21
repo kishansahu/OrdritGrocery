@@ -206,8 +206,8 @@ public class OrditJsonParser {
 		return itemList;
 	}
 	
-	public static User updateUserWithAddress(User user, JSONObject jsonObj) throws JSONException{
-		jsonObj= new JSONObject("{\"count\": 2, \"next\": null, \"previous\": null, \"results\": [{\"user\": \"http://staging.ankursethi.in/users/3\", \"street_address\": \"56 ,easyriderPlaza kasol \", \"city\": \"http://staging.ankursethi.in/cities/1\", \"state\": {\"name\": \"Haryana\", \"created_on\": \"2014-04-22T11:31:07.235Z\", \"id\": 1, \"url\": \"http://staging.ankursethi.in/states/1\"}, \"pin_code\": \"12005\", \"created_on\": \"2014-05-05T17:37:13.609Z\", \"id\": 1, \"url\": \"http://staging.ankursethi.in/user_addresses/1\"}, {\"user\": \"http://staging.ankursethi.in/users/8\", \"street_address\": \"B23, Baker Street\", \"city\": \"http://staging.ankursethi.in/cities/1\", \"state\": {\"name\": \"Haryana\", \"created_on\": \"2014-04-22T11:31:07.235Z\", \"id\": 1, \"url\": \"http://staging.ankursethi.in/states/1\"}, \"pin_code\": \"110034\", \"created_on\": \"2014-06-20T11:07:01.998Z\", \"id\": 2, \"url\": \"http://staging.ankursethi.in/user_addresses/2\"}]}");
+	public static User updateUserWithAddress(User user, String jsonString) throws JSONException{
+		JSONObject jsonObj= new JSONObject(jsonString);
 		JSONArray jsonArray= jsonObj.getJSONArray(OrdritJsonKeys.TAG_RESULTS);
 		for(int i=0; i<= jsonArray.length();i++){
 			JSONObject itemJsonObj = jsonArray.getJSONObject(i);

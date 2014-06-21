@@ -14,6 +14,7 @@ public class User {
 	private String gcmRegistrationId;
 	private String url;
 	private Address address;
+	private String token;
 	
 	public String getEmailId() {
 		return emailId;
@@ -88,6 +89,12 @@ public class User {
 	}
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
 	}
 	
 	

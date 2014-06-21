@@ -12,6 +12,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,9 +29,9 @@ import com.google.gson.Gson;
 import com.ordrit.R;
 import com.ordrit.activity.DashboardActivity;
 import com.ordrit.activity.HomeActivity;
-import com.ordrit.adapter.StateListAdapter;
 import com.ordrit.model.City;
 import com.ordrit.model.State;
+import com.ordrit.model.User;
 import com.ordrit.util.CalibriTextView;
 import com.ordrit.util.CommonUtils;
 import com.ordrit.util.OrditJsonParser;
@@ -215,24 +216,29 @@ public class LoginFragment extends Fragment {
 				try {
 					statesList = OrditJsonParser.getStateFromJSONArray(jSONString);
 					SharedPreferencesUtil.saveStringPreferences(getActivity(), OrdritConstants.STATES, gson.toJson(statesList));
-					gson.toJson(statesList);
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+					
 				jSONString = connection.getHttpUrlConnectionForArray(
 						OrdritConstants.SERVER_BASE_URL
 								+ OrdritConstants.CITIES,
 						SharedPreferencesUtil.getStringPreferences(
 								getActivity(), OrdritJsonKeys.TAG_TOKEN));
-				try {
-					cityList = OrditJsonParser.getCityFromJSONArray(jSONString);
-					SharedPreferencesUtil.saveStringPreferences(getActivity(), OrdritConstants.CITIES, gson.toJson(cityList));
+				
+				cityList = OrditJsonParser.getCityFromJSONArray(jSONString);
+				SharedPreferencesUtil.saveStringPreferences(getActivity(), OrdritConstants.CITIES, gson.toJson(cityList));		
+				
+				jSONString = connection.getHttpUrlConnection(OrdritConstants.SERVER_BASE_URL+ 
+						OrdritConstants.USERS_ADDRESS,SharedPreferencesUtil.getStringPreferences(
+						getActivity(), OrdritJsonKeys.TAG_TOKEN));
+					User user= new User();
+					user.setToken(SharedPreferencesUtil.getStringPreferences(
+							getActivity(), OrdritJsonKeys.TAG_TOKEN));
+					user= OrditJsonParser.updateUserWithAddress(user, jSONString);
+					SharedPreferencesUtil.saveStringPreferences(getActivity(), OrdritConstants.USER, gson.toJson(user));
 					
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					Log.e("Fetch Full App Data","error in fetching after login data");
 				}
+				
 			}
 		}.execute();
 		

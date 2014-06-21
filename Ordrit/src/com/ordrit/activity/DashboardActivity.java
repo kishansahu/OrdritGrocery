@@ -1,6 +1,9 @@
 package com.ordrit.activity;
 
 
+import java.lang.reflect.Type;
+import java.util.List;
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
@@ -17,6 +20,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.ordrit.R;
 import com.ordrit.adapter.NavDrawerListAdapter;
 import com.ordrit.adapter.SeparatedListAdapter;
@@ -24,9 +29,14 @@ import com.ordrit.fragment.StoreItemsCategoryFragment;
 import com.ordrit.fragment.ManageUserInfoFragment;
 import com.ordrit.fragment.MapDetailFragment;
 import com.ordrit.fragment.MenuBagFragment;
+import com.ordrit.model.Address;
+import com.ordrit.model.City;
 import com.ordrit.model.NavDrawerItem;
+import com.ordrit.model.State;
+import com.ordrit.model.User;
 import com.ordrit.util.CommonUtils;
 import com.ordrit.util.OrdritConstants;
+import com.ordrit.util.SharedPreferencesUtil;
 
 public class DashboardActivity extends Activity {
 	private Context context;
@@ -36,7 +46,11 @@ public class DashboardActivity extends Activity {
     public boolean isMenuOpen=false;
     public boolean updateListView=false;
 	private SeparatedListAdapter adapter;
-
+	private Gson gson;
+	private List<State> statesList;
+	private List<City> cityList;
+	private User user;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -81,6 +95,17 @@ public class DashboardActivity extends Activity {
 			// on first time display view for first nav item
 			displayView(new NavDrawerItem(), -1);
 		}
+		// setting assential data
+		String states=SharedPreferencesUtil.getStringPreferences(context, OrdritConstants.STATES);
+		Type listOfObject = new TypeToken<List<State>>(){}.getType();
+		statesList = gson.fromJson(states, listOfObject);
+		String cites=SharedPreferencesUtil.getStringPreferences(context, OrdritConstants.STATES);
+		Type listOfObject1 = new TypeToken<List<State>>(){}.getType();
+		cityList = gson.fromJson(cites, listOfObject1);
+		String strUser= SharedPreferencesUtil.getStringPreferences(context, OrdritConstants.USER);
+	    user=gson.fromJson(strUser, User.class);
+	
+		
 	}
 
 	/**
@@ -197,4 +222,38 @@ public void popFragment(String tag) {
 				
 				
 	}
+
+	public Gson getGson() {
+		return gson;
+	}
+
+	public void setGson(Gson gson) {
+		this.gson = gson;
+	}
+
+	public List<State> getStatesList() {
+		return statesList;
+	}
+
+	public void setStatesList(List<State> statesList) {
+		this.statesList = statesList;
+	}
+
+	public List<City> getCityList() {
+		return cityList;
+	}
+
+	public void setCityList(List<City> cityList) {
+		this.cityList = cityList;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	
 }

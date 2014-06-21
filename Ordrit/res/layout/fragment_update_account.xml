@@ -32,15 +32,6 @@
      
     </LinearLayout>
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/progress_bar"
-        android:visibility="visible" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,7 +45,10 @@
             android:id="@+id/etUpdateAccountFirstName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="5dp"
             android:background="@drawable/edit_text_style"
             android:ems="10"
             android:hint="@string/firstname"
@@ -75,15 +69,18 @@
             android:textColor="@android:color/holo_red_dark"
             android:visibility="gone" />
 
-       <EditText
+        <EditText
             android:id="@+id/etUpdateAccountLastName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="5dp"
             android:background="@drawable/edit_text_style"
-            android:inputType="textPersonName"
             android:ems="10"
             android:hint="@string/lastname"
+            android:inputType="textPersonName"
             android:maxLength="35"
             android:padding="5dp"
             android:textColor="@android:color/black"
@@ -99,17 +96,19 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@android:color/holo_red_dark"
             android:visibility="gone" />
-        
-        
-       <EditText
+
+        <EditText
             android:id="@+id/etUpdateAccountMobileNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="5dp"
             android:background="@drawable/edit_text_style"
             android:ems="10"
-            android:inputType="phone"
             android:hint="@string/mobile_number"
+            android:inputType="phone"
             android:maxLength="35"
             android:padding="5dp"
             android:textColor="@android:color/black"
@@ -125,13 +124,15 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@android:color/holo_red_dark"
             android:visibility="gone" />
-        
 
         <EditText
             android:id="@+id/etUpdateAccountUserEmailId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="5dp"
             android:background="@drawable/edit_text_style"
             android:ems="10"
             android:hint="@string/email_id"

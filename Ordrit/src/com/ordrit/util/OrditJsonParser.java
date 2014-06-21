@@ -94,12 +94,16 @@ public class OrditJsonParser {
 			merchantAddress.setStreetAddress(storeJsonObj.getJSONObject(
 					OrdritJsonKeys.TAG_ADDRESS).getString(
 					OrdritJsonKeys.TAG_STREET_ADDRESS));
-			merchantAddress.setState(storeJsonObj.getJSONObject(
+			State state = new State();
+			state.setUrl(storeJsonObj.getJSONObject(
 					OrdritJsonKeys.TAG_ADDRESS).getString(
 					OrdritJsonKeys.TAG_STATE));
-			merchantAddress.setCity(storeJsonObj.getJSONObject(
+			merchantAddress.setState(state);
+			City city= new City();
+			city.setUrl(storeJsonObj.getJSONObject(
 					OrdritJsonKeys.TAG_ADDRESS).getString(
 					OrdritJsonKeys.TAG_CITY));
+			merchantAddress.setCity(city);
 			merchantAddress.setPincode(storeJsonObj.getJSONObject(
 					OrdritJsonKeys.TAG_ADDRESS).getString(
 					OrdritJsonKeys.TAG_PINCODE));
@@ -131,14 +135,18 @@ public class OrditJsonParser {
 
 		merchantAddress.setStreetAddress(jsonObject.getString(
 				OrdritJsonKeys.TAG_STREET_ADDRESS));
-		merchantAddress.setState(jsonObject.getString(
+		State state = new State();
+		state.setUrl(jsonObject.getString(
 				OrdritJsonKeys.TAG_STATE));
-		merchantAddress.setCity(jsonObject.getString(
+		merchantAddress.setState(state);
+		City city= new City();
+		city.setUrl(jsonObject.getString(
 				OrdritJsonKeys.TAG_CITY));
+		merchantAddress.setCity(city);
 		merchantAddress.setPincode(jsonObject.getString(
 				OrdritJsonKeys.TAG_PINCODE));
-		merchantAddress.setUrl(jsonObject.getString(
-				OrdritJsonKeys.TAG_URL));
+		/*merchantAddress.setUrl(jsonObject.getString(
+				OrdritJsonKeys.TAG_URL));*/
 		return merchantAddress;
 	}
 
@@ -175,7 +183,7 @@ public class OrditJsonParser {
 		return city;
 	}
 	public static List<Item> getItemsUnderSubCategory(String storeId, String itemSubCategoryId,String jSONString) throws JSONException{
-	//	String str="{\"results\":[{\"id\":28,\"price\":\"24.00\",\"store\":{\"estimated_delivery_time\":45,\"location\":\"POINT (77.2799241000000023 28.3809262999999987)\",\"merchant\":\"http://staging.ankursethi.in/merchants/1\",\"created_on\":\"2014-04-22T11:43:06.247Z\",\"closes_at\":\"11:30:00\",\"phone_number_2\":\"\",\"opens_at\":\"09:00:00\",\"phone_number_1\":\"9958746143\",\"url\":\"http://staging.ankursethi.in/stores/1\",\"id\":1,\"address\":\"http://staging.ankursethi.in/store_addresses/1\",\"name\":\"Sunil Store 1\",\"sub_category\":null,\"minimum_order\":\"200.00\"},\"merchant\":{\"id\":1,\"stores\":[\"http://staging.ankursethi.in/stores/1\",\"http://staging.ankursethi.in/stores/2\",\"http://staging.ankursethi.in/stores/3\"],\"user\":\"http://staging.ankursethi.in/users/1\",\"url\":\"http://staging.ankursethi.in/merchants/1\",\"created_on\":\"2014-04-21T08:54:11.769Z\",\"name\":\"bowser@ordrit.in\"},\"created_on\":\"2014-04-22T19:35:39.241Z\",\"price_units\":\"KG\",\"description\":\"White Chawli\",\"name\":\"White Chawli\",\"image\":{\"id\":29,\"image\":\"inventory_item_images/2014/04/22/White_Chawli.jpeg\",\"sub_category\":\"http://staging.ankursethi.in/item_sub_categories/14\",\"url\":\"http://staging.ankursethi.in/product_images/29\",\"created_on\":\"2014-04-22T19:35:21.903Z\",\"name\":\"White Chawli\"},\"sub_category\":{\"id\":14,\"category\":\"http://staging.ankursethi.in/item_categories/5\",\"url\":\"http://staging.ankursethi.in/item_sub_categories/14\",\"created_on\":\"2014-04-21T15:39:49.139Z\",\"name\":\"Dal & Pulses\"},\"url\":\"http://staging.ankursethi.in/inventory_items/28\"},{\"id\":27,\"price\":\"61.00\",\"store\":{\"estimated_delivery_time\":45,\"location\":\"POINT (77.2799241000000023 28.3809262999999987)\",\"merchant\":\"http://staging.ankursethi.in/merchants/1\",\"created_on\":\"2014-04-22T11:43:06.247Z\",\"closes_at\":\"11:30:00\",\"phone_number_2\":\"\",\"opens_at\":\"09:00:00\",\"phone_number_1\":\"9958746143\",\"url\":\"http://staging.ankursethi.in/stores/1\",\"id\":1,\"address\":\"http://staging.ankursethi.in/store_addresses/1\",\"name\":\"Sunil Store 1\",\"sub_category\":null,\"minimum_order\":\"200.00\"},\"merchant\":{\"id\":1,\"stores\":[\"http://staging.ankursethi.in/stores/1\",\"http://staging.ankursethi.in/stores/2\",\"http://staging.ankursethi.in/stores/3\"],\"user\":\"http://staging.ankursethi.in/users/1\",\"url\":\"http://staging.ankursethi.in/merchants/1\",\"created_on\":\"2014-04-21T08:54:11.769Z\",\"name\":\"bowser@ordrit.in\"},\"created_on\":\"2014-04-22T19:30:39.887Z\",\"price_units\":\"KG\",\"description\":\"White urad Dal whole\",\"name\":\"White urad Dal whole\",\"image\":{\"id\":28,\"image\":\"inventory_item_images/2014/04/22/White_urad_Dal_whole.jpeg\",\"sub_category\":\"http://staging.ankursethi.in/item_sub_categories/14\",\"url\":\"http://staging.ankursethi.in/product_images/28\",\"created_on\":\"2014-04-22T19:30:20.850Z\",\"name\":\"White urad Dal whole\"},\"sub_category\":{\"id\":14,\"category\":\"http://staging.ankursethi.in/item_categories/5\",\"url\":\"http://staging.ankursethi.in/item_sub_categories/14\",\"created_on\":\"2014-04-21T15:39:49.139Z\",\"name\":\"Dal & Pulses\"},\"url\":\"http://staging.ankursethi.in/inventory_items/27\"}]}";
+	
 		List<Item> itemList= new ArrayList<Item>();
 		JSONObject jsonObj = new JSONObject(jSONString);
 		JSONArray jsonArray = jsonObj.getJSONArray(OrdritJsonKeys.TAG_RESULTS);
@@ -198,4 +206,38 @@ public class OrditJsonParser {
 		return itemList;
 	}
 	
+	public static User updateUserWithAddress(User user, JSONObject jsonObj) throws JSONException{
+		jsonObj= new JSONObject("{\"count\": 2, \"next\": null, \"previous\": null, \"results\": [{\"user\": \"http://staging.ankursethi.in/users/3\", \"street_address\": \"56 ,easyriderPlaza kasol \", \"city\": \"http://staging.ankursethi.in/cities/1\", \"state\": {\"name\": \"Haryana\", \"created_on\": \"2014-04-22T11:31:07.235Z\", \"id\": 1, \"url\": \"http://staging.ankursethi.in/states/1\"}, \"pin_code\": \"12005\", \"created_on\": \"2014-05-05T17:37:13.609Z\", \"id\": 1, \"url\": \"http://staging.ankursethi.in/user_addresses/1\"}, {\"user\": \"http://staging.ankursethi.in/users/8\", \"street_address\": \"B23, Baker Street\", \"city\": \"http://staging.ankursethi.in/cities/1\", \"state\": {\"name\": \"Haryana\", \"created_on\": \"2014-04-22T11:31:07.235Z\", \"id\": 1, \"url\": \"http://staging.ankursethi.in/states/1\"}, \"pin_code\": \"110034\", \"created_on\": \"2014-06-20T11:07:01.998Z\", \"id\": 2, \"url\": \"http://staging.ankursethi.in/user_addresses/2\"}]}");
+		JSONArray jsonArray= jsonObj.getJSONArray(OrdritJsonKeys.TAG_RESULTS);
+		for(int i=0; i<= jsonArray.length();i++){
+			JSONObject itemJsonObj = jsonArray.getJSONObject(i);
+			if(itemJsonObj.getString(OrdritJsonKeys.TAG_USER).equalsIgnoreCase(OrdritConstants.SERVER_BASE_URL+OrdritJsonKeys.TAG_USERS+"/"+user.getId())){
+				
+				Address userAddress = new Address();
+				userAddress.setId(itemJsonObj.getString(
+						OrdritJsonKeys.TAG_ID));
+				userAddress.setStreetAddress(itemJsonObj.getString(
+						OrdritJsonKeys.TAG_STREET_ADDRESS));
+				userAddress.setPincode(itemJsonObj.getString(
+						OrdritJsonKeys.TAG_PINCODE));
+				
+				City city= new City();
+				city.setUrl(itemJsonObj.getString(
+						OrdritJsonKeys.TAG_CITY));
+				userAddress.setCity(city);
+				State state = new State();
+				state.setName(itemJsonObj.getJSONObject(
+						OrdritJsonKeys.TAG_STATE).getString(
+						OrdritJsonKeys.TAG_NAME));
+				state.setUrl(itemJsonObj.getJSONObject(
+						OrdritJsonKeys.TAG_STATE).getString(
+						OrdritJsonKeys.TAG_URL));
+				userAddress.setState(state);
+				user.setAddress(userAddress);
+			}	
+			
+		}
+				
+		return user;
+	}
 }

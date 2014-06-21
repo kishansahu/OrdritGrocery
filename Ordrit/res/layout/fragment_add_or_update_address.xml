@@ -32,15 +32,7 @@
      
     </LinearLayout>
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/progress_bar"
-        android:visibility="visible" />
-
+    
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -50,33 +42,7 @@
         android:orientation="vertical"
         android:padding="10dp" >
         
-        <RadioGroup
-        android:id="@+id/addUpdateAddressRadioGroup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp" 
-        android:orientation="horizontal"
-        android:weightSum="2">
-
-        <RadioButton
-            android:id="@+id/addUpdateAddressRadioGroupButton0"
-            android:layout_width="0dip"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:textColor="@android:color/black"
-            android:text="@string/home" />
-
-        <RadioButton
-            android:id="@+id/addUpdateAddressRadioGroupButton1"
-            android:layout_width="0dip"
-            android:layout_weight="1"
-             android:textColor="@android:color/black"
-            android:layout_height="wrap_content"
-            android:text="@string/apartment" />
-
-    </RadioGroup>
-        
+          
 
         <EditText
             android:id="@+id/etAddUpdateAddressHomeOrApartmentName"
@@ -85,7 +51,7 @@
             android:layout_margin="2dp"
             android:background="@drawable/edit_text_style"
             android:ems="10"
-            android:hint="@string/apartment"
+            android:hint="Apartment/House Number"
             android:maxLength="35"
             android:padding="5dp"
             android:textColor="@android:color/black"

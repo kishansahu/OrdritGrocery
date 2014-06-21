@@ -193,6 +193,7 @@ public class LoginFragment extends Fragment {
 			TAG=tag;
 			progressDialog=new ProgressDialog(getActivity());
 			
+			
 			}
 			
 			@Override

@@ -115,7 +115,7 @@ public class ItemDetailFragment extends BaseFragment {
 		imageLoader.displayImage(item.getImageURL(), imageViewItemImage);
 		NumberPicker numberPicker = (NumberPicker)itemDetailFragment.findViewById(R.id.numberPicker);
 	        numberPicker.setMaxValue(100);    
-	        numberPicker.setMinValue(0);        
+	        numberPicker.setMinValue(1);        
 	        numberPicker.setWrapSelectorWheel(true);
 	        numberPicker.setOnValueChangedListener( new NumberPicker.
 	            OnValueChangeListener() {

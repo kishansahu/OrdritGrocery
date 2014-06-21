@@ -6,10 +6,12 @@ import java.util.List;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -258,5 +260,37 @@ public void popFragment(String tag) {
 		this.user = user;
 	}
 
-	
+	 @Override
+	public void onBackPressed() {
+		
+		 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+					context);
+	 
+				// set title
+				alertDialogBuilder.setTitle("Ordrit");
+	 
+				// set dialog message
+				alertDialogBuilder
+					.setMessage("Do you want to exit ?")
+					.setCancelable(false)
+					.setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,int id) {
+							dialog.cancel();
+							finish();
+						}
+					  })
+					.setNegativeButton("No",new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,int id) {
+							// if this button is clicked, just close
+							// the dialog box and do nothing
+							dialog.cancel();
+						}
+					});
+	 
+					// create alert dialog
+					AlertDialog alertDialog = alertDialogBuilder.create();
+	 
+					// show it
+					alertDialog.show();
+	}
 }

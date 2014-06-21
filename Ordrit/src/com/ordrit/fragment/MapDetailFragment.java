@@ -92,7 +92,7 @@ public class MapDetailFragment extends BaseFragment {
 						public void preExecuteTask() {
 						TAG=tag;
 						progressDialog=new ProgressDialog(dashboardActivity);
-						progressDialog.setMessage("Loading...");	
+						
 						}
 						
 						@Override

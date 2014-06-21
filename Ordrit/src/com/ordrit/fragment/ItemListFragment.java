@@ -115,7 +115,6 @@ public class ItemListFragment extends BaseFragment {
 			public void preExecuteTask() {
 			TAG=tag;
 			progressDialog=new ProgressDialog(dashboardActivity);
-			progressDialog.setMessage("Loading...");
 				
 			}
 			

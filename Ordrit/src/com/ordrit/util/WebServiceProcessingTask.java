@@ -16,7 +16,10 @@ public abstract class WebServiceProcessingTask extends AsyncTask<Void, Void, Voi
 	protected void onPreExecute() {
 		preExecuteTask();
 		if (progressDialog!=null) {
+			progressDialog.setMessage("Loading...");
 			progressDialog.show();
+			progressDialog.setCancelable(false);
+			
 		}
 		super.onPreExecute();
 	}

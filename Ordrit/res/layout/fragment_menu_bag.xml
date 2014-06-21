@@ -12,11 +12,10 @@
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/menuBagBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/ic_action_previous_item" />
+            android:id="@+id/back"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:background="@drawable/logo_ordrit" />
 
         <com.ordrit.util.CalibriTextView
             android:id="@+id/menuBagTitle"

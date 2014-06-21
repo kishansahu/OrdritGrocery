@@ -15,6 +15,7 @@ public interface OrdritConstants {
 	public final static String CURRENT = "current";
 	public final static String STORES = "stores";
 	public final static String ORDERS = "orders";
+	public final static String SHOW_BACK_BUTTON = "showBack";
 	
 	
 	//doc

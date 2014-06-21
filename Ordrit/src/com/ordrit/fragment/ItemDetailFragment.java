@@ -2,6 +2,7 @@ package com.ordrit.fragment;
 
 import java.util.List;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.ads.mediation.jsadapter.BannerWebViewClient;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.ordrit.R;
 import com.ordrit.activity.UILApplication;
@@ -46,7 +48,7 @@ public class ItemDetailFragment extends BaseFragment {
 	}
 	@Override
 	void setupUiComponent() {
-	
+
 		uilApplication =(UILApplication) dashboardActivity.getApplication();
 		selectedItemList=uilApplication.getSelectedItemList();
 		
@@ -70,21 +72,25 @@ public class ItemDetailFragment extends BaseFragment {
 				selectedItem.setItem(item);
 				selectedItem.setQuantity(String.valueOf(qaintity));
 				String previousStoreId=uilApplication.getStoreId();
-				
+				Fragment menuBagFragment = new MenuBagFragment();
+				Bundle bundle=new Bundle();
+				bundle.putBoolean(OrdritConstants.SHOW_BACK_BUTTON, true);
+				menuBagFragment.setArguments(bundle);
 				if (previousStoreId!=null) {
+					
 					
 					if (storeId.equals(previousStoreId)) {
 						int i=searchItem(selectedItemList, item);	
 						if (i!=-1) {
 							SelectedItem tempSelectedItem=selectedItemList.get(i);
 							tempSelectedItem.setQuantity(selectedItem.getQuantity());
-							dashboardActivity.commitFragment(new MenuBagFragment(), FragmentConstant.MENU_BAG_FRAGMENT);
+							dashboardActivity.commitFragment(menuBagFragment, FragmentConstant.MENU_BAG_FRAGMENT);
 							
 						}else {
 							selectedItemList.add(selectedItem);
 							uilApplication.setSelectedItemList(selectedItemList);
 							uilApplication.setStoreId(storeId);
-							dashboardActivity.commitFragment(new MenuBagFragment(), FragmentConstant.MENU_BAG_FRAGMENT);
+							dashboardActivity.commitFragment(menuBagFragment, FragmentConstant.MENU_BAG_FRAGMENT);
 						}
 						
 					} else {
@@ -97,7 +103,7 @@ public class ItemDetailFragment extends BaseFragment {
 					selectedItemList.add(selectedItem);
 					uilApplication.setSelectedItemList(selectedItemList);
 					uilApplication.setStoreId(storeId);
-					dashboardActivity.commitFragment(new MenuBagFragment(), FragmentConstant.MENU_BAG_FRAGMENT);
+					dashboardActivity.commitFragment(menuBagFragment, FragmentConstant.MENU_BAG_FRAGMENT);
 				}
 				
 				

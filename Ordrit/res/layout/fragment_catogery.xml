@@ -10,12 +10,12 @@
         android:layout_height="@dimen/header_height"
         android:background="@color/actionbar_background">
 
-       <!--  <Button
-            android:id="@+id/catogeryBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+         <Button
+            android:id="@+id/back"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
-            android:background="@drawable/ic_action_previous_item" /> -->
+            android:background="@drawable/logo_ordrit" /> 
 
         <com.ordrit.util.CalibriTextView
             android:id="@+id/catogeryTitle"

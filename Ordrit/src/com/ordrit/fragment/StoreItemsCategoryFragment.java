@@ -40,7 +40,7 @@ public class StoreItemsCategoryFragment extends BaseFragment {
 	
 	private static final String tag="CatogeryFragment";
 	private View catogeryFragment;
-	private Button catogeryBack;
+	private Button back;
     private ExpandableListView catoreryListView;
     private ExpandableListAdapter expandableListAdapter;
     private Map<String, ItemCategory> itemCategoryMap = null;
@@ -76,14 +76,14 @@ public class StoreItemsCategoryFragment extends BaseFragment {
 				return false;
 			}
 		});
-	/*	catogeryBack=(Button)catogeryFragment.findViewById(R.id.catogeryBack); 
-		catogeryBack.setOnClickListener(new OnClickListener() {
+		back=(Button)catogeryFragment.findViewById(R.id.back); 
+		back.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				dashboardActivity.popFragment(FragmentConstant.CATEGORY_FRAGMENT);
+				dashboardActivity.clickMenu();
 			}
-		});*/
+		});
 		if (itemCategoryMap==null) {
 			new WebServiceProcessingTask() {
 				

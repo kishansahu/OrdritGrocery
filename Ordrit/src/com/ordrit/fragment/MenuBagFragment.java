@@ -7,11 +7,13 @@ import java.util.List;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -34,7 +36,7 @@ import com.ordrit.util.WebServicesRawDataUtil;
 public class MenuBagFragment extends BaseFragment {
 
 	private View menuFragment;
-	private Button menuBagBack, menuBagCheckout;
+	private Button back, menuBagCheckout;
 	private ListView menuBagListView;
 	private TextView textMerchantName, textItemTotal;
 	private UILApplication uilApplication;
@@ -60,15 +62,37 @@ public class MenuBagFragment extends BaseFragment {
 		menuBagListView = (ListView) menuFragment
 				.findViewById(R.id.menuBagListView);
 		menuBagListView.setAdapter(menuBagAdapter);
-		menuBagBack = (Button) menuFragment.findViewById(R.id.menuBagBack);
-		menuBagBack.setOnClickListener(new OnClickListener() {
+		back = (Button) menuFragment.findViewById(R.id.back);
+		boolean showBack=false;
+		try {
+			showBack=getArguments().getBoolean(OrdritConstants.SHOW_BACK_BUTTON);
+		} catch (Exception e) {
+			String s=e.toString();
+			// TODO: handle exception
+		}
+		if (showBack) {
+			back.setBackgroundResource(R.drawable.ic_action_previous_item);
+			LinearLayout.LayoutParams fieldparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0);
+			fieldparams.gravity=Gravity.CENTER;
+			back.setLayoutParams(fieldparams);
+			back.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				dashboardActivity
-						.popFragment(FragmentConstant.MENU_BAG_FRAGMENT);
-			}
-		});
+				@Override
+				public void onClick(View v) {
+					dashboardActivity
+							.popFragment(FragmentConstant.MENU_BAG_FRAGMENT);
+				}
+			});
+		}else {
+			back.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					dashboardActivity.clickMenu();
+				}
+			});
+		}
+		
 		menuBagCheckout = (Button) menuFragment
 				.findViewById(R.id.menuBagCheckout);
 		menuBagCheckout.setOnClickListener(new OnClickListener() {

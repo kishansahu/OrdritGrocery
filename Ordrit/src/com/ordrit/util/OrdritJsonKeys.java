@@ -44,4 +44,11 @@ public interface OrdritJsonKeys {
 	public final static String TAG_STORE = "store";
 	public final static String TAG_IMAGE = "image";
 	public final static String TAG_USERS = "users";
+	
+	public final static String TAG_CUSTOMER = "customer";
+	public final static String TAG_CUSTOMER_ADDRESS = "customer_address";
+	public final static String TAG_COUPON_CODE = "coupon_code";
+	
+	
+	
 }

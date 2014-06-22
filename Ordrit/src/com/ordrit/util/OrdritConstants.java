@@ -10,8 +10,11 @@ public interface OrdritConstants {
 	public final static String CITIES="cities";
 	public final static String STORE_ID="storeid";
 	public final static String ITEM="item";
+	public final static String ITEMS="items";
 	public final static String USER = "user";
 	public final static String CURRENT = "current";
+	public final static String STORES = "stores";
+	public final static String ORDERS = "orders";
 	
 	
 	//doc

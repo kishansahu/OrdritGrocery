@@ -1,8 +1,10 @@
 package com.ordrit.util;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.ordrit.activity.UILApplication;
 import com.ordrit.model.User;
 
 public class WebServicesRawDataUtil {
@@ -41,6 +43,23 @@ public class WebServicesRawDataUtil {
 		userEditDetailsString = userObject.toString();
 		
 		return userEditDetailsString;
+	}
+	
+	public static String placeOrderJSONObjectString(User user, UILApplication uilApplication, String orderedItemsListString){
+		
+		JSONObject orderObject = new JSONObject();
+		try {
+			
+			orderObject.put(OrdritJsonKeys.TAG_CUSTOMER, "/" + OrdritConstants.USERS + "/"	+ user.getId());
+			orderObject.put(OrdritJsonKeys.TAG_CUSTOMER_ADDRESS, "/"+ OrdritConstants.USERS_ADDRESS + "/"+ user.getAddress().getId());
+			orderObject.put(OrdritJsonKeys.TAG_STORE, "/" + OrdritConstants.STORES + "/"
+					+ uilApplication.getStoreId());
+			orderObject.put(OrdritJsonKeys.TAG_COUPON_CODE, "abx");
+			orderObject.put(OrdritConstants.ITEMS,new JSONArray(orderedItemsListString));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return orderObject.toString();
 	}
 	
 }

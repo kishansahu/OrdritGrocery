@@ -14,20 +14,22 @@
         android:id="@+id/productItemName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Name"
+        android:layout_gravity="center"
         android:gravity="center"
-         android:layout_gravity="center"
-         android:textColor="@color/blue"
+        android:maxLines="2"
+        android:text="Name"
+        android:textColor="@color/blue"
         android:textSize="15dp" />
 
     <com.ordrit.util.CalibriTextView
         android:id="@+id/productItemPrice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:maxLines="1"
         android:text="Price"
-         android:gravity="center"
         android:textColor="@color/blue"
-         android:layout_gravity="center"
         android:textSize="12dp" />
 
 </LinearLayout>

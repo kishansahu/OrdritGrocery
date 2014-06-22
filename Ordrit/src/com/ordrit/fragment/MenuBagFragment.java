@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 import com.ordrit.R;
 import com.ordrit.activity.UILApplication;
 import com.ordrit.adapter.MenuBagAdapter;
+import com.ordrit.adapter.MenuBagAdapter.SetTotalCost;
 import com.ordrit.database.OrdrItdataBaseHelper;
 import com.ordrit.model.Item;
 import com.ordrit.model.Items;
@@ -58,7 +59,13 @@ public class MenuBagFragment extends BaseFragment {
 	void setupUiComponent() {
 
 		MenuBagAdapter menuBagAdapter = new MenuBagAdapter(dashboardActivity,
-				R.layout.item_bag, selectedItemList);
+				R.layout.item_bag, selectedItemList,uilApplication,new SetTotalCost() {
+					
+					@Override
+					public void setTotal() {
+						setTotalPrice();
+					}
+				});
 		menuBagListView = (ListView) menuFragment
 				.findViewById(R.id.menuBagListView);
 		menuBagListView.setAdapter(menuBagAdapter);
@@ -103,7 +110,7 @@ public class MenuBagFragment extends BaseFragment {
 				List<Items> orderedItemsList = new ArrayList<Items>();
 				Log.e("selectedItemList", selectedItemList.toString());
 				// todo
-
+				selectedItemList=uilApplication.getSelectedItemList();
 				Iterator<SelectedItem> iterator = selectedItemList.iterator();
 				while (iterator.hasNext()) {
 					SelectedItem selectedItem = iterator.next();
@@ -141,11 +148,11 @@ public class MenuBagFragment extends BaseFragment {
 				.getStoreName(uilApplication.getStoreId()));
 		textItemTotal = (TextView) menuFragment
 				.findViewById(R.id.textItemTotal);
-		textItemTotal.setText(getTotalPrice());
-
+		setTotalPrice();
 	}
 
-	private String getTotalPrice() {
+	private  void setTotalPrice() {
+		selectedItemList = uilApplication.getSelectedItemList();
 		float total = 0;
 		Iterator<SelectedItem> iterator = selectedItemList.iterator();
 		while (iterator.hasNext()) {
@@ -156,7 +163,8 @@ public class MenuBagFragment extends BaseFragment {
 					* (Integer.parseInt(selectedItem.getQuantity()));
 			total = total + totalprice;
 		}
-		return String.valueOf(total);
+		textItemTotal.setText(""+total);
+
 
 	}
 	

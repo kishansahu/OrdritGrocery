@@ -258,7 +258,10 @@ public void popFragment(String tag) {
 	}
 
 	public void setUser(User user) {
+		SharedPreferencesUtil.saveStringPreferences(context, OrdritConstants.USER, gson.toJson(user));
 		this.user = user;
+		
+		
 	}
 
 	 @Override

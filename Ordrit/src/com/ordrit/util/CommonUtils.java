@@ -11,7 +11,9 @@ import org.json.JSONObject;
 
 import com.ordrit.R;
 import com.ordrit.database.OrdrItdataBaseHelper;
+import com.ordrit.model.Item;
 import com.ordrit.model.NavDrawerItem;
+import com.ordrit.model.SelectedItem;
 import com.ordrit.model.Store;
 
 import android.R.integer;
@@ -112,5 +114,22 @@ public class CommonUtils {
 					.getResourceId(5, -1),store.getId()));
 		}
 		return navDrawerItemList;
+	}
+	public static  float countTotalPrice(List<SelectedItem> selectedItemList) {
+		
+		float total = 0;
+		Iterator<SelectedItem> iterator = selectedItemList.iterator();
+		while (iterator.hasNext()) {
+			SelectedItem selectedItem = iterator.next();
+			final Item item = selectedItem.getItem();
+			float totalprice = Float.parseFloat(item.getPricePerUnit());
+			totalprice = totalprice
+					* (Integer.parseInt(selectedItem.getQuantity()));
+			total = total + totalprice;
+		}
+		return total;
+	
+
+
 	}
 }

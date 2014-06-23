@@ -27,6 +27,7 @@ import com.ordrit.model.Item;
 import com.ordrit.model.Items;
 import com.ordrit.model.SelectedItem;
 import com.ordrit.model.User;
+import com.ordrit.util.CommonUtils;
 import com.ordrit.util.FragmentConstant;
 import com.ordrit.util.OrdritConstants;
 import com.ordrit.util.OrdritJsonKeys;
@@ -151,23 +152,13 @@ public class MenuBagFragment extends BaseFragment {
 		setTotalPrice();
 	}
 
-	private  void setTotalPrice() {
-		selectedItemList = uilApplication.getSelectedItemList();
-		float total = 0;
-		Iterator<SelectedItem> iterator = selectedItemList.iterator();
-		while (iterator.hasNext()) {
-			SelectedItem selectedItem = iterator.next();
-			final Item item = selectedItem.getItem();
-			float totalprice = Float.parseFloat(item.getPricePerUnit());
-			totalprice = totalprice
-					* (Integer.parseInt(selectedItem.getQuantity()));
-			total = total + totalprice;
-		}
-		textItemTotal.setText(""+total);
+	private void setTotalPrice() {
 
+		textItemTotal.setText(""
+				+ CommonUtils.countTotalPrice(selectedItemList));
 
 	}
-	
+
 	private void placeOrder(final String jsonString) {
 	 
 		new WebServiceProcessingTask() {

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -30,12 +31,12 @@ public class WelcomeFragment extends Fragment {
 		mainActivity.getActionBar().hide();
 		welcomeFragment = inflater.inflate(R.layout.fragment_welcome,
 				container, false);
-		TextView headingText=(TextView)welcomeFragment.findViewById(R.id.welcome_heading);
+	/*	TextView headingText=(TextView)welcomeFragment.findViewById(R.id.welcome_heading);
 		headingText.setText(Html.fromHtml(getString(R.string.grocery_msg)));
 		TextView subHeadingText=(TextView)welcomeFragment.findViewById(R.id.welcome_sub_heading);
-		subHeadingText.setText(Html.fromHtml(getString(R.string.grocery_sub_msg)));
-		Button startButton=(Button)welcomeFragment.findViewById(R.id.buttonGetStarted);
-		startButton.setOnClickListener(new View.OnClickListener() {
+		subHeadingText.setText(Html.fromHtml(getString(R.string.grocery_sub_msg)));*/
+		ImageView start=(ImageView)welcomeFragment.findViewById(R.id.buttonGetStarted);
+		start.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {

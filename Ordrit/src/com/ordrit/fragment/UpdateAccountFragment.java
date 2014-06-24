@@ -1,8 +1,14 @@
 package com.ordrit.fragment;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,23 +22,25 @@ import android.widget.Toast;
 
 import com.ordrit.R;
 import com.ordrit.model.User;
+import com.ordrit.util.CommonUtils;
 import com.ordrit.util.FragmentConstant;
 import com.ordrit.util.OrditJsonParser;
 import com.ordrit.util.OrdritConstants;
 import com.ordrit.util.OrdritJsonKeys;
 import com.ordrit.util.SharedPreferencesUtil;
+import com.ordrit.util.ValidationUtils;
 import com.ordrit.util.WebServiceProcessingTask;
 
 public class UpdateAccountFragment extends BaseFragment {
  
 	private final String tag = "UpdateAccountFragment";
 	private View updateAccountFragment;
-	private Button updateAccountBack;
+	private Button updateAccountBack,btnUpdateAccountUpdate;
 	private EditText etUpdateAccountFirstName, etUpdateAccountLastName,
 			etUpdateAccountMobileNumber, etUpdateAccountUserEmailId;
-	private TextView txtUpdateAccountFirstNameError,
+	/*private TextView txtUpdateAccountFirstNameError,
 			txtUpdateAccountLastNameError, txtUpdateAccountMobileNumberError,
-			txtUpdateAccountUserEmailIdError;
+			txtUpdateAccountUserEmailIdError;*/
 	private User user;
 
 	@Override
@@ -63,6 +71,82 @@ public class UpdateAccountFragment extends BaseFragment {
 						.popFragment(FragmentConstant.UPDATE_ACCOUNT_FRAGMENT);
 			}
 		});
+		btnUpdateAccountUpdate= (Button) updateAccountFragment
+				.findViewById(R.id.btnUpdateAccountUpdate);
+		btnUpdateAccountUpdate.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				
+
+
+				final String strUpdateAccountFirstName = etUpdateAccountFirstName.getText().toString();
+				final String strUpdateAccountLastName =etUpdateAccountLastName.getText().toString();
+				final String strUpdateAccountMobileNumber=etUpdateAccountMobileNumber.getText().toString();
+				final String strUpdateAccountUserEmailId=etUpdateAccountUserEmailId.getText().toString();
+				// validation if true
+				if (!ValidationUtils.isEmpty(strUpdateAccountFirstName)) {
+					showText("Please Enter Home or Apartment Name");
+					return;
+				}
+				if (!ValidationUtils.isEmpty(strUpdateAccountLastName)) {
+					showText("Please Select State");
+					return;
+				}
+				if (!ValidationUtils.isEmpty(strUpdateAccountMobileNumber)) {
+					showText("Please Select City");
+					return;
+				}
+				if (!ValidationUtils.isEmpty(strUpdateAccountUserEmailId)) {
+					showText("Please Enter Zipcode");
+					return;
+				}
+				new WebServiceProcessingTask() {
+					
+					@Override
+					public void preExecuteTask() {
+					TAG=tag;
+					progressDialog=new ProgressDialog(dashboardActivity);
+					}
+					
+					@Override
+					public void postExecuteTask() {
+						if (null!=address) {
+						user.setAddress(address);
+						dashboardActivity.setUser(user);
+						setAddress();
+						}
+					}
+					
+					@Override
+					public void backgroundTask() {
+					 
+						List<NameValuePair> list=new ArrayList<NameValuePair>();
+						list.add(new BasicNameValuePair(OrdritJsonKeys.TAG_USER, OrdritConstants.SERVER_BASE_URL
+								+ OrdritConstants.USERS+"/8"));
+						list.add(new BasicNameValuePair(OrdritJsonKeys.TAG_STREET_ADDRESS, strAddUpdateAddressHomeOrApartmentName));
+						list.add(new BasicNameValuePair(OrdritJsonKeys.TAG_CITY, strAddUpdateAddressCity));
+						list.add(new BasicNameValuePair(OrdritJsonKeys.TAG_STATE, strAddUpdateAddressState));
+		                list.add(new BasicNameValuePair(OrdritJsonKeys.TAG_PINCODE, strAddUpdateAddressZipcode));
+						
+						
+						jSONString  = connection.postHttpUrlConnection(CommonUtils.getParamListJSONString(list),OrdritConstants.SERVER_BASE_URL
+								+ OrdritConstants.USERS_ADDRESS,
+						SharedPreferencesUtil.getStringPreferences(
+								dashboardActivity, OrdritJsonKeys.TAG_TOKEN));
+								
+						try {
+							address = OrditJsonParser.getMerchantAddressFromJSON(jSONString);
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}.execute();
+			
+				
+			}
+		});
 		etUpdateAccountFirstName = (EditText) updateAccountFragment
 				.findViewById(R.id.etUpdateAccountFirstName);
 
@@ -76,7 +160,7 @@ public class UpdateAccountFragment extends BaseFragment {
 				.findViewById(R.id.etUpdateAccountUserEmailId);
 		
 		// error
-		
+	/*	
 		txtUpdateAccountFirstNameError=(TextView) updateAccountFragment
 		.findViewById(R.id.txtUpdateAccountFirstNameError);
 		
@@ -86,7 +170,7 @@ public class UpdateAccountFragment extends BaseFragment {
 		txtUpdateAccountMobileNumberError=(TextView) updateAccountFragment
 				.findViewById(R.id.txtUpdateAccountMobileNumberError);
 		txtUpdateAccountUserEmailIdError=(TextView) updateAccountFragment
-				.findViewById(R.id.txtUpdateAccountUserEmailIdError);
+				.findViewById(R.id.txtUpdateAccountUserEmailIdError);*/
 		setData();
 		
 	}
@@ -99,5 +183,7 @@ public class UpdateAccountFragment extends BaseFragment {
 			
 		}
 	}
-
+	private void showText(String text) {
+		Toast.makeText(dashboardActivity, text, Toast.LENGTH_SHORT).show();
+	}
 }

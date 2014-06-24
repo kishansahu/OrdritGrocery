@@ -128,8 +128,9 @@ public class CommonUtils {
 			total = total + totalprice;
 		}
 		return total;
-	
-
-
 	}
+	public static int convertDensityPixelToPixel(Context context, int i) {
+		return (int) ((i * context.getResources().getDisplayMetrics().density) + 0.5);
+	}
+	
 }

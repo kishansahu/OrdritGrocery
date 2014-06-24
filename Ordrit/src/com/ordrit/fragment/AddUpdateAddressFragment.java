@@ -43,6 +43,7 @@ import com.ordrit.util.OrditJsonParser;
 import com.ordrit.util.OrdritConstants;
 import com.ordrit.util.OrdritJsonKeys;
 import com.ordrit.util.SharedPreferencesUtil;
+import com.ordrit.util.ValidationUtils;
 import com.ordrit.util.WebServiceProcessingTask;
 
 public class AddUpdateAddressFragment extends BaseFragment {
@@ -54,9 +55,9 @@ public class AddUpdateAddressFragment extends BaseFragment {
 	/*etAddUpdateAddressStreet1,*/etAddUpdateAddressState,etAddUpdateAddressCity,
 	etAddUpdateAddressZipcode;
 	
-	private TextView txtAddUpdateAddressHomeOrApartmentNameError,
-	/*txtAddUpdateAddressStreet1Error,*/txtAddUpdateAddressStateError,
-	txtAddUpdateAddressCityOrZipcodeError;
+/*	private TextView txtAddUpdateAddressHomeOrApartmentNameError,
+	txtAddUpdateAddressStreet1Error,txtAddUpdateAddressStateError,
+	txtAddUpdateAddressCityOrZipcodeError;*/
 	private Address address;
 	List<State> statesList;
 	List<City> cityList;
@@ -97,6 +98,11 @@ public void onActivityCreated(Bundle savedInstanceState) {
 		});
 		btnAddUpdateAddressSaveOrUpdate = (Button) addUpdateAddressFragment
 				.findViewById(R.id.btnAddUpdateAddressSaveOrUpdate);
+		if (address==null) {
+			btnAddUpdateAddressSaveOrUpdate.setText("Save");
+		}else {
+			btnAddUpdateAddressSaveOrUpdate.setText("Update");
+		}
 		btnAddUpdateAddressSaveOrUpdate.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -107,8 +113,22 @@ public void onActivityCreated(Bundle savedInstanceState) {
 				final String strAddUpdateAddressCity=getCityUrl(etAddUpdateAddressCity.getText().toString());
 				final String strAddUpdateAddressZipcode=etAddUpdateAddressZipcode.getText().toString();
 				// validation if true
-				
-
+				if (!ValidationUtils.isEmpty(strAddUpdateAddressHomeOrApartmentName)) {
+					showText("Please Enter Home or Apartment Name");
+					return;
+				}
+				if (!ValidationUtils.isEmpty(strAddUpdateAddressState)) {
+					showText("Please Select State");
+					return;
+				}
+				if (!ValidationUtils.isEmpty(strAddUpdateAddressCity)) {
+					showText("Please Select City");
+					return;
+				}
+				if (!ValidationUtils.isEmpty(strAddUpdateAddressZipcode)) {
+					showText("Please Enter Zipcode");
+					return;
+				}
 				new WebServiceProcessingTask() {
 					
 					@Override
@@ -120,11 +140,9 @@ public void onActivityCreated(Bundle savedInstanceState) {
 					@Override
 					public void postExecuteTask() {
 						if (null!=address) {
-						/*	etAddUpdateAddressHomeOrApartmentName.setText(address.getStreetAddress());
-							etAddUpdateAddressState.setText(address.getState().getName());
-							etAddUpdateAddressCity.setText(address.getCity().getName());
-							etAddUpdateAddressZipcode.setText(address.getPincode());
-						*/	
+						user.setAddress(address);
+						dashboardActivity.setUser(user);
+						setAddress();
 						}
 					}
 					
@@ -186,12 +204,12 @@ public void onActivityCreated(Bundle savedInstanceState) {
 		
 		
 		//error textview
-		txtAddUpdateAddressHomeOrApartmentNameError = (TextView) addUpdateAddressFragment
+	/*	txtAddUpdateAddressHomeOrApartmentNameError = (TextView) addUpdateAddressFragment
 				.findViewById(R.id.txtAddUpdateAddressHomeOrApartmentNameError);
 			txtAddUpdateAddressStateError = (TextView) addUpdateAddressFragment
 				.findViewById(R.id.txtAddUpdateAddressStateError);
 		txtAddUpdateAddressCityOrZipcodeError = (TextView) addUpdateAddressFragment
-				.findViewById(R.id.txtAddUpdateAddressCityOrZipcodeError);
+				.findViewById(R.id.txtAddUpdateAddressCityOrZipcodeError);*/
 		setAddress();
 	}
 	public void setAddress() {
@@ -307,5 +325,8 @@ public void onActivityCreated(Bundle savedInstanceState) {
 		}
 		
 		return name;
+	}
+	private void showText(String text) {
+		Toast.makeText(dashboardActivity, text, Toast.LENGTH_SHORT).show();
 	}
 }

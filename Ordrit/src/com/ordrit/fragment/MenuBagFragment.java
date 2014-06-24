@@ -80,8 +80,18 @@ public class MenuBagFragment extends BaseFragment {
 		}
 		if (showBack) {
 			back.setBackgroundResource(R.drawable.ic_action_previous_item);
-			LinearLayout.LayoutParams fieldparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0);
-			fieldparams.gravity=Gravity.CENTER;
+			LinearLayout.LayoutParams fieldparams = new LinearLayout.LayoutParams(
+					CommonUtils.convertDensityPixelToPixel(dashboardActivity,
+							40), CommonUtils.convertDensityPixelToPixel(
+							dashboardActivity, 35), 0);
+			fieldparams.gravity = Gravity.CENTER;
+			fieldparams.setMargins(CommonUtils.convertDensityPixelToPixel(
+					dashboardActivity, 0), CommonUtils
+					.convertDensityPixelToPixel(dashboardActivity, 0),
+					CommonUtils
+							.convertDensityPixelToPixel(dashboardActivity, 0),
+					CommonUtils
+							.convertDensityPixelToPixel(dashboardActivity, 0));
 			back.setLayoutParams(fieldparams);
 			back.setOnClickListener(new OnClickListener() {
 

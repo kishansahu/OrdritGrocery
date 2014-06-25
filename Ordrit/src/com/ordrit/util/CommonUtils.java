@@ -110,7 +110,7 @@ public class CommonUtils {
 		while (iterator.hasNext()) {
 			Store store=iterator.next();
 			navDrawerItemList.add(new NavDrawerItem(store.getStoreName(), navMenuIcons
-					.getResourceId(5, -1),store.getId()));
+					.getResourceId(0, -1),store.getId()));
 		}
 		return navDrawerItemList;
 	}

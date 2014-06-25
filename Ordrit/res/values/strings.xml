@@ -125,11 +125,11 @@
     <!-- Keep them in order as the titles are in -->
     <array name="nav_drawer_icons">
         <item>@drawable/ic_drawer</item>
-        <item>@drawable/ic_drawer</item>
-        <item>@drawable/ic_drawer</item>
-        <item>@drawable/ic_drawer</item>
-        <item>@drawable/ic_drawer</item>
-        <item>@drawable/ic_drawer</item>
+        <item>@drawable/ico1</item>
+        <item>@drawable/ico2</item>
+        <item>@drawable/ico3</item>
+        <item>@drawable/ico4</item>
+        <item>@drawable/ico6</item>
        <!--  <item>@drawable/ic_drawer</item>
         <item>@drawable/ic_drawer</item> -->
     </array>

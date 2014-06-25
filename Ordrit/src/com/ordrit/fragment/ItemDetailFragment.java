@@ -14,7 +14,6 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.ads.mediation.jsadapter.BannerWebViewClient;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.ordrit.R;
 import com.ordrit.activity.UILApplication;
@@ -34,7 +33,7 @@ public class ItemDetailFragment extends BaseFragment {
     private Item item;
     private UILApplication uilApplication;
     private	List<SelectedItem> selectedItemList;
-    private int qaintity;
+    private int qaintity=1;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -95,6 +94,7 @@ public class ItemDetailFragment extends BaseFragment {
 						
 					} else {
 						Toast.makeText(dashboardActivity, "You have a item list", Toast.LENGTH_SHORT).show();
+						
 					}
 					
 					

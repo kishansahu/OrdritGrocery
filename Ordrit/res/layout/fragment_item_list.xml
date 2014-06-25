@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@color/fragment_background_color"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -14,8 +14,9 @@
 
         <Button
             android:id="@+id/itemListBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+             android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
             android:layout_gravity="center_vertical"
             android:background="@drawable/ic_action_previous_item" />
 
@@ -62,7 +63,7 @@
         android:layout_gravity="center_vertical"
         android:layout_margin="5dp"
         android:layout_weight="1"
-        android:numColumns="2"
+        android:numColumns="3"
         android:scrollbars="none" >
     </GridView>
 

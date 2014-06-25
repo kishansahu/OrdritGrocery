@@ -149,7 +149,7 @@ public class ItemListFragment extends BaseFragment {
 }else {
 	itemListListGridView.setAdapter(itemListAdapter);
 }
-	
+ dashboardActivity.checkCartItems(itemListFragment);
 		
 	}
 

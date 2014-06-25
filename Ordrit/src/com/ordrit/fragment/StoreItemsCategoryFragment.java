@@ -135,7 +135,7 @@ public class StoreItemsCategoryFragment extends BaseFragment {
 			
 			 catoreryListView.setAdapter(expandableListAdapter);
 		}
-		
+		dashboardActivity.checkCartItems(catogeryFragment);
 		
 	}
 	private List<ItemCategory> getItemCatogery(Map<String, ItemCategory> itemCategoryMap) {

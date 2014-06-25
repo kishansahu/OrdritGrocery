@@ -131,6 +131,8 @@ public class ItemDetailFragment extends BaseFragment {
 	            	qaintity=newVal;
 	            }
 	        });
+	        
+	        dashboardActivity.checkCartItems(itemDetailFragment);
 	}
 private int searchItem(List<SelectedItem> selectedItemList,Item item){
 	int i =-1;

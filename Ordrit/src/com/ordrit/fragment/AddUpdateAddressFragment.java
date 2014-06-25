@@ -211,6 +211,7 @@ public void onActivityCreated(Bundle savedInstanceState) {
 		txtAddUpdateAddressCityOrZipcodeError = (TextView) addUpdateAddressFragment
 				.findViewById(R.id.txtAddUpdateAddressCityOrZipcodeError);*/
 		setAddress();
+		dashboardActivity.checkCartItems(addUpdateAddressFragment);
 	}
 	public void setAddress() {
 		if (null!=address) {

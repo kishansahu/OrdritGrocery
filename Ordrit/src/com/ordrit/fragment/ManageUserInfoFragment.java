@@ -69,6 +69,7 @@ public class ManageUserInfoFragment extends BaseFragment {
 				dashboardActivity.commitFragment(addUpdateAddressFragment,FragmentConstant.ADD_UPDATE_ADDRESS_FRAGMENT);
 			}
 		});
+		dashboardActivity.checkCartItems(manageUserInfoFragment);
 	}
 
 }

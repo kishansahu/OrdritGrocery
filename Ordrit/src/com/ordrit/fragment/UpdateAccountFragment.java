@@ -162,7 +162,7 @@ public class UpdateAccountFragment extends BaseFragment {
 		txtUpdateAccountUserEmailIdError=(TextView) updateAccountFragment
 				.findViewById(R.id.txtUpdateAccountUserEmailIdError);*/
 		setData();
-		
+		dashboardActivity.checkCartItems(updateAccountFragment);
 	}
 	private void  setData() {
 		if (user!=null) {

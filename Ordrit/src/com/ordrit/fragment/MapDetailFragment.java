@@ -254,6 +254,8 @@ googleMap.animateCamera(CameraUpdateFactory
 
 	@Override
 	void setupUiComponent() {
+		
+		
 		menu = (Button) mapDetailFragment.findViewById(R.id.menu);
 		menu.setOnClickListener(new OnClickListener() {
 
@@ -298,6 +300,9 @@ googleMap.animateCamera(CameraUpdateFactory
              
 			}
 		});
+		
+		dashboardActivity.checkCartItems(mapDetailFragment);
+		
 	}
 	
 

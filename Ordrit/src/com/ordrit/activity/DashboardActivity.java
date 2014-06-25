@@ -18,20 +18,23 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.ordrit.R;
 import com.ordrit.adapter.NavDrawerListAdapter;
 import com.ordrit.adapter.SeparatedListAdapter;
-import com.ordrit.fragment.StoreItemsCategoryFragment;
+import com.ordrit.fragment.BaseFragment;
 import com.ordrit.fragment.ManageUserInfoFragment;
 import com.ordrit.fragment.MapDetailFragment;
 import com.ordrit.fragment.MenuBagFragment;
-import com.ordrit.model.Address;
+import com.ordrit.fragment.StoreItemsCategoryFragment;
 import com.ordrit.model.City;
 import com.ordrit.model.NavDrawerItem;
 import com.ordrit.model.State;
@@ -297,4 +300,37 @@ public void popFragment(String tag) {
 					// show it
 					alertDialog.show();
 	}
+	 
+	 public void checkCartItems(View fragmentView){
+		 UILApplication uilApplication =(UILApplication) getApplication();
+		 if(uilApplication.getSelectedItemList()!=null){
+		 int itemsCount= uilApplication.getSelectedItemList().size();
+		 RelativeLayout cartContainer= (RelativeLayout) fragmentView.findViewById(R.id.cartContainer);
+		 if(itemsCount> 0){
+			cartContainer.setVisibility(View.VISIBLE);
+			TextView cartItemCount= (TextView) fragmentView.findViewById(R.id.cart_item_count);
+			cartItemCount.setText(""+itemsCount);
+			ImageView cartLogo= (ImageView)fragmentView.findViewById(R.id.cartLogo);
+			cartLogo.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+				commitFragment(new MenuBagFragment(), null)	;
+					
+				}
+			});
+		 }else{
+			 cartContainer.setVisibility(View.INVISIBLE); 
+		 }
+		 }
+	 }
+	 
+	 
 }
+
+
+
+
+
+
+

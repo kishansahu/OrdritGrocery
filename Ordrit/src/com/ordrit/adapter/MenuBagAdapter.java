@@ -3,23 +3,35 @@ package com.ordrit.adapter;
 import java.util.List;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.ordrit.R;
 import com.ordrit.activity.DashboardActivity;
 import com.ordrit.activity.UILApplication;
+import com.ordrit.fragment.MenuBagFragment;
 import com.ordrit.model.Item;
 import com.ordrit.model.SelectedItem;
+import com.ordrit.util.FragmentConstant;
+import com.ordrit.util.OrdritConstants;
 
 public class MenuBagAdapter extends ArrayAdapter<SelectedItem>{
 	
@@ -126,7 +138,49 @@ public class MenuBagAdapter extends ArrayAdapter<SelectedItem>{
 		
 		@Override
 		public void onClick(View v) {
-			// TODO Auto-generated method stub
+		
+				final Dialog dialog = new Dialog(context);
+				dialog.getWindow();
+			    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+				dialog.setContentView(R.layout.dialog_item_details);
+				dialog.setCancelable(false);
+				TextView textItemName = (TextView)dialog.findViewById(R.id.textItemName); 
+				textItemName.setText(item.getName());
+				TextView itemPrice = (TextView)dialog.findViewById(R.id.itemPrice); 
+				itemPrice.setText(item.getPricePerUnit());
+				ImageView imageViewItemImage = (ImageView)dialog.findViewById(R.id.imageViewItemImage);
+				ImageLoader imageLoader = ImageLoader.getInstance();
+				imageLoader.displayImage(item.getImageURL(), imageViewItemImage);
+				NumberPicker numberPicker = (NumberPicker)dialog.findViewById(R.id.numberPicker);
+			        numberPicker.setMaxValue(100);    
+			        numberPicker.setMinValue(1);
+			        numberPicker.setValue(Integer.valueOf(selectedItem.getQuantity()));
+			        numberPicker.setWrapSelectorWheel(true);
+			        numberPicker.setOnValueChangedListener( new NumberPicker.
+			            OnValueChangeListener() {
+			            @Override
+			            public void onValueChange(NumberPicker picker, int
+			                oldVal, int newVal) {
+			            	selectedItem.setQuantity(String.valueOf(newVal));
+			            }
+			        });
+			        
+			        Button buttonAddToBagOrder = (Button)dialog.findViewById(R.id.buttonAddToBagOrder); 
+			        buttonAddToBagOrder.setText("Done");
+					buttonAddToBagOrder.setOnClickListener(new OnClickListener() {
+						
+						@Override
+						public void onClick(View v) {
+							selectedItemList.set(position, selectedItem);
+							notifyDataSetChanged();
+							uilApplication.setSelectedItemList(selectedItemList);
+							setTotalCost.setTotal();
+							dialog.dismiss();
+							
+						}
+					});
+				dialog.show();
+			
 			
 		}
 	});

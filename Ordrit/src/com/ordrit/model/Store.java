@@ -8,6 +8,8 @@ public class Store {
 	private String Url;
 	private String phoneNumber1;
 	private String phoneNumber2;
+	private String openAt;
+	private String closeAt;
 	private User user;
 	private Address address;
 
@@ -83,6 +85,22 @@ public class Store {
 
 	public void setStoreName(String storeName) {
 		this.storeName = storeName;
+	}
+
+	public String getOpenAt() {
+		return openAt;
+	}
+
+	public void setOpenAt(String openAt) {
+		this.openAt = openAt;
+	}
+
+	public String getCloseAt() {
+		return closeAt;
+	}
+
+	public void setCloseAt(String closeAt) {
+		this.closeAt = closeAt;
 	}
 
 }

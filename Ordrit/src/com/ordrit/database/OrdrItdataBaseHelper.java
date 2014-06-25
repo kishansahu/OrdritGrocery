@@ -47,6 +47,8 @@ public class OrdrItdataBaseHelper {
 			contentValues.put(OrdrItDataBase.COLUMN_STORE_URL, store.getUrl());
 			contentValues.put(OrdrItDataBase.COLUMN_STORE_PHONE_NUMBER_1, store.getPhoneNumber1());
 			contentValues.put(OrdrItDataBase.COLUMN_STORE_PHONE_NUMBER_2, store.getPhoneNumber2());
+			contentValues.put(OrdrItDataBase.COLUMN_STORE_OPEN_AT, store.getOpenAt());
+			contentValues.put(OrdrItDataBase.COLUMN_STORE_CLOSE_AT, store.getCloseAt());
 			contentValues.put(OrdrItDataBase.COLUMN_STORE_USER_ID, "");
 			contentValues.put(OrdrItDataBase.COLUMN_STORE__ADDRESS_ID,"");
 			sqLiteDatabase.insert(OrdrItDataBase.TABLE_STORE, null, contentValues);
@@ -93,5 +95,26 @@ public class OrdrItdataBaseHelper {
 			close();
 	  
 		return storeName;
+	}
+	public String getStoreSchedule(String id) {
+		String schedule= null;
+			open();
+			String whereClause = OrdrItDataBase.COLUMN_STORE_ID + "=\""
+					+ id + "\"";
+			String selectQuery = "SELECT  * FROM " + OrdrItDataBase.TABLE_STORE + " WHERE "
+					+ whereClause;
+
+			Cursor cursor = sqLiteDatabase.rawQuery(selectQuery, null);
+
+		if (cursor.moveToFirst()) {
+			schedule = "The next available delivery slot at "+cursor.getString(cursor
+					.getColumnIndex(OrdrItDataBase.COLUMN_STORE_OPEN_AT))
+					+ " to "
+					+ cursor.getString(cursor
+							.getColumnIndex(OrdrItDataBase.COLUMN_STORE_CLOSE_AT));
+		}
+			close();
+	  
+		return schedule;
 	}
 }

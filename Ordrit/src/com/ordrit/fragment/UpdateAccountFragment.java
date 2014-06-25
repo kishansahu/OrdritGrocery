@@ -126,7 +126,7 @@ public class UpdateAccountFragment extends BaseFragment {
 						
 						
 						jSONString  = connection.postHttpUrlConnection(CommonUtils.getParamListJSONString(list),OrdritConstants.SERVER_BASE_URL
-								+ OrdritConstants.USERS_PROFILES+"/"+user.getId(),
+								+ OrdritConstants.USERS+"/"+user.getId(),
 						SharedPreferencesUtil.getStringPreferences(
 								dashboardActivity, OrdritJsonKeys.TAG_TOKEN));
 								

@@ -19,10 +19,12 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ordrit.R;
 import com.ordrit.adapter.ItemListAdapter;
+import com.ordrit.database.OrdrItdataBaseHelper;
 import com.ordrit.model.Item;
 import com.ordrit.model.ItemSubCategory;
 import com.ordrit.util.FragmentConstant;
@@ -43,6 +45,7 @@ public class ItemListFragment extends BaseFragment {
     private List<Item> itemList;
     private String storeId;
     private ItemSubCategory itemSubCategory;
+    private OrdrItdataBaseHelper ordrItdataBaseHelper;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -81,7 +84,11 @@ public class ItemListFragment extends BaseFragment {
 				dashboardActivity.popFragment(FragmentConstant.ITEM_LIST_FRAGMENT);
 			}
 		});
-        search=(EditText)itemListFragment.findViewById(R.id.edittextSearch);
+		 ordrItdataBaseHelper = new OrdrItdataBaseHelper(dashboardActivity);
+				TextView delevaryTime = (TextView)itemListFragment.findViewById(R.id.delevaryTime);
+				delevaryTime.setText(ordrItdataBaseHelper.getStoreSchedule(storeId));
+		         search=(EditText)itemListFragment.findViewById(R.id.edittextSearch);
+		       search.setHint("Search "+ordrItdataBaseHelper.getStoreName(storeId));
         search.addTextChangedListener(new TextWatcher() {
 			
 			@Override

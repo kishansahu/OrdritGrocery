@@ -87,6 +87,10 @@ public class OrditJsonParser {
 					.getString(OrdritJsonKeys.TAG_PHONENUMBER_1));
 			store.setPhoneNumber2(storeJsonObj
 					.getString(OrdritJsonKeys.TAG_PHONENUMBER_2));
+			store.setOpenAt(storeJsonObj
+					.getString(OrdritJsonKeys.TAG_OPEN_AT));
+			store.setCloseAt(storeJsonObj
+					.getString(OrdritJsonKeys.TAG_CLOSE_AT));
 			User merchant = new User();
 			merchant.setEmailId(storeJsonObj.getJSONObject(
 					OrdritJsonKeys.TAG_MERCHANT).getString(

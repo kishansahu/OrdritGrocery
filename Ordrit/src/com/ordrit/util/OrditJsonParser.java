@@ -221,7 +221,7 @@ public class OrditJsonParser {
 	public static User updateUserWithAddress(User user, String jsonString) throws JSONException{
 		JSONObject jsonObj= new JSONObject(jsonString);
 		JSONArray jsonArray= jsonObj.getJSONArray(OrdritJsonKeys.TAG_RESULTS);
-		for(int i=0; i<= jsonArray.length();i++){
+		for(int i=jsonArray.length(); i>= 0;i--){
 			JSONObject itemJsonObj = jsonArray.getJSONObject(i);
 			if(itemJsonObj.getString(OrdritJsonKeys.TAG_USER).equalsIgnoreCase(OrdritConstants.SERVER_BASE_URL+OrdritJsonKeys.TAG_USERS+"/"+user.getId())){
 				

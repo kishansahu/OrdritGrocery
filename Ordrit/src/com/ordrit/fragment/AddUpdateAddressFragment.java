@@ -217,12 +217,15 @@ public void onActivityCreated(Bundle savedInstanceState) {
 		if (null!=address) {
 			
 			etAddUpdateAddressHomeOrApartmentName.setText(address.getStreetAddress());
-
-			etAddUpdateAddressState.setText(getStateName(address.getState().getUrl()));
+			String stateName= getStateName(address.getState().getUrl());
+			etAddUpdateAddressState.setText(stateName);
+			address.getState().setName(stateName);
 			String ciString= getCityName(address.getCity().getUrl());
+			address.getCity().setName(ciString);
 			etAddUpdateAddressCity.setText(ciString);
 			etAddUpdateAddressZipcode.setText(address.getPincode());
-			
+			user.setAddress(address);
+			dashboardActivity.setUser(user);
 		}
 	}
 

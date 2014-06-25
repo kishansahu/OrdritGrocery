@@ -44,7 +44,7 @@
 	<string name="payment_info">Payment Info</string>
 	<string name="place_order">Place Order</string>
 	<string name="thank_you">Thank You !</string>
-	<string name="order_confirmation_msg">You will receive a notification once the order is our for delivery \n\nKeep calm and carry on.</string>
+	<string name="order_confirmation_msg">You will receive a notification once the order is out for delivery \n\nKeep calm and carry on.</string>
 	<string name="home">Home</string>
 	<string name="apartment">Apartment</string>
 	<string name="home_or_apartment_name">Home/Apartment Name</string>
@@ -77,6 +77,8 @@
     <string name="password_field_empty">Password field cannot be left blank</string>
     <string name="share_merchant_with_your_local_friend ">Share Merchant With Your Local Friend</string>
     <string name="add_your_address ">Add Your Address</string>
+    <string name="cash_on_delivery ">Cash On Delivery</string>
+    <string name="credit_card ">Credit Card</string>
    
     <!-- drawer resource -->
      <string name="accounts">My Accounts</string>

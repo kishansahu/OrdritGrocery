@@ -51,7 +51,7 @@ public interface OrdritJsonKeys {
 	public final static String TAG_CUSTOMER = "customer";
 	public final static String TAG_CUSTOMER_ADDRESS = "customer_address";
 	public final static String TAG_COUPON_CODE = "coupon_code";
-	
+	public final static String TAG_STATUS = "status";
 	
 	
 }

@@ -83,13 +83,14 @@ public class ItemDetailFragment extends BaseFragment {
 						if (i!=-1) {
 							SelectedItem tempSelectedItem=selectedItemList.get(i);
 							tempSelectedItem.setQuantity(selectedItem.getQuantity());
-							dashboardActivity.commitFragment(menuBagFragment, FragmentConstant.MENU_BAG_FRAGMENT);
-							
+							dashboardActivity.popFragment(FragmentConstant.ITEM_DETAIL_FRAGMENT);
+							Toast.makeText(dashboardActivity, "Item successfully added to the cart", Toast.LENGTH_SHORT).show();
 						}else {
 							selectedItemList.add(selectedItem);
 							uilApplication.setSelectedItemList(selectedItemList);
 							uilApplication.setStoreId(storeId);
-							dashboardActivity.commitFragment(menuBagFragment, FragmentConstant.MENU_BAG_FRAGMENT);
+							dashboardActivity.popFragment(FragmentConstant.ITEM_DETAIL_FRAGMENT);
+							Toast.makeText(dashboardActivity, "Item successfully added to the cart", Toast.LENGTH_SHORT).show();
 						}
 						
 					} else {
@@ -103,7 +104,8 @@ public class ItemDetailFragment extends BaseFragment {
 					selectedItemList.add(selectedItem);
 					uilApplication.setSelectedItemList(selectedItemList);
 					uilApplication.setStoreId(storeId);
-					dashboardActivity.commitFragment(menuBagFragment, FragmentConstant.MENU_BAG_FRAGMENT);
+					dashboardActivity.popFragment(FragmentConstant.ITEM_DETAIL_FRAGMENT);
+					Toast.makeText(dashboardActivity, "Item successfully added to the cart", Toast.LENGTH_SHORT).show();
 				}
 				
 				

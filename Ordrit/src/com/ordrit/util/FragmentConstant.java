@@ -10,5 +10,7 @@ public class FragmentConstant {
 	public static final String STORE_ITEMS_CATEGORY_FRAGMENT ="storeitemscategoryfragment";
 	public static final String ITEM_LIST_FRAGMENT="itemlistfragment";
 	public static final String ITEM_DETAIL_FRAGMENT="itemdetailfragment";
+	public static final String ITEM_DELIVERY_DETAIL_FRAGMENT="deliveryDetailsFragment";
+	
 	
 }

@@ -3,28 +3,27 @@ package com.ordrit.util;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.http.NameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.ordrit.R;
-import com.ordrit.database.OrdrItdataBaseHelper;
-import com.ordrit.model.Item;
-import com.ordrit.model.NavDrawerItem;
-import com.ordrit.model.SelectedItem;
-import com.ordrit.model.Store;
-
-import android.R.integer;
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ListView;
+
+import com.ordrit.R;
+import com.ordrit.activity.DashboardActivity;
+import com.ordrit.database.OrdrItdataBaseHelper;
+import com.ordrit.model.City;
+import com.ordrit.model.Item;
+import com.ordrit.model.NavDrawerItem;
+import com.ordrit.model.SelectedItem;
+import com.ordrit.model.Store;
 
 public class CommonUtils {
 
@@ -131,6 +130,20 @@ public class CommonUtils {
 	}
 	public static int convertDensityPixelToPixel(Context context, int i) {
 		return (int) ((i * context.getResources().getDisplayMetrics().density) + 0.5);
+	}
+
+	public static String getCityNameFromUrl(String url, DashboardActivity dashboardActivity){
+		List<City> cityList = dashboardActivity.getCityList();
+		String name = null;
+		for (int i = 0; i < cityList.size(); i++) {
+			City city =cityList.get(i);
+			if (city.getUrl().equals(url)) {
+				name=city.getName();
+				break;
+			}
+		}
+		
+		return name;
 	}
 	
 }

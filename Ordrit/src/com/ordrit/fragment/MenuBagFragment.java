@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
@@ -43,7 +45,7 @@ public class MenuBagFragment extends BaseFragment {
 	private TextView textMerchantName, textItemTotal;
 	private UILApplication uilApplication;
 	private List<SelectedItem> selectedItemList;
-	boolean status;
+	
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -83,7 +85,7 @@ public class MenuBagFragment extends BaseFragment {
 			LinearLayout.LayoutParams fieldparams = new LinearLayout.LayoutParams(
 					CommonUtils.convertDensityPixelToPixel(dashboardActivity,
 							40), CommonUtils.convertDensityPixelToPixel(
-							dashboardActivity,40), 0);
+							dashboardActivity, 40), 0);
 			fieldparams.gravity = Gravity.CENTER;
 			fieldparams.setMargins(CommonUtils.convertDensityPixelToPixel(
 					dashboardActivity, 10), CommonUtils
@@ -119,8 +121,7 @@ public class MenuBagFragment extends BaseFragment {
 			public void onClick(View v) {
 
 				List<Items> orderedItemsList = new ArrayList<Items>();
-				Log.e("selectedItemList", selectedItemList.toString());
-				// todo
+				
 				selectedItemList=uilApplication.getSelectedItemList();
 				Iterator<SelectedItem> iterator = selectedItemList.iterator();
 				while (iterator.hasNext()) {
@@ -137,17 +138,17 @@ public class MenuBagFragment extends BaseFragment {
 						getActivity(), OrdritConstants.USER);
 				
 				User user = gson.fromJson(strUser, User.class);
-			String g=	WebServicesRawDataUtil.placeOrderJSONObjectString(user, uilApplication, orderedItemsListString);
-				/*PlaceOrderDTO placeOrderDTO = new PlaceOrderDTO();
-				placeOrderDTO.setCustomer("/" + OrdritConstants.USERS + "/"
-						+ user.getId());
-				placeOrderDTO.setCustomer_address("/"
-						+ OrdritConstants.USERS_ADDRESS + "/"
-						+ user.getAddress().getId());
-				placeOrderDTO.setCustomer("/" + OrdritConstants.STORES + "/"
-						+ uilApplication.getStoreId());
-				placeOrderDTO.setItems(orderedItemsList);*/
-			placeOrder(g);
+			String orderString=	WebServicesRawDataUtil.placeOrderJSONObjectString(user, uilApplication, orderedItemsListString);
+				
+			 Fragment deliveryDetailsFragment= new DeliveryDetailsFragment();
+			// FragmentManager fm=getFragmentManager();
+			// android.app.FragmentTransaction ft=fm.beginTransaction();
+			 Bundle args = new Bundle();
+			 args.putString("orderString", orderString);
+			 deliveryDetailsFragment.setArguments(args);
+			 dashboardActivity.commitFragment(deliveryDetailsFragment, FragmentConstant.ITEM_DELIVERY_DETAIL_FRAGMENT);
+			 //ft.replace(R.id.frame_container, deliveryDetailsFragment);
+			// ft.commit();
 				
 			}
 		});
@@ -167,39 +168,5 @@ public class MenuBagFragment extends BaseFragment {
 		textItemTotal.setText(""
 				+ CommonUtils.countTotalPrice(selectedItemList));
 
-	}
-
-	private void placeOrder(final String jsonString) {
-	 
-		new WebServiceProcessingTask() {
-			
-			@Override
-			public void preExecuteTask() {
-			progressDialog=new ProgressDialog(getActivity());
-			
-			}
-			
-			@Override
-			public void postExecuteTask() {
-				if(status= true){
-					
-				}
-			    
-			}
-			
-			@Override
-			public void backgroundTask() {
-			
-				jSONString = connection.postHttpUrlConnection(jsonString,
-						OrdritConstants.SERVER_BASE_URL
-								+ OrdritConstants.ORDERS,
-						SharedPreferencesUtil.getStringPreferences(
-								getActivity(), OrdritJsonKeys.TAG_TOKEN));
-				if(jSONString.contains("status")){
-					status= true;
-				}
-			}
-		}.execute();
-		
 	}
 }

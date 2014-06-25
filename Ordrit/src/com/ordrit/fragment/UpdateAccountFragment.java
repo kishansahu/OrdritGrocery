@@ -111,36 +111,26 @@ public class UpdateAccountFragment extends BaseFragment {
 					
 					@Override
 					public void postExecuteTask() {
-						if (null!=address) {
-						user.setAddress(address);
-						dashboardActivity.setUser(user);
-						setAddress();
-						}
+						
 					}
 					
 					@Override
 					public void backgroundTask() {
 					 
 						List<NameValuePair> list=new ArrayList<NameValuePair>();
-						list.add(new BasicNameValuePair(OrdritJsonKeys.TAG_USER, OrdritConstants.SERVER_BASE_URL
-								+ OrdritConstants.USERS+"/8"));
-						list.add(new BasicNameValuePair(OrdritJsonKeys.TAG_STREET_ADDRESS, strAddUpdateAddressHomeOrApartmentName));
-						list.add(new BasicNameValuePair(OrdritJsonKeys.TAG_CITY, strAddUpdateAddressCity));
-						list.add(new BasicNameValuePair(OrdritJsonKeys.TAG_STATE, strAddUpdateAddressState));
-		                list.add(new BasicNameValuePair(OrdritJsonKeys.TAG_PINCODE, strAddUpdateAddressZipcode));
+						
+						list.add(new BasicNameValuePair(OrdritJsonKeys.USER_FIRSTNAME, strUpdateAccountFirstName));
+						list.add(new BasicNameValuePair(OrdritJsonKeys.USER_LASTNAME, strUpdateAccountLastName));
+						list.add(new BasicNameValuePair(OrdritJsonKeys.USER_PHONE_NUMBER, strUpdateAccountMobileNumber));
+		                list.add(new BasicNameValuePair(OrdritJsonKeys.TAG_PINCODE, strUpdateAccountUserEmailId));
 						
 						
 						jSONString  = connection.postHttpUrlConnection(CommonUtils.getParamListJSONString(list),OrdritConstants.SERVER_BASE_URL
-								+ OrdritConstants.USERS_ADDRESS,
+								+ OrdritConstants.USERS_PROFILES+"/"+user.getId(),
 						SharedPreferencesUtil.getStringPreferences(
 								dashboardActivity, OrdritJsonKeys.TAG_TOKEN));
 								
-						try {
-							address = OrditJsonParser.getMerchantAddressFromJSON(jSONString);
-						} catch (JSONException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+						
 					}
 				}.execute();
 			

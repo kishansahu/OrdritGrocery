@@ -5,6 +5,7 @@ public interface OrdritConstants {
 	public final static String SERVER_BASE_URL = "http://staging.ankursethi.in/";
 	public final static String API_TOKEN_URL = SERVER_BASE_URL+"api-token/";
 	public final static String USERS = "users";
+	public final static String USERS_PROFILES = "user_profiles";
 	public final static String USERS_ADDRESS ="user_addresses";
 	public final static String STATES="states";
 	public final static String CITIES="cities";

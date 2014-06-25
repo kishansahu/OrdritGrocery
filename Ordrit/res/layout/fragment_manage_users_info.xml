@@ -13,8 +13,9 @@
 
         <Button
             android:id="@+id/manageAccountMenu"
-            android:layout_width="80dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
             android:background="@drawable/logo_ordrit" />
 
         <TextView
@@ -26,11 +27,6 @@
             android:gravity="left"
             android:text=""
             android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" >
-        </RelativeLayout>
 
     </LinearLayout>
 

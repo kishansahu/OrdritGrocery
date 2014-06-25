@@ -28,5 +28,11 @@ public class ValidationUtils {
 	    }
 		return isValid;
 	}
-
+	public static boolean isEmpty(String text){
+		boolean isempty=false;
+		if (text!=null && text.length()>0) {
+			isempty=true;
+		}
+		return isempty;
+	}
 }

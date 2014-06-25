@@ -151,7 +151,7 @@ public void onActivityCreated(Bundle savedInstanceState) {
 					 
 						List<NameValuePair> list=new ArrayList<NameValuePair>();
 						list.add(new BasicNameValuePair(OrdritJsonKeys.TAG_USER, OrdritConstants.SERVER_BASE_URL
-								+ OrdritConstants.USERS+"/8"));
+								+ OrdritConstants.USERS+"/"+user.getId()));
 						list.add(new BasicNameValuePair(OrdritJsonKeys.TAG_STREET_ADDRESS, strAddUpdateAddressHomeOrApartmentName));
 						list.add(new BasicNameValuePair(OrdritJsonKeys.TAG_CITY, strAddUpdateAddressCity));
 						list.add(new BasicNameValuePair(OrdritJsonKeys.TAG_STATE, strAddUpdateAddressState));

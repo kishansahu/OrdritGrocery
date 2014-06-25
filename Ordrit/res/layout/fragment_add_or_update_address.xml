@@ -56,14 +56,14 @@
             android:textCursorDrawable="@null" >
         </EditText>
 
-        <com.ordrit.util.CalibriTextView
+        <!-- <com.ordrit.util.CalibriTextView
             android:id="@+id/txtAddUpdateAddressHomeOrApartmentNameError"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@android:color/holo_red_dark"
-            android:visibility="gone" />
+            android:visibility="gone" /> -->
 
   <!--       <EditText
             android:id="@+id/etAddUpdateAddressStreet1"
@@ -112,14 +112,14 @@
             android:textCursorDrawable="@null" >
         </EditText>
 
-        <com.ordrit.util.CalibriTextView
+        <!-- <com.ordrit.util.CalibriTextView
             android:id="@+id/txtAddUpdateAddressStateError"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@android:color/holo_red_dark"
-            android:visibility="gone" />
+            android:visibility="gone" /> -->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -166,14 +166,14 @@
             </EditText>
         </LinearLayout>
 
-        <com.ordrit.util.CalibriTextView
+        <!-- <com.ordrit.util.CalibriTextView
             android:id="@+id/txtAddUpdateAddressCityOrZipcodeError"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@android:color/holo_red_dark"
-            android:visibility="gone" />
+            android:visibility="gone" /> -->
     </LinearLayout>
 
     <com.ordrit.util.CalibriButton

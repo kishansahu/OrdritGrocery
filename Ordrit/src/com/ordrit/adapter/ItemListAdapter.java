@@ -22,11 +22,13 @@ public class ItemListAdapter extends ArrayAdapter<Item>{
 	private List<Item> itemList;
 	private List<Item> tempItemList;
 	private Context context;
+	private int textViewResourceId;
 	
 	public ItemListAdapter(Activity context, int textViewResourceId,
 			List<Item> applicationList) {
 		super(context, textViewResourceId, applicationList);
 		this.context = context;
+		this.textViewResourceId=textViewResourceId;
 		this.itemList=applicationList;
 		this.tempItemList=new ArrayList<Item>();
         this.tempItemList.addAll(itemList);
@@ -50,7 +52,7 @@ public class ItemListAdapter extends ArrayAdapter<Item>{
 		if (convertView == null) {
 			LayoutInflater vi = (LayoutInflater) context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = vi.inflate(R.layout.product_item, null);
+			convertView = vi.inflate(textViewResourceId, null);
 
 			holder = new ViewHolder();
 			holder.productItemImage = (ImageView) convertView

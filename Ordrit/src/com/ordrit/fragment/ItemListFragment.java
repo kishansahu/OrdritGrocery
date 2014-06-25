@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,6 +20,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +30,7 @@ import com.ordrit.adapter.ItemListAdapter;
 import com.ordrit.database.OrdrItdataBaseHelper;
 import com.ordrit.model.Item;
 import com.ordrit.model.ItemSubCategory;
+import com.ordrit.util.CommonUtils;
 import com.ordrit.util.FragmentConstant;
 import com.ordrit.util.OrditJsonParser;
 import com.ordrit.util.OrdritConstants;
@@ -38,10 +42,11 @@ public class ItemListFragment extends BaseFragment {
 	
 	private static final String tag="ItemListFragment";
 	private View itemListFragment;
-	private Button itemListBack;
+	private Button itemListBack,switchView;
 	private EditText search;
     private GridView itemListListGridView;
-    private ItemListAdapter itemListAdapter;
+    private ListView itemListListListView;
+    private ItemListAdapter itemListAdapter,itemListAdapterList;
     private List<Item> itemList;
     private String storeId;
     private ItemSubCategory itemSubCategory;
@@ -76,12 +81,52 @@ public class ItemListFragment extends BaseFragment {
 				dashboardActivity.commitFragment(itemListFragment, FragmentConstant.ITEM_DETAIL_FRAGMENT);
 			}
 		});
+		itemListListListView=(ListView)itemListFragment.findViewById(R.id.itemListListListView);
+		itemListListListView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				ItemDetailFragment itemListFragment =new ItemDetailFragment();
+				Bundle bundle=new Bundle();
+				bundle.putSerializable(OrdritConstants.ITEM, itemListAdapterList.getItem(position));
+				//TODO
+				// remove id
+				bundle.putString(OrdritConstants.STORE_ID, storeId);
+				itemListFragment.setArguments(bundle);
+				dashboardActivity.commitFragment(itemListFragment, FragmentConstant.ITEM_DETAIL_FRAGMENT);
+			}
+		});
 		itemListBack=(Button)itemListFragment.findViewById(R.id.itemListBack); 
 		itemListBack.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				dashboardActivity.popFragment(FragmentConstant.ITEM_LIST_FRAGMENT);
+			}
+		});
+		switchView=(Button)itemListFragment.findViewById(R.id.switchView); 
+		switchView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				LinearLayout.LayoutParams fieldparams = new LinearLayout.LayoutParams(
+						CommonUtils.convertDensityPixelToPixel(dashboardActivity,
+								30), CommonUtils.convertDensityPixelToPixel(
+								dashboardActivity,30), 0);
+				fieldparams.gravity = Gravity.CENTER;
+				if (itemListListGridView.getVisibility()==View.VISIBLE) {
+					itemListListGridView.setVisibility(View.GONE);
+					itemListListListView.setVisibility(View.VISIBLE);
+					switchView.setBackgroundResource(R.drawable.list_ico);
+					
+				}else {
+					itemListListListView.setVisibility(View.GONE);
+					itemListListGridView.setVisibility(View.VISIBLE);
+					switchView.setBackgroundResource(R.drawable.grid_ico);
+				}
+				
+				switchView.setLayoutParams(fieldparams);
 			}
 		});
 		 ordrItdataBaseHelper = new OrdrItdataBaseHelper(dashboardActivity);
@@ -112,6 +157,11 @@ public class ItemListFragment extends BaseFragment {
 				itemListAdapter.filter(text);
 				
 			}
+			if (itemListAdapterList!=null) {
+				itemListAdapterList.filter(text);
+				
+			}
+			
 				
 			}
 		});
@@ -128,8 +178,9 @@ public class ItemListFragment extends BaseFragment {
 			@Override
 			public void postExecuteTask() {
 				itemListAdapter = new ItemListAdapter(dashboardActivity, R.layout.product_item, itemList);
+				itemListAdapterList = new ItemListAdapter(dashboardActivity, R.layout.product_item_list, itemList);
 				itemListListGridView.setAdapter(itemListAdapter);
-				
+				itemListListListView.setAdapter(itemListAdapterList);
 				
 			}
 			
@@ -155,6 +206,7 @@ public class ItemListFragment extends BaseFragment {
 		}.execute();
 }else {
 	itemListListGridView.setAdapter(itemListAdapter);
+	itemListListListView.setAdapter(itemListAdapterList);
 }
  dashboardActivity.checkCartItems(itemListFragment);
 		

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <!--   <color name="blue">#2C79E5</color> -->
-     <color name="blue">#7CC4E6</color>
+  
+     <color name="blue">#7CC4E6</color> 
     <color name="light_green">#94C57E</color>
     <color name="yellow">#FFB240</color>
    <color name="orange"> #FF6513</color>

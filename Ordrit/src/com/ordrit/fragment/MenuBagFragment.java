@@ -83,10 +83,10 @@ public class MenuBagFragment extends BaseFragment {
 			LinearLayout.LayoutParams fieldparams = new LinearLayout.LayoutParams(
 					CommonUtils.convertDensityPixelToPixel(dashboardActivity,
 							40), CommonUtils.convertDensityPixelToPixel(
-							dashboardActivity, 35), 0);
+							dashboardActivity,40), 0);
 			fieldparams.gravity = Gravity.CENTER;
 			fieldparams.setMargins(CommonUtils.convertDensityPixelToPixel(
-					dashboardActivity, 0), CommonUtils
+					dashboardActivity, 10), CommonUtils
 					.convertDensityPixelToPixel(dashboardActivity, 0),
 					CommonUtils
 							.convertDensityPixelToPixel(dashboardActivity, 0),

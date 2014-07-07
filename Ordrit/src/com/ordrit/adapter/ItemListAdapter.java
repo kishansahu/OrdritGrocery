@@ -95,11 +95,9 @@ public class ItemListAdapter extends ArrayAdapter<Item>{
 		if (charText.length() == 0) {
 			itemList.addAll(tempItemList);
 		} else {
-			for (Item wp : tempItemList) {
-				if (wp.getName()
-						.toLowerCase(Locale.getDefault())
-						.contains(charText)) {
-					itemList.add(wp);
+			for (Item item : tempItemList) {
+				if (item.getName().contains(charText)) {
+					itemList.add(item);
 				}
 			}
 		}

@@ -31,6 +31,7 @@ import com.ordrit.R;
 import com.ordrit.adapter.NavDrawerListAdapter;
 import com.ordrit.adapter.SeparatedListAdapter;
 import com.ordrit.fragment.BaseFragment;
+import com.ordrit.fragment.HelpFragment;
 import com.ordrit.fragment.ManageUserInfoFragment;
 import com.ordrit.fragment.MapDetailFragment;
 import com.ordrit.fragment.MenuBagFragment;
@@ -113,6 +114,7 @@ public class DashboardActivity extends Activity {
 		
 		String strUser= SharedPreferencesUtil.getStringPreferences(context, OrdritConstants.USER);
 	    user=gson.fromJson(strUser, User.class);
+	   // setUser(user);
 	
 		
 	}
@@ -149,6 +151,9 @@ public class DashboardActivity extends Activity {
 				break;
 			case 3:
 				fragment = new MenuBagFragment();
+				break;
+			case 6:
+				fragment = new HelpFragment();
 				break;
 			default:
 				break;

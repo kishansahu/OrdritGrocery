@@ -187,6 +187,7 @@ public class LoginFragment extends Fragment {
 			JSONArray jsonArray;
 			List<State> statesList;
 			List<City> cityList;
+			boolean success=false;
 			
 			@Override
 			public void preExecuteTask() {
@@ -198,9 +199,14 @@ public class LoginFragment extends Fragment {
 			
 			@Override
 			public void postExecuteTask() {
-				startActivity(new Intent(mainActivity,
-						DashboardActivity.class));
-				mainActivity.finish();
+				if (success) {
+					startActivity(new Intent(mainActivity,
+							DashboardActivity.class));
+					mainActivity.finish();	
+				}else {
+					Toast.makeText(mainActivity, "Problem in fatching user data..", Toast.LENGTH_LONG).show();
+				}
+				
 			
 			    
 			}
@@ -240,9 +246,11 @@ public class LoginFragment extends Fragment {
 							getActivity(), OrdritJsonKeys.TAG_TOKEN));
 					user= OrditJsonParser.updateUserWithAddress(user, jSONString);
 					SharedPreferencesUtil.saveStringPreferences(getActivity(), OrdritConstants.USER, gson.toJson(user));
-					
+					success=true;
 				} catch (JSONException e) {
-					Log.e("Fetch Full App Data","error in fetching after login data");
+					success=false;
+					Log.e(tag,"**"+e.toString());
+					Log.e(tag,"**error in fetching after login data");
 				}
 				
 			}

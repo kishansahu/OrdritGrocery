@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ordrit.R;
@@ -32,6 +33,7 @@ public class OrderStatusFragment extends BaseFragment {
 	private View orderStatusFragment;
 	private List<Order> ordersList;
 	private Button back;
+	private TextView textOrderStatus;
 	private ListView pendingOrdersListView;
 	private UILApplication uilApplication;
 
@@ -62,6 +64,11 @@ public class OrderStatusFragment extends BaseFragment {
 					OrderStatusAdapter orderStatusAdapter = new OrderStatusAdapter(dashboardActivity,
 							R.layout.item_order_status, ordersList);
 					pendingOrdersListView.setAdapter(orderStatusAdapter);
+					if (ordersList.size()>0) {
+						textOrderStatus.setVisibility(View.GONE);
+					}else {
+						textOrderStatus.setVisibility(View.VISIBLE);	
+					}
 
 				}
 
@@ -135,6 +142,7 @@ public class OrderStatusFragment extends BaseFragment {
 			});
 		}
 		pendingOrdersListView= (ListView) orderStatusFragment.findViewById(R.id.pendingOrdersListView);
+		textOrderStatus= (TextView) orderStatusFragment.findViewById(R.id.textOrderStatus);
 	}
 
 }

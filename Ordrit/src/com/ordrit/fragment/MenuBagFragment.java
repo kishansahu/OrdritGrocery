@@ -43,6 +43,7 @@ public class MenuBagFragment extends BaseFragment {
 	private Button back, menuBagCheckout;
 	private ListView menuBagListView;
 	private TextView textMerchantName, textItemTotal,textListStatus;
+	private LinearLayout menuBagTotalCountContainer;
 	private UILApplication uilApplication;
 	private List<SelectedItem> selectedItemList;
 	
@@ -166,6 +167,7 @@ public class MenuBagFragment extends BaseFragment {
 		
 		textListStatus = (TextView) menuFragment
 				.findViewById(R.id.textListStatus);
+		menuBagTotalCountContainer=(LinearLayout)menuFragment.findViewById(R.id.menuBagTotalCountContainer);
 		setTotalPrice();
 	}
 
@@ -175,8 +177,12 @@ public class MenuBagFragment extends BaseFragment {
 				+ CommonUtils.countTotalPrice(selectedItemList));
 		  if (selectedItemList.size()>0) {
 	        	textListStatus.setVisibility(View.GONE);
+	        	menuBagTotalCountContainer.setVisibility(View.VISIBLE);
+	        	menuBagCheckout.setVisibility(View.VISIBLE);
 			}else {
 				textListStatus.setVisibility(View.VISIBLE);
+				menuBagTotalCountContainer.setVisibility(View.GONE);
+				menuBagCheckout.setVisibility(View.GONE);
 			}
 
 	}

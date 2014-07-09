@@ -112,6 +112,16 @@ public class UpdateAccountFragment extends BaseFragment {
 					@Override
 					public void postExecuteTask() {
 						
+						try {
+							user=OrditJsonParser.getUserFromJSON(jSONString);
+							dashboardActivity.setUser(user);
+							setData();
+						} catch (JSONException e) {
+							e.printStackTrace();
+							Toast.makeText(dashboardActivity, "Update faild", Toast.LENGTH_LONG).show();
+							
+						}
+						
 					}
 					
 					@Override

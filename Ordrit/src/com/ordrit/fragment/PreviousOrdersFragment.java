@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ordrit.R;
@@ -32,6 +33,7 @@ public class PreviousOrdersFragment extends BaseFragment {
 	private View previousOrdersFragment;
 	private List<Order> ordersList;
 	private Button back;
+	private TextView textPreviousOrderStatus;
 	private ListView previosOrdersListView;
 	private UILApplication uilApplication;
 
@@ -62,6 +64,11 @@ public class PreviousOrdersFragment extends BaseFragment {
 					PreviousOrdersAdapter previousOrdersAdapter = new PreviousOrdersAdapter(dashboardActivity,
 							R.layout.item_previous_order, ordersList);
 					previosOrdersListView.setAdapter(previousOrdersAdapter);
+					if (ordersList.size()>0) {
+						textPreviousOrderStatus.setVisibility(View.GONE);
+					}else {
+						textPreviousOrderStatus.setVisibility(View.VISIBLE);
+					}
 
 				}
 
@@ -135,6 +142,7 @@ public class PreviousOrdersFragment extends BaseFragment {
 			});
 		}
 		previosOrdersListView= (ListView) previousOrdersFragment.findViewById(R.id.previosOrdersListView);
+		textPreviousOrderStatus=(TextView) previousOrdersFragment.findViewById(R.id.textPreviousOrderStatus);
 	}
 
 }

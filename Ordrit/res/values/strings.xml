@@ -53,7 +53,8 @@
 	<string name="city">City</string>
 	<string name="zipcode">Zip code</string>
 	<string name="empty_bag">Bag is empty</string>
-	
+	<string name="empty_order">No Order Found</string>
+	<string name="empty_previous_order">No Previous Order Found</string>
     <string name="grocery_msg"><![CDATA[<center>
 			Your <span><font color="#94C57E">Grocery</font></span> is here<br></center>
 		<center>

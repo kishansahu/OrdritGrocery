@@ -52,6 +52,8 @@
 	<string name="street_address_2">State</string>
 	<string name="city">City</string>
 	<string name="zipcode">Zip code</string>
+	<string name="empaty_bag">Bag is empty</string>
+	
     <string name="grocery_msg"><![CDATA[<center>
 			Your <span><font color="#94C57E">Grocery</font></span> is here<br></center>
 		<center>

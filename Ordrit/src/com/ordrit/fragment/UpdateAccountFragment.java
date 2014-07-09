@@ -125,7 +125,7 @@ public class UpdateAccountFragment extends BaseFragment {
 		                list.add(new BasicNameValuePair(OrdritJsonKeys.TAG_PINCODE, strUpdateAccountUserEmailId));
 						
 						
-						jSONString  = connection.postHttpUrlConnection(CommonUtils.getParamListJSONString(list),OrdritConstants.SERVER_BASE_URL
+						jSONString  = connection.patchHttpUrlConnection(CommonUtils.getParamListJSONString(list),OrdritConstants.SERVER_BASE_URL
 								+ OrdritConstants.USERS+"/"+user.getId(),
 						SharedPreferencesUtil.getStringPreferences(
 								dashboardActivity, OrdritJsonKeys.TAG_TOKEN));

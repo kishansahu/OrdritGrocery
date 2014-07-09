@@ -5,12 +5,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.ParseException;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -131,7 +133,36 @@ public String getHttpUrlConnectionForArray(String requestUrl,String token)
 		} 
         return jsonString;
   }
-	
+	public String patchHttpUrlConnection(String postInput, String requestUrl,String token) {
+		String jsonString = null; 
+		// Creating HTTP client
+		
+        HttpClient httpClient = new DefaultHttpClient();
+        // Creating HTTP Post
+        OrderItHttpPatch httpPost = new OrderItHttpPatch(requestUrl);
+       
+        // Making HTTP Request
+        try {
+        	 httpPost.setEntity(new StringEntity(postInput));
+        	 httpPost.setHeader("Accept", "application/json");
+             httpPost.setHeader("Content-type", "application/json");
+             httpPost.setHeader("Authorization", "Token "+token );
+      	   
+            HttpResponse response = httpClient.execute(httpPost);
+            jsonString =EntityUtils.toString(response.getEntity());
+        } catch (ClientProtocolException e) {
+            // writing exception to log
+            e.printStackTrace();
+        } catch (IOException e) {
+            // writing exception to log
+            e.printStackTrace();
+ 
+        } catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+        return jsonString;
+  }
 	/**
 	 * Method returns String from input stream.
 	 * 
@@ -166,5 +197,28 @@ public String getHttpUrlConnectionForArray(String requestUrl,String token)
 		return sb.toString();
 
 	}
+	public class OrderItHttpPatch extends HttpEntityEnclosingRequestBase {
 
+	    public final static String METHOD_NAME = "PATCH";
+
+	    public OrderItHttpPatch() {
+	        super();
+	    }
+
+	    public OrderItHttpPatch(final URI uri) {
+	        super();
+	        setURI(uri);
+	    }
+
+	    public OrderItHttpPatch(final String uri) {
+	        super();
+	        setURI(URI.create(uri));
+	    }
+
+	    @Override
+	    public String getMethod() {
+	        return METHOD_NAME;
+	    }
+
+	}
 }

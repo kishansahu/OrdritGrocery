@@ -96,7 +96,7 @@ public class ItemListAdapter extends ArrayAdapter<Item>{
 			itemList.addAll(tempItemList);
 		} else {
 			for (Item item : tempItemList) {
-				if (item.getName().contains(charText)) {
+				if (item.getName().toLowerCase().contains(charText.toLowerCase())) {
 					itemList.add(item);
 				}
 			}

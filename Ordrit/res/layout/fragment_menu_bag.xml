@@ -44,6 +44,14 @@
 
     </LinearLayout>
 
+    <com.ordrit.util.CalibriTextView
+        android:id="@+id/textListStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/empaty_bag"
+        android:gravity="center"
+        android:textSize="@dimen/header_text_size" />
+
     <ListView
         android:id="@+id/menuBagListView"
         android:layout_width="match_parent"
@@ -92,6 +100,14 @@
             android:textColor="@android:color/white"
             android:textSize="25sp"
             android:textStyle="bold" />
+
+        <!-- <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="TextView" /> -->
+
     </LinearLayout>
 
 </LinearLayout>

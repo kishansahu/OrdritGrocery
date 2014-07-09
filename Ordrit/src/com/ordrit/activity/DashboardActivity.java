@@ -159,6 +159,7 @@ public class DashboardActivity extends Activity {
 				break;
 			case 5:
 				fragment = new PreviousOrdersFragment();
+				break;
 			case 6:
 				fragment = new HelpFragment();
 				break;

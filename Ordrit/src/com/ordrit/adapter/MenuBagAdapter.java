@@ -4,34 +4,24 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.ordrit.R;
-import com.ordrit.activity.DashboardActivity;
 import com.ordrit.activity.UILApplication;
-import com.ordrit.fragment.MenuBagFragment;
 import com.ordrit.model.Item;
 import com.ordrit.model.SelectedItem;
-import com.ordrit.util.FragmentConstant;
-import com.ordrit.util.OrdritConstants;
 
 public class MenuBagAdapter extends ArrayAdapter<SelectedItem>{
 	

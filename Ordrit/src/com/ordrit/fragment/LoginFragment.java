@@ -204,7 +204,7 @@ public class LoginFragment extends Fragment {
 							DashboardActivity.class));
 					mainActivity.finish();	
 				}else {
-					Toast.makeText(mainActivity, "Problem in fatching user data..", Toast.LENGTH_LONG).show();
+					Toast.makeText(mainActivity, "Problem in fetching user data..", Toast.LENGTH_LONG).show();
 				}
 				
 			

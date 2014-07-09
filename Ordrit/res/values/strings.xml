@@ -52,7 +52,7 @@
 	<string name="street_address_2">State</string>
 	<string name="city">City</string>
 	<string name="zipcode">Zip code</string>
-	<string name="empaty_bag">Bag is empty</string>
+	<string name="empty_bag">Bag is empty</string>
 	
     <string name="grocery_msg"><![CDATA[<center>
 			Your <span><font color="#94C57E">Grocery</font></span> is here<br></center>
@@ -81,11 +81,14 @@
     <string name="add_your_address ">Add Your Address</string>
     <string name="cash_on_delivery ">Cash On Delivery</string>
     <string name="credit_card ">Credit Card</string>
+    <string name="order_status">Order Status</string>
+    <string name="pending_order">Order Pending</string>
+    
    
     <!-- drawer resource -->
      <string name="accounts">My Accounts</string>
      <string name="bag">My Bag</string>
-     <string name="order_status">Order Status</string>
+     <string name="pendingOrderStatusTitle">Order Status</string>
      <string name="previous_orders">Previous Orders</string>
      <string name="coupons">Coupons</string>
      <string name="help">Help &amp; Faq</string>

@@ -35,6 +35,8 @@ import com.ordrit.fragment.HelpFragment;
 import com.ordrit.fragment.ManageUserInfoFragment;
 import com.ordrit.fragment.MapDetailFragment;
 import com.ordrit.fragment.MenuBagFragment;
+import com.ordrit.fragment.OrderStatusFragment;
+import com.ordrit.fragment.PreviousOrdersFragment;
 import com.ordrit.fragment.StoreItemsCategoryFragment;
 import com.ordrit.model.City;
 import com.ordrit.model.NavDrawerItem;
@@ -152,6 +154,11 @@ public class DashboardActivity extends Activity {
 			case 3:
 				fragment = new MenuBagFragment();
 				break;
+			case 4:
+				fragment = new OrderStatusFragment();
+				break;
+			case 5:
+				fragment = new PreviousOrdersFragment();
 			case 6:
 				fragment = new HelpFragment();
 				break;
@@ -262,6 +269,11 @@ public void popFragment(String tag) {
 	}
 
 	public User getUser() {
+		if(user==null){
+			String strUser= SharedPreferencesUtil.getStringPreferences(context, OrdritConstants.USER);
+		    user=gson.fromJson(strUser, User.class);
+		    	
+		}
 		return user;
 	}
 

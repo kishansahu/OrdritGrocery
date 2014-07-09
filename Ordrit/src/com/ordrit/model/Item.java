@@ -13,6 +13,7 @@ public class Item implements Serializable{
 	private String imageURL;
 	private String pricePerUnit;
 	private String unitName;
+	private String itemQuantity;
 	
 	public String getId() {
 		return id;
@@ -49,6 +50,12 @@ public class Item implements Serializable{
 	}
 	public void setUnitName(String unitName) {
 		this.unitName = unitName;
+	}
+	public String getItemQuantity() {
+		return itemQuantity;
+	}
+	public void setItemQuantity(String itemQuantity) {
+		this.itemQuantity = itemQuantity;
 	}
 	
 	

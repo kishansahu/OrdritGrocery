@@ -16,6 +16,7 @@ import com.ordrit.model.City;
 import com.ordrit.model.Item;
 import com.ordrit.model.ItemCategory;
 import com.ordrit.model.ItemSubCategory;
+import com.ordrit.model.Order;
 import com.ordrit.model.State;
 import com.ordrit.model.Store;
 import com.ordrit.model.User;
@@ -221,7 +222,7 @@ public class OrditJsonParser {
 	public static User updateUserWithAddress(User user, String jsonString) throws JSONException{
 		JSONObject jsonObj= new JSONObject(jsonString);
 		JSONArray jsonArray= jsonObj.getJSONArray(OrdritJsonKeys.TAG_RESULTS);
-		for(int i=jsonArray.length(); i>= 0;i--){
+		for(int i=jsonArray.length()-1;i>=0;i--){
 			JSONObject itemJsonObj = jsonArray.getJSONObject(i);
 			if(itemJsonObj.getString(OrdritJsonKeys.TAG_USER).equalsIgnoreCase(OrdritConstants.SERVER_BASE_URL+OrdritJsonKeys.TAG_USERS+"/"+user.getId())){
 				
@@ -271,4 +272,94 @@ public class OrditJsonParser {
 		return user;
 				
 	}
+	
+	//Get pending orders for showing in Order Status
+	public static List<Order> getPendingOrders(String jsonString) {
+		List<Order> orders= new ArrayList<Order>();
+		try{
+		//jsonString="{\"count\": 39, \"next\": null, \"previous\": null, \"results\": [{\"customer\": {\"email\": \"kishansahu87@gmail.com\", \"role\": \"CST\", \"first_name\": \"first\", \"last_name\": \"last\", \"date_joined\": \"2014-05-20T07:58:44.602Z\", \"last_login\": \"2014-05-20T07:58:44.602Z\", \"phone_number\": \"6372842999\", \"gcm_registration_id\": \"\", \"id\": 8, \"url\": \"http://staging.ankursethi.in/users/8\"}, \"customer_address\": {\"user\": \"http://staging.ankursethi.in/users/8\", \"street_address\": \"B23, Baker Street\", \"city\": \"http://staging.ankursethi.in/cities/1\", \"state\": {\"name\": \"Haryana\", \"created_on\": \"2014-04-22T11:31:07.235Z\", \"id\": 1, \"url\": \"http://staging.ankursethi.in/states/1\"}, \"pin_code\": \"110035\", \"created_on\": \"2014-06-25T19:11:19.965Z\", \"id\": 16, \"url\": \"http://staging.ankursethi.in/user_addresses/16\"}, \"store\": {\"name\": \"Webchutney Store\", \"merchant\": {\"name\": \"nishantv.pandey@gmail.com\", \"user\": \"http://staging.ankursethi.in/users/3\", \"stores\": [\"http://staging.ankursethi.in/stores/4\"], \"created_on\": \"2014-04-29T08:45:13.096Z\", \"id\": 3, \"url\": \"http://staging.ankursethi.in/merchants/3\"}, \"address\": {\"street_address\": \"88, Bin Laden Avenue , Karachi\", \"city\": \"http://staging.ankursethi.in/cities/1\", \"state\": \"http://staging.ankursethi.in/states/1\", \"pin_code\": \"12008\", \"created_on\": \"2014-05-05T17:45:28.660Z\", \"id\": 2, \"url\": \"http://staging.ankursethi.in/store_addresses/2\"}, \"location\": \"POINT (77.0835639354858131 28.4985138838636587)\", \"opens_at\": \"09:00:00\", \"closes_at\": \"17:00:00\", \"minimum_order\": \"250.00\", \"estimated_delivery_time\": 60, \"sub_category\": null, \"created_on\": \"2014-05-05T17:45:29.001Z\", \"id\": 4, \"url\": \"http://staging.ankursethi.in/stores/4\", \"phone_number_1\": \"9958746143\", \"phone_number_2\": \"98653241\"}, \"status\": \"PEN\", \"merchant\": {\"name\": \"nishantv.pandey@gmail.com\", \"user\": \"http://staging.ankursethi.in/users/3\", \"stores\": [\"http://staging.ankursethi.in/stores/4\"], \"created_on\": \"2014-04-29T08:45:13.096Z\", \"id\": 3, \"url\": \"http://staging.ankursethi.in/merchants/3\"}, \"item_orders\": [{\"item\": {\"name\": \"Butter Spread \", \"description\": \"butter-spread-25-200g\", \"price\": \"25.00\", \"price_units\": \"UN\", \"store\": \"http://staging.ankursethi.in/stores/4\", \"image\": \"http://staging.ankursethi.in/product_images/42\", \"merchant\": \"http://staging.ankursethi.in/merchants/3\", \"sub_category\": \"http://staging.ankursethi.in/item_sub_categories/22\", \"created_on\": \"2014-06-02T13:44:11.766Z\", \"id\": 32, \"url\": \"http://staging.ankursethi.in/inventory_items/32\"}, \"order\": \"http://staging.ankursethi.in/orders/41\", \"quantity\": 2, \"created_on\": \"2014-06-26T08:43:33.842Z\", \"id\": 49, \"url\": \"http://staging.ankursethi.in/item_orders/49\"}, {\"item\": {\"name\": \"Amul Gold Milk\", \"description\": \"amul-uht-milk-gold-60-1ltr\", \"price\": \"60.00\", \"price_units\": \"UN\", \"store\": \"http://staging.ankursethi.in/stores/4\", \"image\": \"http://staging.ankursethi.in/product_images/49\", \"merchant\": \"http://staging.ankursethi.in/merchants/3\", \"sub_category\": \"http://staging.ankursethi.in/item_sub_categories/24\", \"created_on\": \"2014-06-02T15:55:27.121Z\", \"id\": 53, \"url\": \"http://staging.ankursethi.in/inventory_items/53\"}, \"order\": \"http://staging.ankursethi.in/orders/41\", \"quantity\": 1, \"created_on\": \"2014-06-26T08:43:33.844Z\", \"id\": 50, \"url\": \"http://staging.ankursethi.in/item_orders/50\"}, {\"item\": {\"name\": \"Amul Rose Milk\", \"description\": \"amul-milk-rose-20-200ml\", \"price\": \"20.00\", \"price_units\": \"UN\", \"store\": \"http://staging.ankursethi.in/stores/4\", \"image\": \"http://staging.ankursethi.in/product_images/77\", \"merchant\": \"http://staging.ankursethi.in/merchants/3\", \"sub_category\": \"http://staging.ankursethi.in/item_sub_categories/26\", \"created_on\": \"2014-06-02T16:03:28.712Z\", \"id\": 62, \"url\": \"http://staging.ankursethi.in/inventory_items/62\"}, \"order\": \"http://staging.ankursethi.in/orders/41\", \"quantity\": 1, \"created_on\": \"2014-06-26T08:43:33.845Z\", \"id\": 51, \"url\": \"http://staging.ankursethi.in/item_orders/51\"}], \"created_on\": \"2014-06-26T08:43:33.812Z\", \"coupon_code\": \"abx\", \"id\": 41, \"url\": \"http://staging.ankursethi.in/orders/41\"}, {\"customer\": {\"email\": \"kishansahu87@gmail.com\", \"role\": \"CST\", \"first_name\": \"first\", \"last_name\": \"last\", \"date_joined\": \"2014-05-20T07:58:44.602Z\", \"last_login\": \"2014-05-20T07:58:44.602Z\", \"phone_number\": \"6372842999\", \"gcm_registration_id\": \"\", \"id\": 8, \"url\": \"http://staging.ankursethi.in/users/8\"}, \"customer_address\": {\"user\": \"http://staging.ankursethi.in/users/8\", \"street_address\": \"B23, Baker Street\", \"city\": \"http://staging.ankursethi.in/cities/1\", \"state\": {\"name\": \"Haryana\", \"created_on\": \"2014-04-22T11:31:07.235Z\", \"id\": 1, \"url\": \"http://staging.ankursethi.in/states/1\"}, \"pin_code\": \"110035\", \"created_on\": \"2014-06-25T19:11:19.965Z\", \"id\": 16, \"url\": \"http://staging.ankursethi.in/user_addresses/16\"}, \"store\": {\"name\": \"Webchutney Store\", \"merchant\": {\"name\": \"nishantv.pandey@gmail.com\", \"user\": \"http://staging.ankursethi.in/users/3\", \"stores\": [\"http://staging.ankursethi.in/stores/4\"], \"created_on\": \"2014-04-29T08:45:13.096Z\", \"id\": 3, \"url\": \"http://staging.ankursethi.in/merchants/3\"}, \"address\": {\"street_address\": \"88, Bin Laden Avenue , Karachi\", \"city\": \"http://staging.ankursethi.in/cities/1\", \"state\": \"http://staging.ankursethi.in/states/1\", \"pin_code\": \"12008\", \"created_on\": \"2014-05-05T17:45:28.660Z\", \"id\": 2, \"url\": \"http://staging.ankursethi.in/store_addresses/2\"}, \"location\": \"POINT (77.0835639354858131 28.4985138838636587)\", \"opens_at\": \"09:00:00\", \"closes_at\": \"17:00:00\", \"minimum_order\": \"250.00\", \"estimated_delivery_time\": 60, \"sub_category\": null, \"created_on\": \"2014-05-05T17:45:29.001Z\", \"id\": 4, \"url\": \"http://staging.ankursethi.in/stores/4\", \"phone_number_1\": \"9958746143\", \"phone_number_2\": \"98653241\"}, \"status\": \"PEN\", \"merchant\": {\"name\": \"nishantv.pandey@gmail.com\", \"user\": \"http://staging.ankursethi.in/users/3\", \"stores\": [\"http://staging.ankursethi.in/stores/4\"], \"created_on\": \"2014-04-29T08:45:13.096Z\", \"id\": 3, \"url\": \"http://staging.ankursethi.in/merchants/3\"}, \"item_orders\": [{\"item\": {\"name\": \"Butter Spread \", \"description\": \"butter-spread-25-200g\", \"price\": \"25.00\", \"price_units\": \"UN\", \"store\": \"http://staging.ankursethi.in/stores/4\", \"image\": \"http://staging.ankursethi.in/product_images/42\", \"merchant\": \"http://staging.ankursethi.in/merchants/3\", \"sub_category\": \"http://staging.ankursethi.in/item_sub_categories/22\", \"created_on\": \"2014-06-02T13:44:11.766Z\", \"id\": 32, \"url\": \"http://staging.ankursethi.in/inventory_items/32\"}, \"order\": \"http://staging.ankursethi.in/orders/41\", \"quantity\": 2, \"created_on\": \"2014-06-26T08:43:33.842Z\", \"id\": 49, \"url\": \"http://staging.ankursethi.in/item_orders/49\"}, {\"item\": {\"name\": \"Amul Gold Milk\", \"description\": \"amul-uht-milk-gold-60-1ltr\", \"price\": \"60.00\", \"price_units\": \"UN\", \"store\": \"http://staging.ankursethi.in/stores/4\", \"image\": \"http://staging.ankursethi.in/product_images/49\", \"merchant\": \"http://staging.ankursethi.in/merchants/3\", \"sub_category\": \"http://staging.ankursethi.in/item_sub_categories/24\", \"created_on\": \"2014-06-02T15:55:27.121Z\", \"id\": 53, \"url\": \"http://staging.ankursethi.in/inventory_items/53\"}, \"order\": \"http://staging.ankursethi.in/orders/41\", \"quantity\": 1, \"created_on\": \"2014-06-26T08:43:33.844Z\", \"id\": 50, \"url\": \"http://staging.ankursethi.in/item_orders/50\"}, {\"item\": {\"name\": \"Amul Rose Milk\", \"description\": \"amul-milk-rose-20-200ml\", \"price\": \"20.00\", \"price_units\": \"UN\", \"store\": \"http://staging.ankursethi.in/stores/4\", \"image\": \"http://staging.ankursethi.in/product_images/77\", \"merchant\": \"http://staging.ankursethi.in/merchants/3\", \"sub_category\": \"http://staging.ankursethi.in/item_sub_categories/26\", \"created_on\": \"2014-06-02T16:03:28.712Z\", \"id\": 62, \"url\": \"http://staging.ankursethi.in/inventory_items/62\"}, \"order\": \"http://staging.ankursethi.in/orders/41\", \"quantity\": 1, \"created_on\": \"2014-06-26T08:43:33.845Z\", \"id\": 51, \"url\": \"http://staging.ankursethi.in/item_orders/51\"}], \"created_on\": \"2014-06-26T08:43:33.812Z\", \"coupon_code\": \"abx\", \"id\": 41, \"url\": \"http://staging.ankursethi.in/orders/41\"}]}";
+		JSONObject jsonObj = new JSONObject(jsonString);
+		JSONArray jsonArray = jsonObj.getJSONArray(OrdritJsonKeys.TAG_RESULTS);
+		
+		for (int i = 0; i < jsonArray.length(); i++) {
+			JSONObject itemOrdersJsonObj = jsonArray.getJSONObject(i);
+			
+			if(itemOrdersJsonObj.getString(OrdritJsonKeys.TAG_STATUS).equalsIgnoreCase(OrdritJsonKeys.TAG_PENDING)){
+				Order order= new Order();
+				order.setId(itemOrdersJsonObj.getString(OrdritJsonKeys.TAG_ID));
+				order.setStatus(OrdritJsonKeys.TAG_PENDING);
+				order.setCreationDate(itemOrdersJsonObj.getString(OrdritJsonKeys.TAG_CREATED_ON));
+				JSONArray itemOrdersJSONArray = itemOrdersJsonObj.getJSONArray(OrdritJsonKeys.TAG_ITEM_ORDERS);
+				List<Item> itemsInOrder= new ArrayList<Item>();
+				for (int j = 0; j < itemOrdersJSONArray.length(); j++) {
+					JSONObject itemJsonObj = itemOrdersJSONArray.getJSONObject(j);
+					Item item = new Item();
+					item.setItemQuantity(itemJsonObj.getString(OrdritJsonKeys.TAG_QUANTITY));
+					item.setName(itemJsonObj.getJSONObject(OrdritJsonKeys.TAG_ITEM).getString(OrdritJsonKeys.TAG_NAME));
+					item.setPricePerUnit(itemJsonObj.getJSONObject(OrdritJsonKeys.TAG_ITEM).getString(OrdritJsonKeys.TAG_PRICE));
+					itemsInOrder.add(item);
+				}
+				order.setItemsInOrder(itemsInOrder);
+				orders.add(order);
+			}
+			
+			
+		}
+		}catch(Exception e){
+			
+		}
+		return orders;
+	}
+	
+	
+	
+	//Get previous orders for showing in Previous Orders
+		public static List<Order> getPreviousOrders(String jsonString) {
+			List<Order> orders= new ArrayList<Order>();
+			try{
+			//jsonString="{\"count\": 39, \"next\": null, \"previous\": null, \"results\": [{\"customer\": {\"email\": \"kishansahu87@gmail.com\", \"role\": \"CST\", \"first_name\": \"first\", \"last_name\": \"last\", \"date_joined\": \"2014-05-20T07:58:44.602Z\", \"last_login\": \"2014-05-20T07:58:44.602Z\", \"phone_number\": \"6372842999\", \"gcm_registration_id\": \"\", \"id\": 8, \"url\": \"http://staging.ankursethi.in/users/8\"}, \"customer_address\": {\"user\": \"http://staging.ankursethi.in/users/8\", \"street_address\": \"B23, Baker Street\", \"city\": \"http://staging.ankursethi.in/cities/1\", \"state\": {\"name\": \"Haryana\", \"created_on\": \"2014-04-22T11:31:07.235Z\", \"id\": 1, \"url\": \"http://staging.ankursethi.in/states/1\"}, \"pin_code\": \"110035\", \"created_on\": \"2014-06-25T19:11:19.965Z\", \"id\": 16, \"url\": \"http://staging.ankursethi.in/user_addresses/16\"}, \"store\": {\"name\": \"Webchutney Store\", \"merchant\": {\"name\": \"nishantv.pandey@gmail.com\", \"user\": \"http://staging.ankursethi.in/users/3\", \"stores\": [\"http://staging.ankursethi.in/stores/4\"], \"created_on\": \"2014-04-29T08:45:13.096Z\", \"id\": 3, \"url\": \"http://staging.ankursethi.in/merchants/3\"}, \"address\": {\"street_address\": \"88, Bin Laden Avenue , Karachi\", \"city\": \"http://staging.ankursethi.in/cities/1\", \"state\": \"http://staging.ankursethi.in/states/1\", \"pin_code\": \"12008\", \"created_on\": \"2014-05-05T17:45:28.660Z\", \"id\": 2, \"url\": \"http://staging.ankursethi.in/store_addresses/2\"}, \"location\": \"POINT (77.0835639354858131 28.4985138838636587)\", \"opens_at\": \"09:00:00\", \"closes_at\": \"17:00:00\", \"minimum_order\": \"250.00\", \"estimated_delivery_time\": 60, \"sub_category\": null, \"created_on\": \"2014-05-05T17:45:29.001Z\", \"id\": 4, \"url\": \"http://staging.ankursethi.in/stores/4\", \"phone_number_1\": \"9958746143\", \"phone_number_2\": \"98653241\"}, \"status\": \"PEN\", \"merchant\": {\"name\": \"nishantv.pandey@gmail.com\", \"user\": \"http://staging.ankursethi.in/users/3\", \"stores\": [\"http://staging.ankursethi.in/stores/4\"], \"created_on\": \"2014-04-29T08:45:13.096Z\", \"id\": 3, \"url\": \"http://staging.ankursethi.in/merchants/3\"}, \"item_orders\": [{\"item\": {\"name\": \"Butter Spread \", \"description\": \"butter-spread-25-200g\", \"price\": \"25.00\", \"price_units\": \"UN\", \"store\": \"http://staging.ankursethi.in/stores/4\", \"image\": \"http://staging.ankursethi.in/product_images/42\", \"merchant\": \"http://staging.ankursethi.in/merchants/3\", \"sub_category\": \"http://staging.ankursethi.in/item_sub_categories/22\", \"created_on\": \"2014-06-02T13:44:11.766Z\", \"id\": 32, \"url\": \"http://staging.ankursethi.in/inventory_items/32\"}, \"order\": \"http://staging.ankursethi.in/orders/41\", \"quantity\": 2, \"created_on\": \"2014-06-26T08:43:33.842Z\", \"id\": 49, \"url\": \"http://staging.ankursethi.in/item_orders/49\"}, {\"item\": {\"name\": \"Amul Gold Milk\", \"description\": \"amul-uht-milk-gold-60-1ltr\", \"price\": \"60.00\", \"price_units\": \"UN\", \"store\": \"http://staging.ankursethi.in/stores/4\", \"image\": \"http://staging.ankursethi.in/product_images/49\", \"merchant\": \"http://staging.ankursethi.in/merchants/3\", \"sub_category\": \"http://staging.ankursethi.in/item_sub_categories/24\", \"created_on\": \"2014-06-02T15:55:27.121Z\", \"id\": 53, \"url\": \"http://staging.ankursethi.in/inventory_items/53\"}, \"order\": \"http://staging.ankursethi.in/orders/41\", \"quantity\": 1, \"created_on\": \"2014-06-26T08:43:33.844Z\", \"id\": 50, \"url\": \"http://staging.ankursethi.in/item_orders/50\"}, {\"item\": {\"name\": \"Amul Rose Milk\", \"description\": \"amul-milk-rose-20-200ml\", \"price\": \"20.00\", \"price_units\": \"UN\", \"store\": \"http://staging.ankursethi.in/stores/4\", \"image\": \"http://staging.ankursethi.in/product_images/77\", \"merchant\": \"http://staging.ankursethi.in/merchants/3\", \"sub_category\": \"http://staging.ankursethi.in/item_sub_categories/26\", \"created_on\": \"2014-06-02T16:03:28.712Z\", \"id\": 62, \"url\": \"http://staging.ankursethi.in/inventory_items/62\"}, \"order\": \"http://staging.ankursethi.in/orders/41\", \"quantity\": 1, \"created_on\": \"2014-06-26T08:43:33.845Z\", \"id\": 51, \"url\": \"http://staging.ankursethi.in/item_orders/51\"}], \"created_on\": \"2014-06-26T08:43:33.812Z\", \"coupon_code\": \"abx\", \"id\": 41, \"url\": \"http://staging.ankursethi.in/orders/41\"}, {\"customer\": {\"email\": \"kishansahu87@gmail.com\", \"role\": \"CST\", \"first_name\": \"first\", \"last_name\": \"last\", \"date_joined\": \"2014-05-20T07:58:44.602Z\", \"last_login\": \"2014-05-20T07:58:44.602Z\", \"phone_number\": \"6372842999\", \"gcm_registration_id\": \"\", \"id\": 8, \"url\": \"http://staging.ankursethi.in/users/8\"}, \"customer_address\": {\"user\": \"http://staging.ankursethi.in/users/8\", \"street_address\": \"B23, Baker Street\", \"city\": \"http://staging.ankursethi.in/cities/1\", \"state\": {\"name\": \"Haryana\", \"created_on\": \"2014-04-22T11:31:07.235Z\", \"id\": 1, \"url\": \"http://staging.ankursethi.in/states/1\"}, \"pin_code\": \"110035\", \"created_on\": \"2014-06-25T19:11:19.965Z\", \"id\": 16, \"url\": \"http://staging.ankursethi.in/user_addresses/16\"}, \"store\": {\"name\": \"Webchutney Store\", \"merchant\": {\"name\": \"nishantv.pandey@gmail.com\", \"user\": \"http://staging.ankursethi.in/users/3\", \"stores\": [\"http://staging.ankursethi.in/stores/4\"], \"created_on\": \"2014-04-29T08:45:13.096Z\", \"id\": 3, \"url\": \"http://staging.ankursethi.in/merchants/3\"}, \"address\": {\"street_address\": \"88, Bin Laden Avenue , Karachi\", \"city\": \"http://staging.ankursethi.in/cities/1\", \"state\": \"http://staging.ankursethi.in/states/1\", \"pin_code\": \"12008\", \"created_on\": \"2014-05-05T17:45:28.660Z\", \"id\": 2, \"url\": \"http://staging.ankursethi.in/store_addresses/2\"}, \"location\": \"POINT (77.0835639354858131 28.4985138838636587)\", \"opens_at\": \"09:00:00\", \"closes_at\": \"17:00:00\", \"minimum_order\": \"250.00\", \"estimated_delivery_time\": 60, \"sub_category\": null, \"created_on\": \"2014-05-05T17:45:29.001Z\", \"id\": 4, \"url\": \"http://staging.ankursethi.in/stores/4\", \"phone_number_1\": \"9958746143\", \"phone_number_2\": \"98653241\"}, \"status\": \"PEN\", \"merchant\": {\"name\": \"nishantv.pandey@gmail.com\", \"user\": \"http://staging.ankursethi.in/users/3\", \"stores\": [\"http://staging.ankursethi.in/stores/4\"], \"created_on\": \"2014-04-29T08:45:13.096Z\", \"id\": 3, \"url\": \"http://staging.ankursethi.in/merchants/3\"}, \"item_orders\": [{\"item\": {\"name\": \"Butter Spread \", \"description\": \"butter-spread-25-200g\", \"price\": \"25.00\", \"price_units\": \"UN\", \"store\": \"http://staging.ankursethi.in/stores/4\", \"image\": \"http://staging.ankursethi.in/product_images/42\", \"merchant\": \"http://staging.ankursethi.in/merchants/3\", \"sub_category\": \"http://staging.ankursethi.in/item_sub_categories/22\", \"created_on\": \"2014-06-02T13:44:11.766Z\", \"id\": 32, \"url\": \"http://staging.ankursethi.in/inventory_items/32\"}, \"order\": \"http://staging.ankursethi.in/orders/41\", \"quantity\": 2, \"created_on\": \"2014-06-26T08:43:33.842Z\", \"id\": 49, \"url\": \"http://staging.ankursethi.in/item_orders/49\"}, {\"item\": {\"name\": \"Amul Gold Milk\", \"description\": \"amul-uht-milk-gold-60-1ltr\", \"price\": \"60.00\", \"price_units\": \"UN\", \"store\": \"http://staging.ankursethi.in/stores/4\", \"image\": \"http://staging.ankursethi.in/product_images/49\", \"merchant\": \"http://staging.ankursethi.in/merchants/3\", \"sub_category\": \"http://staging.ankursethi.in/item_sub_categories/24\", \"created_on\": \"2014-06-02T15:55:27.121Z\", \"id\": 53, \"url\": \"http://staging.ankursethi.in/inventory_items/53\"}, \"order\": \"http://staging.ankursethi.in/orders/41\", \"quantity\": 1, \"created_on\": \"2014-06-26T08:43:33.844Z\", \"id\": 50, \"url\": \"http://staging.ankursethi.in/item_orders/50\"}, {\"item\": {\"name\": \"Amul Rose Milk\", \"description\": \"amul-milk-rose-20-200ml\", \"price\": \"20.00\", \"price_units\": \"UN\", \"store\": \"http://staging.ankursethi.in/stores/4\", \"image\": \"http://staging.ankursethi.in/product_images/77\", \"merchant\": \"http://staging.ankursethi.in/merchants/3\", \"sub_category\": \"http://staging.ankursethi.in/item_sub_categories/26\", \"created_on\": \"2014-06-02T16:03:28.712Z\", \"id\": 62, \"url\": \"http://staging.ankursethi.in/inventory_items/62\"}, \"order\": \"http://staging.ankursethi.in/orders/41\", \"quantity\": 1, \"created_on\": \"2014-06-26T08:43:33.845Z\", \"id\": 51, \"url\": \"http://staging.ankursethi.in/item_orders/51\"}], \"created_on\": \"2014-06-26T08:43:33.812Z\", \"coupon_code\": \"abx\", \"id\": 41, \"url\": \"http://staging.ankursethi.in/orders/41\"}]}";
+			JSONObject jsonObj = new JSONObject(jsonString);
+			JSONArray jsonArray = jsonObj.getJSONArray(OrdritJsonKeys.TAG_RESULTS);
+			int length= jsonArray.length();
+			if(length >= 5){
+				length=5;
+			}
+			
+			
+			for (int i = 0; i < length; i++) {
+				JSONObject itemOrdersJsonObj = jsonArray.getJSONObject(i);
+				
+				if(itemOrdersJsonObj.getString(OrdritJsonKeys.TAG_STATUS).equalsIgnoreCase(OrdritJsonKeys.TAG_PENDING)){
+					Order order= new Order();
+					order.setId(itemOrdersJsonObj.getString(OrdritJsonKeys.TAG_ID));
+					order.setStatus(itemOrdersJsonObj.getString(OrdritJsonKeys.TAG_STATUS));
+					order.setCreationDate(itemOrdersJsonObj.getString(OrdritJsonKeys.TAG_CREATED_ON));
+					JSONArray itemOrdersJSONArray = itemOrdersJsonObj.getJSONArray(OrdritJsonKeys.TAG_ITEM_ORDERS);
+					List<Item> itemsInOrder= new ArrayList<Item>();
+					for (int j = 0; j < itemOrdersJSONArray.length(); j++) {
+						JSONObject itemJsonObj = itemOrdersJSONArray.getJSONObject(j);
+						Item item = new Item();
+						item.setItemQuantity(itemJsonObj.getString(OrdritJsonKeys.TAG_QUANTITY));
+						item.setName(itemJsonObj.getJSONObject(OrdritJsonKeys.TAG_ITEM).getString(OrdritJsonKeys.TAG_NAME));
+						item.setPricePerUnit(itemJsonObj.getJSONObject(OrdritJsonKeys.TAG_ITEM).getString(OrdritJsonKeys.TAG_PRICE));
+						itemsInOrder.add(item);
+					}
+					order.setItemsInOrder(itemsInOrder);
+					orders.add(order);
+				}
+				
+				
+			}
+			}catch(Exception e){
+				
+			}
+			return orders;
+		}
 }
+
+
+
+
+
+
+

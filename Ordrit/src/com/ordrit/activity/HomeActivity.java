@@ -1,5 +1,8 @@
 package com.ordrit.activity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -9,6 +12,8 @@ import android.view.Menu;
 
 import com.ordrit.R;
 import com.ordrit.fragment.WelcomeFragment;
+import com.ordrit.model.Address;
+import com.ordrit.util.OrdritJsonKeys;
 
 public class HomeActivity extends Activity {
 
@@ -16,6 +21,8 @@ public class HomeActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home_main);
+
+		
 		FragmentManager fragmentManager = getFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager
 				.beginTransaction();

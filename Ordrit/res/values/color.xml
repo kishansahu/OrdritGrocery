@@ -10,7 +10,7 @@
     <color name="deep_grey">#343434</color>
     <color name="white">#ffffffff</color>
     <color name="transparent">#00000000</color>
-    <color name="actionbar_background">#7CC4E6</color>
+    <color name="actionbar_background">#1d93f4</color>
     <color name="grey">#CCCCCC</color>
     <color name="light_yellow">#fff200</color>
     <color name="menu_background_color">#2e2e2e</color>
@@ -24,4 +24,5 @@
     <color name="counter_text_bg">#626262</color>
     <color name="counter_text_color">#c5c4c4</color>
     <color name="fragment_background_color">#E3E3E3</color>
+    <color name="normal_text_color">#ff0099cc</color>
 </resources>

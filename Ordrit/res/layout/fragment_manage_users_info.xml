@@ -76,7 +76,7 @@
             android:padding="5dp"
             android:text="@string/my_account"
             android:textAppearance="?android:attr/textAppearanceLargeInverse"
-            android:textColor="@android:color/holo_blue_dark"
+            android:textColor="@color/normal_text_color"
             android:textSize="@dimen/manage_user_info_title_text_color"
             android:textStyle="bold" />
 
@@ -114,7 +114,7 @@
             android:padding="5dp"
             android:text="@string/my_addresses"
             android:textAppearance="?android:attr/textAppearanceLargeInverse"
-            android:textColor="@android:color/holo_blue_dark"
+            android:textColor="@color/normal_text_color"
             android:textSize="@dimen/manage_user_info_title_text_color"
             android:textStyle="bold" />
 

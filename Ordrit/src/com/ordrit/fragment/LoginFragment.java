@@ -241,7 +241,7 @@ public class LoginFragment extends Fragment {
 				user= OrditJsonParser.updateUserWithPersonalInfo(user, jSONString);
 				
 				jSONString = connection.getHttpUrlConnection(OrdritConstants.SERVER_BASE_URL+ 
-						OrdritConstants.USERS_ADDRESS,SharedPreferencesUtil.getStringPreferences(
+						OrdritConstants.USERS_ADDRESS+"?"+OrdritConstants.USER+"="+ user.getId(),SharedPreferencesUtil.getStringPreferences(
 						getActivity(), OrdritJsonKeys.TAG_TOKEN));
 					
 					user.setToken(SharedPreferencesUtil.getStringPreferences(

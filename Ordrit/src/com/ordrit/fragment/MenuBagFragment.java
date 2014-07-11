@@ -63,7 +63,9 @@ public class MenuBagFragment extends BaseFragment {
 
 	@Override
 	void setupUiComponent() {
-
+		if(selectedItemList==null){
+			selectedItemList= new ArrayList<SelectedItem>();
+		}
 		MenuBagAdapter menuBagAdapter = new MenuBagAdapter(dashboardActivity,
 				R.layout.item_bag, selectedItemList,uilApplication,new SetTotalCost() {
 					

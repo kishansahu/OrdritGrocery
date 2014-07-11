@@ -222,6 +222,7 @@ public class OrditJsonParser {
 	}
 	
 	public static User updateUserWithAddress(User user, String jsonString) throws JSONException{
+		if(jsonString!=null && !jsonString.isEmpty()){
 		JSONObject jsonObj= new JSONObject(jsonString);
 		JSONArray jsonArray= jsonObj.getJSONArray(OrdritJsonKeys.TAG_RESULTS);
 		for(int i=jsonArray.length()-1;i>=0;i--){
@@ -253,7 +254,7 @@ public class OrditJsonParser {
 			}	
 			
 		}
-				
+		}		
 		return user;
 	}
 	

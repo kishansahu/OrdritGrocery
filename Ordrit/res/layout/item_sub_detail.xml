@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:padding="2dp"
-            android:textColor="@color/grey" />
+           android:textColor="@color/actionbar_background" />
 
         <TextView
             android:id="@+id/itemQuantity"
@@ -28,7 +28,7 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:padding="5dp"
-            android:textColor="@color/grey" />
+            android:textColor="@color/actionbar_background" />
 
         <TextView
             android:id="@+id/itemPrice"
@@ -38,7 +38,7 @@
             android:layout_weight="1"
             android:gravity="right"
             android:padding="5dp"
-            android:textColor="@color/grey" />
+            android:textColor="@color/actionbar_background" />
     </LinearLayout>
 
     <View

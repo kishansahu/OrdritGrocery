@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.ordrit.R;
@@ -46,6 +47,7 @@ public class MenuBagFragment extends BaseFragment {
 	private LinearLayout menuBagTotalCountContainer;
 	private UILApplication uilApplication;
 	private List<SelectedItem> selectedItemList;
+	private String storeId;
 	
 
 	@Override
@@ -122,6 +124,21 @@ public class MenuBagFragment extends BaseFragment {
 
 			@Override
 			public void onClick(View v) {
+				
+				
+					storeId=dashboardActivity.getSelectedStoreId();
+				
+				float minimumOrder = 0.0f;
+				if (storeId!=null) {
+					 OrdrItdataBaseHelper ordrItdataBaseHelper= new OrdrItdataBaseHelper(dashboardActivity);
+					 minimumOrder= Float.parseFloat(ordrItdataBaseHelper.getStoreMinimumOrder(storeId)) ;
+					
+				}
+				
+				if (minimumOrder> CommonUtils.countTotalPrice(selectedItemList)) {
+					Toast.makeText(dashboardActivity, "Minimum order should be "+minimumOrder, Toast.LENGTH_LONG).show();
+					return;
+				}
 
 				List<Items> orderedItemsList = new ArrayList<Items>();
 				
@@ -140,8 +157,8 @@ public class MenuBagFragment extends BaseFragment {
 				String strUser = SharedPreferencesUtil.getStringPreferences(
 						getActivity(), OrdritConstants.USER);
 				
-				User user = gson.fromJson(strUser, User.class);
-			String orderString=	WebServicesRawDataUtil.placeOrderJSONObjectString(user, uilApplication, orderedItemsListString);
+			 User user = gson.fromJson(strUser, User.class);
+			 String orderString=	WebServicesRawDataUtil.placeOrderJSONObjectString(user, uilApplication, orderedItemsListString);
 				
 			 Fragment deliveryDetailsFragment= new DeliveryDetailsFragment();
 			// FragmentManager fm=getFragmentManager();

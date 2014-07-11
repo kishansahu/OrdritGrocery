@@ -5,36 +5,40 @@
     android:background="@android:color/white"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/RelativeLayout1"
         android:layout_width="match_parent"
         android:layout_height="@dimen/header_height"
         android:background="@color/actionbar_background"
         android:orientation="horizontal" >
 
-        <Button
-            android:id="@+id/back"
-            android:layout_width="40dp"
-            android:layout_height="35dp"
-            android:layout_margin="5dp"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/logo_ordrit" />
-
         <com.ordrit.util.CalibriTextView
             android:id="@+id/menuBagTitle"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
+            android:layout_alignLeft="@+id/back"
+            android:layout_alignRight="@+id/menuBagCheckout"
+            android:layout_centerVertical="true"
             android:gravity="center"
             android:text="@string/bag"
             android:textColor="@color/white"
             android:textSize="@dimen/header_text_size" />
 
+        <Button
+            android:id="@+id/back"
+            android:layout_width="40dp"
+            android:layout_height="35dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"
+            android:background="@drawable/logo_ordrit" />
+
         <com.ordrit.util.CalibriButton
             android:id="@+id/menuBagCheckout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+             android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
             android:layout_margin="5dp"
             android:background="@drawable/yellow_btn_style"
             android:padding="@dimen/default_button_padding"
@@ -42,7 +46,7 @@
             android:textColor="@color/actionbar_background"
             android:textSize="@dimen/default_text_size" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <com.ordrit.util.CalibriTextView
         android:id="@+id/textListStatus"
@@ -60,11 +64,10 @@
         android:layout_height="0dp"
         android:layout_gravity="center_vertical"
         android:layout_margin="5dp"
-        android:dividerHeight="1dp"
+        android:layout_weight="1"
         android:divider="@android:color/transparent"
-        android:scrollbars="none"
-        android:layout_weight="1" >
-      
+        android:dividerHeight="1dp"
+        android:scrollbars="none" >
     </ListView>
 
     <LinearLayout
@@ -104,12 +107,14 @@
             android:textSize="25sp"
             android:textStyle="bold" />
 
-        <!-- <TextView
+        <!--
+             <TextView
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="TextView" /> -->
+            android:text="TextView" />
+        -->
 
     </LinearLayout>
 

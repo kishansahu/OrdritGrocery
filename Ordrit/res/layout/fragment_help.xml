@@ -19,14 +19,16 @@
             android:background="@drawable/logo_ordrit"
             android:layout_gravity="center" />
 
-        <TextView
+        <com.ordrit.util.CalibriTextView
             android:id="@+id/menuMapTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:gravity="left"
+            android:gravity="center"
             android:text="@string/help"
+            android:textColor="@color/white"
+            android:textSize="@dimen/header_text_size"
             android:textAppearance="?android:attr/textAppearanceLarge" />
         <RelativeLayout
             android:id="@+id/cartContainer"

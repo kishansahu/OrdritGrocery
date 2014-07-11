@@ -43,58 +43,65 @@ public class PreviousOrdersFragment extends BaseFragment {
 		previousOrdersFragment = inflater.inflate(R.layout.fragment_previous_orders,
 				container, false);
 		uilApplication = (UILApplication) dashboardActivity.getApplication();
-		setupUiComponent();
+		
 		return previousOrdersFragment;
 	}
+@Override
+public void onActivityCreated(Bundle savedInstanceState) {
+	// TODO Auto-generated method stub
+	super.onActivityCreated(savedInstanceState);
+	setupUiComponent();
+	if (new CommonUtils(getActivity()).isConnectingToInternet()) {
 
+		new WebServiceProcessingTask() {
+
+			@Override
+			public void preExecuteTask() {
+				TAG = tag;
+				progressDialog=new ProgressDialog(dashboardActivity);
+			}
+
+			@Override
+			public void postExecuteTask() {
+				PreviousOrdersAdapter previousOrdersAdapter = new PreviousOrdersAdapter(dashboardActivity,
+						R.layout.item_previous_order, ordersList);
+				previosOrdersListView.setAdapter(previousOrdersAdapter);
+				if (ordersList.size()>0) {
+					textPreviousOrderStatus.setVisibility(View.GONE);
+				}else {
+					textPreviousOrderStatus.setVisibility(View.VISIBLE);
+				}
+
+			}
+
+			@Override
+			public void backgroundTask() {
+
+				// Start test code for fetching the orders placed
+				jSONString = connection.getHttpUrlConnectionForArray(
+						OrdritConstants.SERVER_BASE_URL
+								+ OrdritConstants.ORDERS,
+						SharedPreferencesUtil.getStringPreferences(
+								getActivity(), OrdritJsonKeys.TAG_TOKEN));
+				Log.e("order json", jSONString);
+				ordersList=	OrditJsonParser.getPreviousOrders(jSONString);
+				int i=ordersList.size();
+				// End test code for fetching the orders placed
+
+			}
+		}.execute();
+
+	} else {
+		Toast.makeText(
+				getActivity(),
+				getResources().getString(
+						R.string.internet_connection_failed),
+				Toast.LENGTH_LONG).show();
+	}
+}
 	@Override
 	public void onResume() {
-		if (new CommonUtils(getActivity()).isConnectingToInternet()) {
-
-			new WebServiceProcessingTask() {
-
-				@Override
-				public void preExecuteTask() {
-					TAG = tag;
-					progressDialog=new ProgressDialog(dashboardActivity);
-				}
-
-				@Override
-				public void postExecuteTask() {
-					PreviousOrdersAdapter previousOrdersAdapter = new PreviousOrdersAdapter(dashboardActivity,
-							R.layout.item_previous_order, ordersList);
-					previosOrdersListView.setAdapter(previousOrdersAdapter);
-					if (ordersList.size()>0) {
-						textPreviousOrderStatus.setVisibility(View.GONE);
-					}else {
-						textPreviousOrderStatus.setVisibility(View.VISIBLE);
-					}
-
-				}
-
-				@Override
-				public void backgroundTask() {
-
-					// Start test code for fetching the orders placed
-					jSONString = connection.getHttpUrlConnectionForArray(
-							OrdritConstants.SERVER_BASE_URL
-									+ OrdritConstants.ORDERS,
-							SharedPreferencesUtil.getStringPreferences(
-									getActivity(), OrdritJsonKeys.TAG_TOKEN));
-					Log.e("order json", jSONString);
-					ordersList=	OrditJsonParser.getPreviousOrders(jSONString);
-					// End test code for fetching the orders placed
-
-				}
-			}.execute();
-
-		} else {
-			Toast.makeText(
-					getActivity(),
-					getResources().getString(
-							R.string.internet_connection_failed),
-					Toast.LENGTH_LONG).show();
-		}
+		
 		super.onResume();
 	}
 

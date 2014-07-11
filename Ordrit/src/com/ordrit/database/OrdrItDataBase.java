@@ -23,6 +23,7 @@ public class OrdrItDataBase extends SQLiteOpenHelper {
 	public static final String COLUMN_STORE_PHONE_NUMBER_2="phoneNumber2";
 	public static final String COLUMN_STORE_OPEN_AT="openAt";
 	public static final String COLUMN_STORE_CLOSE_AT="closeAt";
+	public static final String COLUMN_STORE_MINIMUM_ORDER="minimumOrder";
 	public static final String COLUMN_STORE_USER_ID="userId";
 	public static final String COLUMN_STORE__ADDRESS_ID= "addressId";
 	
@@ -36,6 +37,7 @@ public class OrdrItDataBase extends SQLiteOpenHelper {
 			+ COLUMN_STORE_PHONE_NUMBER_2 + " TEXT," 
 			+ COLUMN_STORE_OPEN_AT+ " TEXT," 
 			+ COLUMN_STORE_CLOSE_AT + " TEXT," 
+			+ COLUMN_STORE_MINIMUM_ORDER + " TEXT," 
 			+ COLUMN_STORE_USER_ID + " TEXT," 
 			+ COLUMN_STORE__ADDRESS_ID + " TEXT" + ")";
 	

@@ -54,7 +54,16 @@
                 android:textColor="@color/white" />
         </RelativeLayout>
     </RelativeLayout>
-
+<com.ordrit.util.CalibriTextView
+        android:id="@+id/textCarogeryStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:text="@string/empty_previous_order"
+        android:textColor="@color/counter_text_bg"
+        android:textSize="@dimen/header_text_size"
+        android:visibility="gone" />
    
 
     <ExpandableListView

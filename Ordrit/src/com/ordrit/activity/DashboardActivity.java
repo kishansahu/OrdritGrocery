@@ -17,9 +17,12 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -58,6 +61,7 @@ public class DashboardActivity extends Activity {
 	private List<State> statesList;
 	private List<City> cityList;
 	private User user;
+	private String selectedStoreId;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -338,11 +342,41 @@ public void popFragment(String tag) {
 				}
 			});
 		 }else{
-			 cartContainer.setVisibility(View.INVISIBLE); 
+			 cartContainer.setVisibility(View.GONE); 
 		 }
 		 }
 	 }
-	 
+	 @Override
+		public boolean dispatchTouchEvent(MotionEvent event) {
+			View currentView = getCurrentFocus();
+
+			boolean retVal = super.dispatchTouchEvent(event);
+			if (currentView instanceof EditText) {
+				View cView = getCurrentFocus();
+				int scrCoordinates[] = new int[2];
+				cView.getLocationOnScreen(scrCoordinates);
+				float xPos = event.getRawX() + cView.getLeft() - scrCoordinates[0];
+				float yPos = event.getRawY() + cView.getTop() - scrCoordinates[1];
+
+				if (event.getAction() == MotionEvent.ACTION_UP
+						&& (xPos < cView.getLeft() || xPos >= cView.getRight()
+								|| yPos < cView.getTop() || yPos > cView
+								.getBottom())) {
+					InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+					imm.hideSoftInputFromWindow(getWindow().getCurrentFocus()
+							.getWindowToken(), 0);
+				}
+			}
+			return retVal;
+		}
+
+	public String getSelectedStoreId() {
+		return selectedStoreId;
+	}
+
+	public void setSelectedStoreId(String selectedStoreId) {
+		this.selectedStoreId = selectedStoreId;
+	} 
 	 
 }
 

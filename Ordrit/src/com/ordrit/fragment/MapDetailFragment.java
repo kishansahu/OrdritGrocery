@@ -154,7 +154,7 @@ public class MapDetailFragment extends BaseFragment {
 	private void setupMapData(List<Store> list) {
 		// Changing map type
 		// googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-		 googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+		 googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 		
 
 		// Showing / hiding your current location
@@ -206,7 +206,7 @@ public class MapDetailFragment extends BaseFragment {
 				@Override
 				public void onInfoWindowClick(Marker marker) {
 					tempStore=eventMarkerMap.get(marker.getTitle());
-					Toast.makeText(dashboardActivity,"Store selected", Toast.LENGTH_SHORT).show();
+					Toast.makeText(dashboardActivity,"Store selected. Now add store", Toast.LENGTH_SHORT).show();
 					/*View view=iconizedWindowAdapter.getInfoContents(marker);
 					final ImageView image= (ImageView) view.findViewById(R.id.image);
 					image.setImageResource(R.drawable.ic_launcher);*/

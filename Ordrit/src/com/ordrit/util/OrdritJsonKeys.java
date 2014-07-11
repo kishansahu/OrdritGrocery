@@ -32,6 +32,7 @@ public interface OrdritJsonKeys {
 	public final static String TAG_PHONENUMBER_2 = "phone_number_2";
 	public final static String TAG_OPEN_AT = "opens_at";
 	public final static String TAG_CLOSE_AT = "closes_at";
+	public final static String TAG_MINIMUM_ORDER = "minimum_order";
 	
 	public final static String TAG_MERCHANT = "merchant";
 	public final static String TAG_ADDRESS = "address";

@@ -49,6 +49,7 @@ public class OrdrItdataBaseHelper {
 			contentValues.put(OrdrItDataBase.COLUMN_STORE_PHONE_NUMBER_2, store.getPhoneNumber2());
 			contentValues.put(OrdrItDataBase.COLUMN_STORE_OPEN_AT, store.getOpenAt());
 			contentValues.put(OrdrItDataBase.COLUMN_STORE_CLOSE_AT, store.getCloseAt());
+			contentValues.put(OrdrItDataBase.COLUMN_STORE_MINIMUM_ORDER, store.getMinimumOrder());
 			contentValues.put(OrdrItDataBase.COLUMN_STORE_USER_ID, "");
 			contentValues.put(OrdrItDataBase.COLUMN_STORE__ADDRESS_ID,"");
 			sqLiteDatabase.insert(OrdrItDataBase.TABLE_STORE, null, contentValues);
@@ -116,5 +117,23 @@ public class OrdrItdataBaseHelper {
 			close();
 	  
 		return schedule;
+	}
+	public String getStoreMinimumOrder(String id) {
+		String minimumOrder= null;
+			open();
+			String whereClause = OrdrItDataBase.COLUMN_STORE_ID + "=\""
+					+ id + "\"";
+			String selectQuery = "SELECT  * FROM " + OrdrItDataBase.TABLE_STORE + " WHERE "
+					+ whereClause;
+
+			Cursor cursor = sqLiteDatabase.rawQuery(selectQuery, null);
+
+		if (cursor.moveToFirst()) {
+			minimumOrder = cursor.getString(cursor
+					.getColumnIndex(OrdrItDataBase.COLUMN_STORE_MINIMUM_ORDER));
+		}
+			close();
+	  
+		return minimumOrder;
 	}
 }

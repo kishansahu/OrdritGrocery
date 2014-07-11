@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ordrit.R;
@@ -44,6 +45,7 @@ public class StoreItemsCategoryFragment extends BaseFragment {
     private ExpandableListView catoreryListView;
     private ExpandableListAdapter expandableListAdapter;
     private Map<String, ItemCategory> itemCategoryMap = null;
+    private TextView textCarogeryStatus;
     String storeId;
 
 	@Override
@@ -58,6 +60,7 @@ public class StoreItemsCategoryFragment extends BaseFragment {
 	@Override
 	void setupUiComponent() {
 		
+		textCarogeryStatus=(TextView) catogeryFragment.findViewById(R.id.textCarogeryStatus);
 		catoreryListView=(ExpandableListView)catogeryFragment.findViewById(R.id.catoreryListView);
 		catoreryListView.setOnChildClickListener(new OnChildClickListener() {
 			
@@ -97,9 +100,15 @@ public class StoreItemsCategoryFragment extends BaseFragment {
 				
 				@Override
 				public void postExecuteTask() {
-					 expandableListAdapter =new ExpandableListAdapter(getItemCatogery(itemCategoryMap),dashboardActivity );
+					List<ItemCategory> itemCategories=getItemCatogery(itemCategoryMap);
+					 expandableListAdapter =new ExpandableListAdapter(itemCategories,dashboardActivity );
 					 catoreryListView.setAdapter(expandableListAdapter);
-					
+					 if (itemCategories.size()>0) {
+							textCarogeryStatus.setVisibility(View.GONE);
+						}else {
+							textCarogeryStatus.setVisibility(View.VISIBLE);
+						}
+
 				}
 				
 				@Override

@@ -47,7 +47,7 @@ public class LoginFragment extends Fragment {
 	private HomeActivity mainActivity = null;
 	private EditText editTextUserName, editTextPassword=null;
 	private CalibriTextView editTextUserNameError, passwordError, SignUpText=null;
-	private ProgressBar progressBarLogin;
+	//private ProgressBar progressBarLogin;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,8 +58,8 @@ public class LoginFragment extends Fragment {
 				false);
 		TextView headingText = (TextView) loginFragment
 				.findViewById(R.id.login_heading);
-		progressBarLogin= (ProgressBar) loginFragment
-				.findViewById(R.id.progressBarLogin);
+		/*progressBarLogin= (ProgressBar) loginFragment
+				.findViewById(R.id.progressBarLogin);*/
 		editTextUserName=(EditText) loginFragment.findViewById(R.id.editTextUserName);
 		editTextUserNameError= (CalibriTextView) loginFragment.findViewById(R.id.textUserNameError);
 		passwordError= (CalibriTextView) loginFragment.findViewById(R.id.passwordError);
@@ -111,7 +111,7 @@ public class LoginFragment extends Fragment {
 				
 				if(!errorFound){
 					
-					progressBarLogin.setVisibility(View.VISIBLE);
+					//progressBarLogin.setVisibility(View.VISIBLE);
 					if (new CommonUtils(getActivity()).isConnectingToInternet()) {
 						
 						new WebServiceProcessingTask() {
@@ -119,6 +119,7 @@ public class LoginFragment extends Fragment {
 							@Override
 							public void preExecuteTask() {
 								TAG=tag;
+								progressDialog=new ProgressDialog(getActivity());
 								
 							}
 							
@@ -126,10 +127,11 @@ public class LoginFragment extends Fragment {
 							public void postExecuteTask() {
 								
 								String token = null;
+							
 								try {
 									token = OrditJsonParser
 											.getTokenStringFromJSON(jSONString);
-								} catch (JSONException e) {
+								} catch (Exception e) {
 									e.printStackTrace();
 								}
 								if (token != null) {
@@ -138,12 +140,12 @@ public class LoginFragment extends Fragment {
 													mainActivity,
 													OrdritJsonKeys.TAG_TOKEN,
 													token);
-									progressBarLogin.setVisibility(View.GONE);
+								//	progressBarLogin.setVisibility(View.GONE);
 									
 									//*********************
 									getUserData();
 								} else {
-                                    //handle api call faild
+                                   Toast.makeText(getActivity(), "Server not responds. Please try again later.", Toast.LENGTH_LONG).show();
 								}
 								
 								

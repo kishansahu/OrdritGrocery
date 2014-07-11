@@ -10,6 +10,7 @@ public class Store {
 	private String phoneNumber2;
 	private String openAt;
 	private String closeAt;
+	private String minimumOrder;
 	private User user;
 	private Address address;
 
@@ -101,6 +102,14 @@ public class Store {
 
 	public void setCloseAt(String closeAt) {
 		this.closeAt = closeAt;
+	}
+
+	public String getMinimumOrder() {
+		return minimumOrder;
+	}
+
+	public void setMinimumOrder(String minimumOrder) {
+		this.minimumOrder = minimumOrder;
 	}
 
 }

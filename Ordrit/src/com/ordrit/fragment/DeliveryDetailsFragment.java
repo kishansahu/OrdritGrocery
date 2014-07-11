@@ -38,6 +38,35 @@ public class DeliveryDetailsFragment extends BaseFragment {
 		
 		deliveryDetailsFragment = inflater.inflate(R.layout.fragment_delivery_details,
 				container, false);
+		
+		return deliveryDetailsFragment;
+	}
+@Override
+public void onActivityCreated(Bundle savedInstanceState) {
+	super.onActivityCreated(savedInstanceState);
+	setupUiComponent();
+	
+}
+	@Override
+	void setupUiComponent() {
+		
+		Button itemDetailBack= (Button) deliveryDetailsFragment.findViewById(R.id.itemDetailBack);
+		itemDetailBack.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				dashboardActivity.popFragment(FragmentConstant.ITEM_DELIVERY_DETAIL_FRAGMENT);
+			}
+		});
+		TextView textChangeAddress= (TextView) deliveryDetailsFragment.findViewById(R.id.textChangeAddress);
+		textChangeAddress.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+				dashboardActivity.commitFragment(new AddUpdateAddressFragment(),FragmentConstant.ADD_UPDATE_ADDRESS_FRAGMENT);
+			}
+		});
 		Gson gson = new Gson();
 		User user = gson.fromJson(SharedPreferencesUtil.getStringPreferences(
 				getActivity(), OrdritConstants.USER), User.class);
@@ -50,7 +79,11 @@ public class DeliveryDetailsFragment extends BaseFragment {
 					+ CommonUtils.getCityNameFromUrl(user.getAddress().getCity().getUrl(), dashboardActivity)
 				    + " "
 					+ user.getAddress().getPincode() + " ("
-					+ user.getAddress().getState().getName() + ")");                 
+					+ user.getAddress().getState().getName() + ")");    
+			textChangeAddress.setText("Change Address");
+		}else {
+			AddressText.setText("Address not found. Please address first");
+			textChangeAddress.setText("Add Address");
 		}
 		
 		Button placeOrderButton= (Button) deliveryDetailsFragment.findViewById(R.id.buttonNext);
@@ -63,20 +96,6 @@ public class DeliveryDetailsFragment extends BaseFragment {
 				}
 			}
 		});
-		Button itemDetailBack= (Button) deliveryDetailsFragment.findViewById(R.id.itemDetailBack);
-		itemDetailBack.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				dashboardActivity.popFragment(FragmentConstant.ITEM_DELIVERY_DETAIL_FRAGMENT);
-			}
-		});
-		return deliveryDetailsFragment;
-	}
-
-	@Override
-	void setupUiComponent() {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -132,5 +151,5 @@ public class DeliveryDetailsFragment extends BaseFragment {
 		}.execute();
 		
 	}
-
+	
 }

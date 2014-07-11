@@ -71,10 +71,6 @@ public class ItemDetailFragment extends BaseFragment {
 				selectedItem.setItem(item);
 				selectedItem.setQuantity(String.valueOf(qaintity));
 				String previousStoreId=uilApplication.getStoreId();
-				Fragment menuBagFragment = new MenuBagFragment();
-				Bundle bundle=new Bundle();
-				bundle.putBoolean(OrdritConstants.SHOW_BACK_BUTTON, true);
-				menuBagFragment.setArguments(bundle);
 				if (previousStoreId!=null) {
 					
 					
@@ -85,12 +81,14 @@ public class ItemDetailFragment extends BaseFragment {
 							tempSelectedItem.setQuantity(selectedItem.getQuantity());
 							dashboardActivity.popFragment(FragmentConstant.ITEM_DETAIL_FRAGMENT);
 							Toast.makeText(dashboardActivity, "Item successfully added to the cart", Toast.LENGTH_SHORT).show();
+							dashboardActivity.setSelectedStoreId(storeId);
 						}else {
 							selectedItemList.add(selectedItem);
 							uilApplication.setSelectedItemList(selectedItemList);
 							uilApplication.setStoreId(storeId);
 							dashboardActivity.popFragment(FragmentConstant.ITEM_DETAIL_FRAGMENT);
 							Toast.makeText(dashboardActivity, "Item successfully added to the cart", Toast.LENGTH_SHORT).show();
+							dashboardActivity.setSelectedStoreId(storeId);
 						}
 						
 					} else {
@@ -105,6 +103,7 @@ public class ItemDetailFragment extends BaseFragment {
 					uilApplication.setSelectedItemList(selectedItemList);
 					uilApplication.setStoreId(storeId);
 					dashboardActivity.popFragment(FragmentConstant.ITEM_DETAIL_FRAGMENT);
+					dashboardActivity.setSelectedStoreId(storeId);
 					Toast.makeText(dashboardActivity, "Item successfully added to the cart", Toast.LENGTH_SHORT).show();
 				}
 				

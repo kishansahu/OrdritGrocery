@@ -26,7 +26,7 @@ public class OrditJsonParser {
 	public static String getTokenStringFromJSON(String jSONOString)
 			throws JSONException {
 		JSONObject obj=new JSONObject(jSONOString);
-		String token = "";
+		String token = null;
 		token = obj.get(OrdritJsonKeys.TAG_TOKEN).toString();
 		return token;
 	}
@@ -92,6 +92,8 @@ public class OrditJsonParser {
 					.getString(OrdritJsonKeys.TAG_OPEN_AT));
 			store.setCloseAt(storeJsonObj
 					.getString(OrdritJsonKeys.TAG_CLOSE_AT));
+			store.setMinimumOrder(storeJsonObj
+					.getString(OrdritJsonKeys.TAG_MINIMUM_ORDER));
 			User merchant = new User();
 			merchant.setEmailId(storeJsonObj.getJSONObject(
 					OrdritJsonKeys.TAG_MERCHANT).getString(
@@ -329,7 +331,7 @@ public class OrditJsonParser {
 			for (int i = 0; i < length; i++) {
 				JSONObject itemOrdersJsonObj = jsonArray.getJSONObject(i);
 				
-				if(itemOrdersJsonObj.getString(OrdritJsonKeys.TAG_STATUS).equalsIgnoreCase(OrdritJsonKeys.TAG_PENDING)){
+				if(!itemOrdersJsonObj.getString(OrdritJsonKeys.TAG_STATUS).equalsIgnoreCase(OrdritJsonKeys.TAG_PENDING)){
 					Order order= new Order();
 					order.setId(itemOrdersJsonObj.getString(OrdritJsonKeys.TAG_ID));
 					order.setStatus(itemOrdersJsonObj.getString(OrdritJsonKeys.TAG_STATUS));

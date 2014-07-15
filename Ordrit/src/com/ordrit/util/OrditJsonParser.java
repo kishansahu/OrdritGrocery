@@ -160,8 +160,8 @@ public class OrditJsonParser {
 		merchantAddress.setCity(city);
 		merchantAddress.setPincode(jsonObject.getString(
 				OrdritJsonKeys.TAG_PINCODE));
-		/*merchantAddress.setUrl(jsonObject.getString(
-				OrdritJsonKeys.TAG_URL));*/
+		merchantAddress.setId(jsonObject.getString(
+				OrdritJsonKeys.TAG_ID));
 		return merchantAddress;
 	}
 

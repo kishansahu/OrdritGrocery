@@ -13,6 +13,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.ordrit.R;
@@ -111,7 +112,7 @@ public void onActivityCreated(Bundle savedInstanceState) {
 			
 			@Override
 			public void postExecuteTask() {
-				if(status= true){
+				if(status== true){
 					 UILApplication uilApplication =(UILApplication) dashboardActivity.getApplication();
 					 uilApplication.setSelectedItemList(null);
 					 Fragment orderConfirmationFragment= new OrderConfirmationFragment();
@@ -122,6 +123,8 @@ public void onActivityCreated(Bundle savedInstanceState) {
 					 orderConfirmationFragment.setArguments(args);
 					 ft.replace(R.id.frame_container, orderConfirmationFragment);
 					 ft.commit();
+				}else{
+					Toast.makeText(dashboardActivity, "Some error occurred, please try again.", Toast.LENGTH_SHORT).show();
 				}
 			    
 			}

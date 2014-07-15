@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.ordrit.R;
 import com.ordrit.activity.HomeActivity;
+import com.ordrit.util.SharedPreferencesUtil;
 
 
 public class WelcomeFragment extends Fragment {

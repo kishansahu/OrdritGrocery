@@ -1,6 +1,7 @@
 package com.ordrit.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +11,12 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.ordrit.R;
+import com.ordrit.activity.HomeActivity;
+import com.ordrit.database.OrdrItDataBase;
+import com.ordrit.database.OrdrItdataBaseHelper;
 import com.ordrit.util.FragmentConstant;
+import com.ordrit.util.OrdritConstants;
+import com.ordrit.util.SharedPreferencesUtil;
 
 public class ManageUserInfoFragment extends BaseFragment {
 
@@ -47,6 +53,16 @@ public class ManageUserInfoFragment extends BaseFragment {
 			@Override
 			public void onClick(View v) {
 			
+				SharedPreferencesUtil.clearAllSharedPreferencesList(dashboardActivity);
+				OrdrItdataBaseHelper ordrItdataBaseHelper =new OrdrItdataBaseHelper(dashboardActivity);
+				ordrItdataBaseHelper.open();
+				ordrItdataBaseHelper.deleteTable(OrdrItDataBase.TABLE_STORE);
+				ordrItdataBaseHelper.close();
+				
+				Intent intent=new Intent(dashboardActivity, HomeActivity.class);
+				intent.putExtra(OrdritConstants.GO_LOGIN, true);
+				startActivity(intent);
+				dashboardActivity.finish();
 			}
 		});
 		containerLinkManageAccount =(LinearLayout) manageUserInfoFragment

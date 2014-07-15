@@ -19,11 +19,11 @@ public class OrdrItdataBaseHelper {
 		ordrItDataBase = new OrdrItDataBase(context);
 	}
 
-	private void open() throws SQLException {
+	public void open() throws SQLException {
 		sqLiteDatabase = ordrItDataBase.getWritableDatabase();
 	}
 
-	private void close() {
+	public void close() {
 		ordrItDataBase.close();
 	}
 	
@@ -135,5 +135,13 @@ public class OrdrItdataBaseHelper {
 			close();
 	  
 		return minimumOrder;
+	}
+	
+	public void deleteTable(String tableName) {
+	
+		sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + tableName);
+		sqLiteDatabase.execSQL(OrdrItDataBase.CREATE_TABLE_STORE);
+		
+		  
 	}
 }

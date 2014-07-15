@@ -8,6 +8,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MotionEvent;
@@ -16,26 +17,43 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.ordrit.R;
+import com.ordrit.fragment.LoginFragment;
 import com.ordrit.fragment.WelcomeFragment;
 import com.ordrit.model.Address;
+import com.ordrit.util.OrdritConstants;
 import com.ordrit.util.OrdritJsonKeys;
+import com.ordrit.util.SharedPreferencesUtil;
 
 public class HomeActivity extends Activity {
-
+ 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home_main);
-
+        
+		String token=SharedPreferencesUtil.getStringPreferences(
+				this, OrdritJsonKeys.TAG_TOKEN);
+		if (token!=null&&!token.isEmpty()) {
+			Intent intent=new Intent(this, DashboardActivity.class);
+			startActivity(intent);
+			finish();
+		}else {
+			FragmentManager fragmentManager = getFragmentManager();
+			FragmentTransaction fragmentTransaction = fragmentManager
+					.beginTransaction();
+			Fragment fragment = new WelcomeFragment();
+			
+				boolean goToLogin=getIntent().getBooleanExtra(OrdritConstants.GO_LOGIN, false);
+				if (goToLogin) {
+					fragment=new LoginFragment();
+				}
+				
+			
+			fragmentTransaction.replace(R.id.application_container,
+					fragment);
+			fragmentTransaction.commit();	
+		}
 		
-		FragmentManager fragmentManager = getFragmentManager();
-		FragmentTransaction fragmentTransaction = fragmentManager
-				.beginTransaction();
-		Fragment welcomeFragment = new WelcomeFragment();
-		
-		fragmentTransaction.replace(R.id.application_container,
-				welcomeFragment);
-		fragmentTransaction.commit();
 	}
 
 	@Override

@@ -26,6 +26,7 @@ import com.ordrit.activity.UILApplication;
 import com.ordrit.adapter.MenuBagAdapter;
 import com.ordrit.adapter.MenuBagAdapter.SetTotalCost;
 import com.ordrit.database.OrdrItdataBaseHelper;
+import com.ordrit.model.Address;
 import com.ordrit.model.Item;
 import com.ordrit.model.Items;
 import com.ordrit.model.SelectedItem;
@@ -141,7 +142,17 @@ public class MenuBagFragment extends BaseFragment {
 					Toast.makeText(dashboardActivity, "Minimum order should be "+minimumOrder, Toast.LENGTH_LONG).show();
 					return;
 				}
-
+				Gson gson = new Gson();
+				String strUser = SharedPreferencesUtil.getStringPreferences(
+						getActivity(), OrdritConstants.USER);
+				
+			   User user = gson.fromJson(strUser, User.class);
+			   Address address=user.getAddress();
+			   if (address==null) {
+				   Toast.makeText(dashboardActivity, "User address not found. Please update user address ", Toast.LENGTH_LONG).show();
+	               return;
+			     }
+			     
 				List<Items> orderedItemsList = new ArrayList<Items>();
 				
 				selectedItemList=uilApplication.getSelectedItemList();
@@ -154,12 +165,9 @@ public class MenuBagFragment extends BaseFragment {
 					orderedItem.setQuantity(selectedItem.getQuantity());
 					orderedItemsList.add(orderedItem);
 				}
-				Gson gson = new Gson();
-				String orderedItemsListString =gson.toJson(orderedItemsList);
-				String strUser = SharedPreferencesUtil.getStringPreferences(
-						getActivity(), OrdritConstants.USER);
 				
-			 User user = gson.fromJson(strUser, User.class);
+				String orderedItemsListString =gson.toJson(orderedItemsList);
+			
 			 String orderString=	WebServicesRawDataUtil.placeOrderJSONObjectString(user, uilApplication, orderedItemsListString);
 				
 			 Fragment deliveryDetailsFragment= new DeliveryDetailsFragment();

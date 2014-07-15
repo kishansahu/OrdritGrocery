@@ -13,8 +13,6 @@ public class WebServicesRawDataUtil {
 
 	public static String getUsersAuthenticationTokenJSONObjectString(String email, String password) {
 		String userCredentialsString = new String();
-		email="kishansahu87@gmail.com";
-		password="kishansahu";
 		JSONObject userObject = new JSONObject();
 		try {
 			userObject.put(OrdritJsonKeys.USER_PASSWORD, password);
@@ -25,7 +23,19 @@ public class WebServicesRawDataUtil {
 		userCredentialsString = userObject.toString();
 		return userCredentialsString;
 	}
-	
+	public static String getSuperTokenJSONObjectString() {
+		String userCredentialsString = new String();
+		
+		JSONObject userObject = new JSONObject();
+		try {
+			userObject.put(OrdritJsonKeys.USER_PASSWORD,"anothercastle");
+			userObject.put(OrdritJsonKeys.USER_EMAIL,"bowser@ordrit.in");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		userCredentialsString = userObject.toString();
+		return userCredentialsString;
+	}
 	public static String editUserDetailsJSONObjectString(User user){
 		String userEditDetailsString = new String();
 		

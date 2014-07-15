@@ -5,6 +5,7 @@ public interface OrdritConstants {
 	public final static String SERVER_BASE_URL = "http://staging.ankursethi.in/";
 	public final static String API_TOKEN_URL = SERVER_BASE_URL+"api-token/";
 	public final static String USERS = "users";
+	public final static String USERS_NAME = "username";
 	public final static String USERS_PROFILES = "user_profiles";
 	public final static String USERS_ADDRESS ="user_addresses";
 	public final static String STATES="states";
@@ -17,7 +18,7 @@ public interface OrdritConstants {
 	public final static String STORES = "stores";
 	public final static String ORDERS = "orders";
 	public final static String SHOW_BACK_BUTTON = "showBack";
-	
+	public final static String GO_LOGIN = "gologin";
 	
 	//doc
 	public final static String SUPER_USER_TOKEN_ID = "f8217f2bfca176c7c2ef6c45a7c582d17668a0ec";

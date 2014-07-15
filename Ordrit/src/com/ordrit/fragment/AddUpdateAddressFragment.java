@@ -138,6 +138,7 @@ public void onActivityCreated(Bundle savedInstanceState) {
 						user.setAddress(address);
 						dashboardActivity.setUser(user);
 						setAddress();
+						showText("Address Updated");
 						}
 					}
 					

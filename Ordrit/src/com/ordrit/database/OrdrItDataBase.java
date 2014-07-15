@@ -27,7 +27,7 @@ public class OrdrItDataBase extends SQLiteOpenHelper {
 	public static final String COLUMN_STORE_USER_ID="userId";
 	public static final String COLUMN_STORE__ADDRESS_ID= "addressId";
 	
-	private static final String CREATE_TABLE_STORE = "CREATE TABLE " + TABLE_STORE + "("
+	public static final String CREATE_TABLE_STORE = "CREATE TABLE " + TABLE_STORE + "("
 			+ COLUMN_STORE_STORE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
 			+ COLUMN_STORE_NAME + " TEXT," 
 			+ COLUMN_STORE_LOCATION_LATLONG + " TEXT,"

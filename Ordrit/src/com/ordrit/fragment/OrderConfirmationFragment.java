@@ -1,6 +1,7 @@
 package com.ordrit.fragment;
 
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +23,13 @@ public class OrderConfirmationFragment extends BaseFragment {
 		final String orderID = getArguments().getString("orderID");    
 		orderConfirmationFragment = inflater.inflate(R.layout.fragment_order_confirmation,
 				container, false);
-	String msgForUser=	"You will receive a notification once the order is out for delivery \n\nYour Order Id is "+orderID+ " Note it for further reference\nKeep calm and carry on.";
-	TextView msg= (TextView)orderConfirmationFragment.findViewById(R.id.orderResponseMsg);	
-	msg.setText(msgForUser);
+		
+		TextView msg= (TextView)orderConfirmationFragment.findViewById(R.id.orderResponseMsg);	
+	    msg.setText(Html
+			.fromHtml("You will receive a notification once the order is out for delivery \n\n"
+					+ "<font color=\"red\"><b>Your Order Id is "
+					+ orderID
+					+ ".</b></font>  Note it for further reference\nKeep calm and carry on."));
 	setupUiComponent();
 	return orderConfirmationFragment;
 	}

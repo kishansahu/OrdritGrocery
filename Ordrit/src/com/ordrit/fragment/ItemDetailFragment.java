@@ -1,5 +1,6 @@
 package com.ordrit.fragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Fragment;
@@ -65,14 +66,16 @@ public class ItemDetailFragment extends BaseFragment {
 			@Override
 			public void onClick(View v) {
 				
-				uilApplication =(UILApplication) dashboardActivity.getApplication();
-				
 				SelectedItem selectedItem= new SelectedItem();
 				selectedItem.setItem(item);
 				selectedItem.setQuantity(String.valueOf(qaintity));
 				String previousStoreId=uilApplication.getStoreId();
 				if (previousStoreId!=null) {
-					
+					if (selectedItemList==null) {
+						
+							selectedItemList=new ArrayList<SelectedItem>();
+						
+					}
 					
 					if (storeId.equals(previousStoreId)) {
 						int i=searchItem(selectedItemList, item);	
@@ -137,14 +140,17 @@ public class ItemDetailFragment extends BaseFragment {
 	}
 private int searchItem(List<SelectedItem> selectedItemList,Item item){
 	int i =-1;
-	for (int j = 0; j < selectedItemList.size(); j++) {
-		SelectedItem selectedItem=selectedItemList.get(j);
-		Item temp=selectedItem.getItem();
-		if (item.getId().equals(temp.getId())) {
-			i=j;
-			break;
+	if (selectedItemList!=null&&selectedItemList.size()>0) {
+		for (int j = 0; j < selectedItemList.size(); j++) {
+			SelectedItem selectedItem=selectedItemList.get(j);
+			Item temp=selectedItem.getItem();
+			if (item.getId().equals(temp.getId())) {
+				i=j;
+				break;
+			}
 		}
 	}
+
 	return i;
 	
 }

@@ -86,21 +86,18 @@ public class UpdateAccountFragment extends BaseFragment {
 				final String strUpdateAccountUserEmailId=etUpdateAccountUserEmailId.getText().toString();
 				// validation if true
 				if (!ValidationUtils.isEmpty(strUpdateAccountFirstName)) {
-					showText("Please Enter Home or Apartment Name");
+					showText("Please Enter First Name");
 					return;
 				}
 				if (!ValidationUtils.isEmpty(strUpdateAccountLastName)) {
-					showText("Please Select State");
+					showText("Please Enter Last Name");
 					return;
 				}
 				if (!ValidationUtils.isEmpty(strUpdateAccountMobileNumber)) {
-					showText("Please Select City");
+					showText("Please Enter Phone Number");
 					return;
 				}
-				if (!ValidationUtils.isEmpty(strUpdateAccountUserEmailId)) {
-					showText("Please Enter Zipcode");
-					return;
-				}
+				
 				new WebServiceProcessingTask() {
 					
 					@Override

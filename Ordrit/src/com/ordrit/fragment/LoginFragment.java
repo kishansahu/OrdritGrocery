@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -126,27 +127,29 @@ public class LoginFragment extends Fragment {
 							@Override
 							public void postExecuteTask() {
 								
-								String token = null;
-							
-								try {
-									token = OrditJsonParser
+						
+							try {
+							JSONObject jsonObject =	new JSONObject(jSONString);
+								if (jsonObject.has(OrdritJsonKeys.TAG_TOKEN)) {
+									 String token = null;
+									 token = OrditJsonParser
 											.getTokenStringFromJSON(jSONString);
-								} catch (Exception e) {
-									e.printStackTrace();
+									if (token != null) {
+										SharedPreferencesUtil
+												.saveStringPreferences(
+														mainActivity,
+														OrdritJsonKeys.TAG_TOKEN,
+														token);
+												getUserData();
+									}
+								}else {
+									 Toast.makeText(getActivity(), "Username or Password is incorrect.", Toast.LENGTH_LONG).show();
 								}
-								if (token != null) {
-									SharedPreferencesUtil
-											.saveStringPreferences(
-													mainActivity,
-													OrdritJsonKeys.TAG_TOKEN,
-													token);
-								//	progressBarLogin.setVisibility(View.GONE);
-									
-									//*********************
-									getUserData();
-								} else {
-                                   Toast.makeText(getActivity(), "Server not responds. Please try again later.", Toast.LENGTH_LONG).show();
-								}
+								
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								 Toast.makeText(getActivity(), "Server not responds. Please try again later.", Toast.LENGTH_LONG).show();
+							}
 								
 								
 	

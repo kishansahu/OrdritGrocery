@@ -147,6 +147,11 @@ public class MenuBagFragment extends BaseFragment {
 						getActivity(), OrdritConstants.USER);
 				
 			   User user = gson.fromJson(strUser, User.class);
+			   String mobileNo=user.getPhoneNumber();
+			   if (mobileNo==null||mobileNo.isEmpty()) {
+				   Toast.makeText(dashboardActivity, "User detail not found. Please update user detail ", Toast.LENGTH_LONG).show();
+	               return;
+			}
 			   Address address=user.getAddress();
 			   if (address==null) {
 				   Toast.makeText(dashboardActivity, "User address not found. Please update user address ", Toast.LENGTH_LONG).show();

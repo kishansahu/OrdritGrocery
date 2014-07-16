@@ -138,7 +138,10 @@ public void onActivityCreated(Bundle savedInstanceState) {
 						user.setAddress(address);
 						dashboardActivity.setUser(user);
 						setAddress();
-						showText("Address Updated");
+						showText("Address Updated Successfully");
+						}else {
+							Toast.makeText(dashboardActivity, "Address Updation failed, Please try again later", Toast.LENGTH_LONG).show();
+							
 						}
 					}
 					

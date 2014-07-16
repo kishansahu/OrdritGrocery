@@ -206,7 +206,7 @@ public class MapDetailFragment extends BaseFragment {
 				@Override
 				public void onInfoWindowClick(Marker marker) {
 					tempStore=eventMarkerMap.get(marker.getTitle());
-					Toast.makeText(dashboardActivity,"Store selected. Now add store", Toast.LENGTH_SHORT).show();
+					Toast.makeText(dashboardActivity,"Store selected. Now Add Store", Toast.LENGTH_SHORT).show();
 					/*View view=iconizedWindowAdapter.getInfoContents(marker);
 					final ImageView image= (ImageView) view.findViewById(R.id.image);
 					image.setImageResource(R.drawable.ic_launcher);*/

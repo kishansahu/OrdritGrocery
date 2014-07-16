@@ -70,12 +70,13 @@ public class ItemDetailFragment extends BaseFragment {
 				selectedItem.setItem(item);
 				selectedItem.setQuantity(String.valueOf(qaintity));
 				String previousStoreId=uilApplication.getStoreId();
+				if (selectedItemList==null) {
+					
+					selectedItemList=new ArrayList<SelectedItem>();
+				
+			}
+			
 				if (previousStoreId!=null) {
-					if (selectedItemList==null) {
-						
-							selectedItemList=new ArrayList<SelectedItem>();
-						
-					}
 					
 					if (storeId.equals(previousStoreId)) {
 						int i=searchItem(selectedItemList, item);	

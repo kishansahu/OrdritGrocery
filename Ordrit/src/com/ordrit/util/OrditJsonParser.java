@@ -127,10 +127,9 @@ public class OrditJsonParser {
 		}
 		return storeList;
 	}
-	public static User getUserFromJSON(String jsonString) throws JSONException{
+	public static User getUserFromJSON(User user,String jsonString) throws JSONException{
 		JSONObject obj=new JSONObject(jsonString);
 		
-		User user = new User();
 		user.setEmailId(obj.getString(OrdritJsonKeys.USER_EMAIL));
 		user.setFirstName(obj.getString(OrdritJsonKeys.USER_FIRSTNAME));
 		user.setLastName(obj.getString(OrdritJsonKeys.USER_LASTNAME));

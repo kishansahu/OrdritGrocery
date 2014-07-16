@@ -110,13 +110,13 @@ public class UpdateAccountFragment extends BaseFragment {
 					public void postExecuteTask() {
 						
 						try {
-							user=OrditJsonParser.getUserFromJSON(jSONString);
+							user=OrditJsonParser.getUserFromJSON(user,jSONString);
 							dashboardActivity.setUser(user);
 							setData();
-							Toast.makeText(dashboardActivity, "Account Updated", Toast.LENGTH_LONG).show();
+							Toast.makeText(dashboardActivity, "Account Updated Successfully", Toast.LENGTH_LONG).show();
 						} catch (JSONException e) {
 							e.printStackTrace();
-							Toast.makeText(dashboardActivity, "Update faild", Toast.LENGTH_LONG).show();
+							Toast.makeText(dashboardActivity, "Account Updation failed, Please try again later", Toast.LENGTH_LONG).show();
 							
 						}
 						

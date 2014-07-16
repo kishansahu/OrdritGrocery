@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 
 import com.ordrit.R;
 import com.ordrit.activity.HomeActivity;
+import com.ordrit.activity.UILApplication;
 import com.ordrit.database.OrdrItDataBase;
 import com.ordrit.database.OrdrItdataBaseHelper;
 import com.ordrit.util.FragmentConstant;
@@ -58,7 +59,8 @@ public class ManageUserInfoFragment extends BaseFragment {
 				ordrItdataBaseHelper.open();
 				ordrItdataBaseHelper.deleteTable(OrdrItDataBase.TABLE_STORE);
 				ordrItdataBaseHelper.close();
-				
+				UILApplication uilApplication =(UILApplication) dashboardActivity.getApplication();
+				uilApplication.setSelectedItemList(null);
 				Intent intent=new Intent(dashboardActivity, HomeActivity.class);
 				intent.putExtra(OrdritConstants.GO_LOGIN, true);
 				startActivity(intent);

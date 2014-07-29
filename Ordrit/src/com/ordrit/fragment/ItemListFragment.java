@@ -166,12 +166,12 @@ public class ItemListFragment extends BaseFragment {
 			}
 		});
  if (itemList==null) {
-	new WebServiceProcessingTask() {
+	new WebServiceProcessingTask(dashboardActivity) {
 			
 			@Override
 			public void preExecuteTask() {
 			TAG=tag;
-			progressDialog=new ProgressDialog(dashboardActivity);
+			
 				
 			}
 			

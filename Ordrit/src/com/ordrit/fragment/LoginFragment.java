@@ -57,8 +57,8 @@ public class LoginFragment extends Fragment {
 		mainActivity.getActionBar().hide();
 		loginFragment = inflater.inflate(R.layout.fragment_login, container,
 				false);
-		TextView headingText = (TextView) loginFragment
-				.findViewById(R.id.login_heading);
+		/*TextView headingText = (TextView) loginFragment
+				.findViewById(R.id.login_heading);*/
 		/*progressBarLogin= (ProgressBar) loginFragment
 				.findViewById(R.id.progressBarLogin);*/
 		editTextUserName=(EditText) loginFragment.findViewById(R.id.editTextUserName);
@@ -67,7 +67,7 @@ public class LoginFragment extends Fragment {
 		editTextPassword=(EditText) loginFragment.findViewById(R.id.editTextPassword);
 		SignUpText= (CalibriTextView) loginFragment.findViewById(R.id.signUpLink);
 		SignUpText.setText(Html.fromHtml(getString(R.string.sign_up_link)));
-		headingText.setText(Html.fromHtml(getString(R.string.grocery_msg)));
+	//	headingText.setText(Html.fromHtml(getString(R.string.grocery_msg)));
 
 		Button loginButton = (Button) loginFragment
 				.findViewById(R.id.buttonLogin);
@@ -112,15 +112,13 @@ public class LoginFragment extends Fragment {
 				
 				if(!errorFound){
 					
-					//progressBarLogin.setVisibility(View.VISIBLE);
-					if (new CommonUtils(getActivity()).isConnectingToInternet()) {
 						
-						new WebServiceProcessingTask() {
+						new WebServiceProcessingTask(mainActivity) {
 							
 							@Override
 							public void preExecuteTask() {
 								TAG=tag;
-								progressDialog=new ProgressDialog(getActivity());
+							
 								
 							}
 							
@@ -172,13 +170,7 @@ public class LoginFragment extends Fragment {
 							}
 						}.execute();
 						
-					}else{
-						Toast.makeText(
-								getActivity(),
-								getResources().getString(
-										R.string.internet_connection_failed), Toast.LENGTH_LONG)
-								.show();
-					}
+					
 				}
 				
 				}
@@ -188,7 +180,7 @@ public class LoginFragment extends Fragment {
 	}
 	private void getUserData() {
 		
-		new WebServiceProcessingTask() {
+		new WebServiceProcessingTask(mainActivity) {
 			JSONArray jsonArray;
 			List<State> statesList;
 			List<City> cityList;
@@ -197,7 +189,6 @@ public class LoginFragment extends Fragment {
 			@Override
 			public void preExecuteTask() {
 			TAG=tag;
-			progressDialog=new ProgressDialog(getActivity());
 			
 			
 			}

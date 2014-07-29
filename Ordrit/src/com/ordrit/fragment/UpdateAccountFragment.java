@@ -98,12 +98,12 @@ public class UpdateAccountFragment extends BaseFragment {
 					return;
 				}
 				
-				new WebServiceProcessingTask() {
+				new WebServiceProcessingTask(dashboardActivity) {
 					
 					@Override
 					public void preExecuteTask() {
 					TAG=tag;
-					progressDialog=new ProgressDialog(dashboardActivity);
+					
 					}
 					
 					@Override

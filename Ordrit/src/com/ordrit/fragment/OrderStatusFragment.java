@@ -53,12 +53,12 @@ public void onActivityCreated(Bundle savedInstanceState) {
 	setupUiComponent();
 	if (new CommonUtils(getActivity()).isConnectingToInternet()) {
 
-		new WebServiceProcessingTask() {
+		new WebServiceProcessingTask(dashboardActivity) {
 
 			@Override
 			public void preExecuteTask() {
 				TAG = tag;
-                progressDialog=new ProgressDialog(dashboardActivity);
+               
 			}
 
 			@Override

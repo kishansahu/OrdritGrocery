@@ -124,12 +124,11 @@ public void onActivityCreated(Bundle savedInstanceState) {
 					showText("Please Enter Zipcode");
 					return;
 				}
-				new WebServiceProcessingTask() {
+				new WebServiceProcessingTask(dashboardActivity) {
 					
 					@Override
 					public void preExecuteTask() {
 					TAG=tag;
-					progressDialog=new ProgressDialog(dashboardActivity);
 					}
 					
 					@Override

@@ -22,6 +22,7 @@ import com.ordrit.fragment.WelcomeFragment;
 import com.ordrit.model.Address;
 import com.ordrit.util.OrdritConstants;
 import com.ordrit.util.OrdritJsonKeys;
+import com.ordrit.util.ServerConnection;
 import com.ordrit.util.SharedPreferencesUtil;
 
 public class HomeActivity extends Activity {
@@ -30,7 +31,13 @@ public class HomeActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home_main);
-        
+		if (!ServerConnection.isNetworkAvailable(this)) {
+			startActivity( new Intent(HomeActivity.this, NetworkHandlerActivity.class));
+			finish();
+			return;
+		}
+		
+		
 		String token=SharedPreferencesUtil.getStringPreferences(
 				this, OrdritJsonKeys.TAG_TOKEN);
 		if (token!=null&&!token.isEmpty()) {

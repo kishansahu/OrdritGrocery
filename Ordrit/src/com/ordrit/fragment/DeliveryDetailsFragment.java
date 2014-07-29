@@ -102,11 +102,10 @@ public void onActivityCreated(Bundle savedInstanceState) {
 
 	private void placeOrder(final String jsonString) {
 		 
-		new WebServiceProcessingTask() {
+		new WebServiceProcessingTask(dashboardActivity) {
 			
 			@Override
 			public void preExecuteTask() {
-			progressDialog=new ProgressDialog(getActivity());
 			
 			}
 			

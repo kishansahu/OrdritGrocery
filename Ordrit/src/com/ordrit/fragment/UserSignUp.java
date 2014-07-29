@@ -85,12 +85,12 @@ public class UserSignUp extends Fragment {
 				if(!fieldValidation()){
 					
 					
-					new WebServiceProcessingTask() {
+					new WebServiceProcessingTask(mainActivity) {
 						
 						@Override
 						public void preExecuteTask() {
 							TAG=tag;
-							progressDialog=new ProgressDialog(getActivity());
+							
 							
 						}
 						

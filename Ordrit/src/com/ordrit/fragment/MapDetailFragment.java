@@ -7,12 +7,17 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
+import android.view.WindowManager.LayoutParams;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -34,6 +39,7 @@ import com.ordrit.adapter.IconizedWindowAdapter;
 import com.ordrit.database.OrdrItdataBaseHelper;
 import com.ordrit.model.ItemCategory;
 import com.ordrit.model.Store;
+import com.ordrit.util.MapWebServiceProcessingTask;
 import com.ordrit.util.OrditJsonParser;
 import com.ordrit.util.OrdritConstants;
 import com.ordrit.util.OrdritJsonKeys;
@@ -86,12 +92,11 @@ public class MapDetailFragment extends BaseFragment {
 					// Loading map
 					initilizeMap();
                    // setupMapData();
-					new WebServiceProcessingTask() {
+					new MapWebServiceProcessingTask(dashboardActivity) {
 						
 						@Override
 						public void preExecuteTask() {
 						TAG=tag;
-						progressDialog=new ProgressDialog(dashboardActivity);
 						
 						}
 						
@@ -206,7 +211,8 @@ public class MapDetailFragment extends BaseFragment {
 				@Override
 				public void onInfoWindowClick(Marker marker) {
 					tempStore=eventMarkerMap.get(marker.getTitle());
-					Toast.makeText(dashboardActivity,"Store selected. Now Add Store", Toast.LENGTH_SHORT).show();
+					menuAddAddress.setVisibility(View.VISIBLE);
+					//Toast.makeText(dashboardActivity,"Store selected. Now Add Store", Toast.LENGTH_SHORT).show();
 					/*View view=iconizedWindowAdapter.getInfoContents(marker);
 					final ImageView image= (ImageView) view.findViewById(R.id.image);
 					image.setImageResource(R.drawable.ic_launcher);*/
@@ -257,6 +263,7 @@ googleMap.animateCamera(CameraUpdateFactory
 		
 		
 		menu = (Button) mapDetailFragment.findViewById(R.id.menu);
+		
 		menu.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -264,18 +271,20 @@ googleMap.animateCamera(CameraUpdateFactory
 				dashboardActivity.clickMenu();
 			}
 		});
-		menuShareWithFriends = (Button) mapDetailFragment
+	/*	menuShareWithFriends = (Button) mapDetailFragment
 				.findViewById(R.id.menuShareWithFriends);
 		menuShareWithFriends.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				
-
+		
+					
 			}
-		});
+		});*/
 		menuAddAddress = (Button) mapDetailFragment
 				.findViewById(R.id.menuAddAddress);
+		
 		menuAddAddress.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -286,13 +295,16 @@ googleMap.animateCamera(CameraUpdateFactory
 					if (isAdded) {
 						Toast.makeText(dashboardActivity, "Store Added", Toast.LENGTH_LONG).show();
 						dashboardActivity.updateListView=true;
+						menuAddAddress.setVisibility(View.GONE);
 					}else {
 						
 						Toast.makeText(dashboardActivity, "Store Already Added", Toast.LENGTH_LONG).show();
+						menuAddAddress.setVisibility(View.GONE);
 					}	
 					
 				}else {
 					Toast.makeText(dashboardActivity, "Select a Store", Toast.LENGTH_LONG).show();
+					menuAddAddress.setVisibility(View.GONE);
 				}
 				
 			    tempStore=null;

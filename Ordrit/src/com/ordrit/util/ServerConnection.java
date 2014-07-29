@@ -22,6 +22,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 public class ServerConnection {
 	// http://localhost:8080/RESTfulExample/json/product/post
 
@@ -220,5 +225,21 @@ public String getHttpUrlConnectionForArray(String requestUrl,String token)
 	        return METHOD_NAME;
 	    }
 
+	}
+	public static boolean isNetworkAvailable(Activity argActivity) {
+		if (argActivity == null) {
+			return false;
+		}
+
+		ConnectivityManager connectivityManager;
+		NetworkInfo activeNetworkInfo = null;
+		try {
+			connectivityManager = (ConnectivityManager) argActivity
+					.getSystemService(Context.CONNECTIVITY_SERVICE);
+			activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
+		return activeNetworkInfo != null;
 	}
 }

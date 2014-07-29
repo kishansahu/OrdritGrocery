@@ -3,20 +3,27 @@ package com.ordrit.util;
 import com.ordrit.R;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.view.Gravity;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.WindowManager.LayoutParams;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.Toast;
 
-public abstract class WebServiceProcessingTask extends AsyncTask<Void, Void, Void>{
+public abstract class MapWebServiceProcessingTask extends AsyncTask<Void, Void, Void>{
 
 	protected String jSONString=null;
 	protected ServerConnection connection;
 	protected String TAG="WebServiceProcessingTask";
-	private ProgressDialog progressDialog;
+	private Dialog progressDialog;
 	protected Activity mActivity;
 	
 	
-	public WebServiceProcessingTask(Activity mActivity) {
+	public MapWebServiceProcessingTask(Activity mActivity) {
 		super();
 		this.mActivity=mActivity;
 	}
@@ -34,9 +41,21 @@ public abstract class WebServiceProcessingTask extends AsyncTask<Void, Void, Voi
 				    cancel(true);
 					return;
 				}
-			progressDialog=new ProgressDialog(mActivity);
+			progressDialog=new Dialog(mActivity);
 		if (progressDialog!=null) {
-			progressDialog.setMessage("Loading...");
+		
+			progressDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+					        Window window = progressDialog.getWindow();
+					window.setLayout(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+					//window.clearFlags(LayoutParams.FLAG_DIM_BEHIND);
+					WindowManager.LayoutParams wlp = window.getAttributes();
+					     wlp.gravity = Gravity.CENTER;
+					     window.setAttributes(wlp);
+			progressDialog
+					.setContentView(R.layout.custom_prograssbar);
+			ImageView imageView=(ImageView)progressDialog.findViewById(R.id.imageView1);
+			imageView.startAnimation(AnimationUtils.loadAnimation(mActivity, R.anim.rotate));
+			
 			progressDialog.show();
 			progressDialog.setCancelable(false);
 			

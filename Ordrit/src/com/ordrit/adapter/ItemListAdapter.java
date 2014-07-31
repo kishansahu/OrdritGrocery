@@ -62,7 +62,7 @@ public class ItemListAdapter extends ArrayAdapter<Item>{
 			holder.productItemPrice = (TextView) convertView
 					.findViewById(R.id.productItemPrice);
 			
-
+			convertView.setTag(holder);
 	
 		} else {
 			holder = (ViewHolder) convertView.getTag();

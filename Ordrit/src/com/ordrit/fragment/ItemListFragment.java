@@ -157,10 +157,7 @@ public class ItemListFragment extends BaseFragment {
 				itemListAdapter.filter(text);
 				
 			}
-			if (itemListAdapterList!=null) {
-				itemListAdapterList.filter(text);
-				
-			}
+			
 			
 				
 			}

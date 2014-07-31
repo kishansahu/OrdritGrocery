@@ -36,6 +36,19 @@ public class WebServicesRawDataUtil {
 		userCredentialsString = userObject.toString();
 		return userCredentialsString;
 	}
+	public static String getEmailIdJSONObjectString(String emailId) {
+		String userCredentialsString = new String();
+		
+		JSONObject userObject = new JSONObject();
+		try {
+			userObject.put(OrdritJsonKeys.USER_EMAIL,emailId);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		userCredentialsString = userObject.toString();
+		return userCredentialsString;
+	}
+	
 	public static String editUserDetailsJSONObjectString(User user){
 		String userEditDetailsString = new String();
 		

@@ -21,6 +21,7 @@
     <string name="log_in">Log In</string>
     <string name="log_out">Log Out</string>
     <string name="sign_up">Sign Up</string>
+    <string name="submit">Submit</string>
     <string name="internet_connection_failed">No Internet Connection, Please Try Again Later</string>
     <string name="empty_username_error">Username Cannot Be Left Blank</string>
     <string name="empty_password_error">Password Cannot Be Left Blank</string>
@@ -39,6 +40,10 @@
 	<string name="add_order_to_fav">Add this Order to my favourite</string>
 	<string name="add_merchant_to_fav">Add this Merchant to my favourite</string>
 	<string name="provider">Provider</string>
+	<string name="forgotPasswordLink">Forgot Password ??</string>
+	<string name="password_recovery">Password Recovery</string>
+	
+	
 	<!-- <string name="merchant_name">Merchant Name</string> -->
 	<string name="delivery_details">Delivery Details</string>
 	<string name="payment_info">Payment Info</string>

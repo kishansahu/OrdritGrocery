@@ -59,6 +59,7 @@ public interface OrdritJsonKeys {
 	public final static String TAG_ITEM= "item";
 	//Status of Orders
 	public final static String TAG_PENDING = "PEN";
+	public final static String TAG_DETAIL = "detail";
 	
 	
 	

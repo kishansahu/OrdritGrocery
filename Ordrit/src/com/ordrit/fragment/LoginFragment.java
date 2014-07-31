@@ -9,7 +9,6 @@ import org.json.JSONObject;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
@@ -22,7 +21,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,7 +32,6 @@ import com.ordrit.model.City;
 import com.ordrit.model.State;
 import com.ordrit.model.User;
 import com.ordrit.util.CalibriTextView;
-import com.ordrit.util.CommonUtils;
 import com.ordrit.util.OrditJsonParser;
 import com.ordrit.util.OrdritConstants;
 import com.ordrit.util.OrdritJsonKeys;
@@ -48,7 +45,6 @@ public class LoginFragment extends Fragment {
 	private HomeActivity mainActivity = null;
 	private EditText editTextUserName, editTextPassword=null;
 	private CalibriTextView editTextUserNameError, passwordError, SignUpText=null;
-	//private ProgressBar progressBarLogin;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,17 +53,15 @@ public class LoginFragment extends Fragment {
 		mainActivity.getActionBar().hide();
 		loginFragment = inflater.inflate(R.layout.fragment_login, container,
 				false);
-		/*TextView headingText = (TextView) loginFragment
-				.findViewById(R.id.login_heading);*/
-		/*progressBarLogin= (ProgressBar) loginFragment
-				.findViewById(R.id.progressBarLogin);*/
+		TextView forgotPasswordLink = (TextView) loginFragment
+				.findViewById(R.id.forgotPasswordLink);
+		
 		editTextUserName=(EditText) loginFragment.findViewById(R.id.editTextUserName);
 		editTextUserNameError= (CalibriTextView) loginFragment.findViewById(R.id.textUserNameError);
 		passwordError= (CalibriTextView) loginFragment.findViewById(R.id.passwordError);
 		editTextPassword=(EditText) loginFragment.findViewById(R.id.editTextPassword);
 		SignUpText= (CalibriTextView) loginFragment.findViewById(R.id.signUpLink);
 		SignUpText.setText(Html.fromHtml(getString(R.string.sign_up_link)));
-	//	headingText.setText(Html.fromHtml(getString(R.string.grocery_msg)));
 
 		Button loginButton = (Button) loginFragment
 				.findViewById(R.id.buttonLogin);
@@ -87,6 +81,27 @@ public class LoginFragment extends Fragment {
 				
 				fragmentTransaction.replace(R.id.application_container,
 						userSignUpFragment);
+				fragmentTransaction.addToBackStack("loginScreen");
+				fragmentTransaction.commit();
+				
+			}
+		});
+		
+		forgotPasswordLink.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				View vi= (LinearLayout) mainActivity.findViewById(R.id.application_container);
+				Animation anim = AnimationUtils.loadAnimation(
+						mainActivity, R.anim.bottom_to_top);
+				vi.startAnimation(anim);
+				FragmentManager fragmentManager = getFragmentManager();
+				FragmentTransaction fragmentTransaction = fragmentManager
+						.beginTransaction();
+				Fragment forgotPasswordFragment = new ForgotPasswordFragment();
+				
+				fragmentTransaction.replace(R.id.application_container,
+						forgotPasswordFragment);
 				fragmentTransaction.addToBackStack("loginScreen");
 				fragmentTransaction.commit();
 				

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
@@ -25,14 +26,14 @@ import com.ordrit.model.SelectedItem;
 
 public class MenuBagAdapter extends ArrayAdapter<SelectedItem>{
 	
-	private	List<SelectedItem> selectedItemList;
+ private	List<SelectedItem> selectedItemList;
  private int resourceId;
  private LayoutInflater inflater;
  private ImageLoader imageLoader;
  private UILApplication uilApplication;
  private Context context;
  private SetTotalCost setTotalCost;
-
+ private int values;
 	public MenuBagAdapter(Context context, int resourceId,
 			List<SelectedItem> selectedItemList,UILApplication uilApplication,SetTotalCost setTotalCost) {
 		super(context, resourceId, selectedItemList);
@@ -129,6 +130,11 @@ public class MenuBagAdapter extends ArrayAdapter<SelectedItem>{
 		@Override
 		public void onClick(View v) {
 		
+		
+			 final int uprange = 100;
+		     final int downrange = 1;
+		     values = 1;
+			
 				final Dialog dialog = new Dialog(context);
 				dialog.getWindow();
 			    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -141,7 +147,7 @@ public class MenuBagAdapter extends ArrayAdapter<SelectedItem>{
 				ImageView imageViewItemImage = (ImageView)dialog.findViewById(R.id.imageViewItemImage);
 				ImageLoader imageLoader = ImageLoader.getInstance();
 				imageLoader.displayImage(item.getImageURL(), imageViewItemImage);
-				NumberPicker numberPicker = (NumberPicker)dialog.findViewById(R.id.numberPicker);
+				/*NumberPicker numberPicker = (NumberPicker)dialog.findViewById(R.id.numberPicker);
 			        numberPicker.setMaxValue(100);    
 			        numberPicker.setMinValue(1);
 			        numberPicker.setValue(Integer.valueOf(selectedItem.getQuantity()));
@@ -153,14 +159,52 @@ public class MenuBagAdapter extends ArrayAdapter<SelectedItem>{
 			                oldVal, int newVal) {
 			            	selectedItem.setQuantity(String.valueOf(newVal));
 			            }
-			        });
+			        });*/
 			        
+			
+
+					Button upButton = (Button) dialog.findViewById(R.id.upButton);
+					Button downButton = (Button) dialog.findViewById(R.id.downButton);
+					final EditText editText = (EditText) dialog
+							.findViewById(R.id.numberEditText);
+					editText.setText(""+Integer.valueOf(selectedItem.getQuantity()));
+					values=Integer.valueOf(selectedItem.getQuantity());
+					upButton.setOnClickListener(new View.OnClickListener() {
+
+						public void onClick(View v) {
+
+							if (values >= downrange && values <= uprange)
+								values++;
+							if (values > uprange)
+								values = downrange;
+							editText.setText("" + values);
+
+						}
+					});
+
+					downButton.setOnClickListener(new View.OnClickListener() {
+
+						public void onClick(View v) {
+
+							if (values >= downrange && values <= uprange)
+								values--;
+
+							if (values < downrange)
+								values = uprange;
+
+							editText.setText(values + "");
+						}
+					});
+
+				
+				
 			        Button buttonAddToBagOrder = (Button)dialog.findViewById(R.id.buttonAddToBagOrder); 
 			        buttonAddToBagOrder.setText("Done");
 					buttonAddToBagOrder.setOnClickListener(new OnClickListener() {
 						
 						@Override
 						public void onClick(View v) {
+							selectedItem.setQuantity(String.valueOf(values));
 							selectedItemList.set(position, selectedItem);
 							notifyDataSetChanged();
 							uilApplication.setSelectedItemList(selectedItemList);

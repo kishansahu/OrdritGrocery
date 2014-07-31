@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
@@ -35,6 +36,14 @@ public class ItemDetailFragment extends BaseFragment {
     private UILApplication uilApplication;
     private	List<SelectedItem> selectedItemList;
     private int qaintity=1;
+    
+    // number picker
+    private Button upButton;
+    private Button downButton;
+    private EditText editText;
+    private final int uprange = 100;
+    private final int downrange = 1;
+    private int values = 1;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,7 +77,7 @@ public class ItemDetailFragment extends BaseFragment {
 				
 				SelectedItem selectedItem= new SelectedItem();
 				selectedItem.setItem(item);
-				selectedItem.setQuantity(String.valueOf(qaintity));
+				selectedItem.setQuantity(String.valueOf(editText.getText().toString()));
 				String previousStoreId=uilApplication.getStoreId();
 				if (selectedItemList==null) {
 					
@@ -124,7 +133,7 @@ public class ItemDetailFragment extends BaseFragment {
 		imageViewItemImage=(ImageView)itemDetailFragment.findViewById(R.id.imageViewItemImage);
 		ImageLoader imageLoader = ImageLoader.getInstance();
 		imageLoader.displayImage(item.getImageURL(), imageViewItemImage);
-		NumberPicker numberPicker = (NumberPicker)itemDetailFragment.findViewById(R.id.numberPicker);
+	/*	NumberPicker numberPicker = (NumberPicker)itemDetailFragment.findViewById(R.id.numberPicker);
 	        numberPicker.setMaxValue(100);    
 	        numberPicker.setMinValue(1);        
 	        numberPicker.setWrapSelectorWheel(true);
@@ -135,8 +144,8 @@ public class ItemDetailFragment extends BaseFragment {
 	                oldVal, int newVal) {
 	            	qaintity=newVal;
 	            }
-	        });
-	        
+	        });*/
+	        nunberPicker();
 	        dashboardActivity.checkCartItems(itemDetailFragment);
 	}
 private int searchItem(List<SelectedItem> selectedItemList,Item item){
@@ -155,4 +164,40 @@ private int searchItem(List<SelectedItem> selectedItemList,Item item){
 	return i;
 	
 }
+
+	private void nunberPicker() {
+
+		upButton = (Button) itemDetailFragment.findViewById(R.id.upButton);
+		downButton = (Button) itemDetailFragment.findViewById(R.id.downButton);
+		editText = (EditText) itemDetailFragment
+				.findViewById(R.id.numberEditText);
+
+		upButton.setOnClickListener(new View.OnClickListener() {
+
+			public void onClick(View v) {
+
+				if (values >= downrange && values <= uprange)
+					values++;
+				if (values > uprange)
+					values = downrange;
+				editText.setText("" + values);
+
+			}
+		});
+
+		downButton.setOnClickListener(new View.OnClickListener() {
+
+			public void onClick(View v) {
+
+				if (values >= downrange && values <= uprange)
+					values--;
+
+				if (values < downrange)
+					values = uprange;
+
+				editText.setText(values + "");
+			}
+		});
+
+	}
 }

@@ -41,6 +41,7 @@ import com.ordrit.fragment.MenuBagFragment;
 import com.ordrit.fragment.OrderStatusFragment;
 import com.ordrit.fragment.PreviousOrdersFragment;
 import com.ordrit.fragment.StoreItemsCategoryFragment;
+import com.ordrit.model.Address;
 import com.ordrit.model.City;
 import com.ordrit.model.NavDrawerItem;
 import com.ordrit.model.State;
@@ -377,6 +378,53 @@ public void popFragment(String tag) {
 	public void setSelectedStoreId(String selectedStoreId) {
 		this.selectedStoreId = selectedStoreId;
 	} 
+	
+	public boolean isUserProfileIncomplete(){
+		boolean isUserProfileIncomplete= false;
+		Gson gson = new Gson();
+		String strUser = SharedPreferencesUtil.getStringPreferences(
+				context, OrdritConstants.USER);
+		
+	   User user = gson.fromJson(strUser, User.class);
+	   String mobileNo=user.getPhoneNumber();
+	   Address address=user.getAddress();
+	   if (mobileNo == null || mobileNo.isEmpty() || address == null) {
+		   isUserProfileIncomplete= true;
+	   }
+	   return isUserProfileIncomplete;
+	}
+	   
+    public void forceUserToCompleteProfile(){
+    	
+		//Start Force to enter User Details
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+				context);
+
+			// set title
+			alertDialogBuilder.setTitle("Ordrit");
+
+			// set dialog message
+			alertDialogBuilder
+				.setMessage("Please complete your Account details before progressing. \nAfter completion select your favourite store for shopping.")
+				.setCancelable(false)
+				.setPositiveButton("OK",new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,int id) {
+						dialog.cancel();
+						commitFragment(new ManageUserInfoFragment(),null);
+						
+					}
+				  });
+
+				// create alert dialog
+				AlertDialog alertDialog = alertDialogBuilder.create();
+
+				// show it
+				alertDialog.show();
+		//End to fill user details
+	
+   	 
+   	
+    }
 	 
 }
 

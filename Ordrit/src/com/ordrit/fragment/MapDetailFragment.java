@@ -2,25 +2,20 @@ package com.ordrit.fragment;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 
-import android.app.Dialog;
-import android.app.ProgressDialog;
+import android.app.AlertDialog;
+import android.app.Fragment;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
-import android.view.WindowManager.LayoutParams;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -34,17 +29,18 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
 import com.ordrit.R;
 import com.ordrit.adapter.IconizedWindowAdapter;
 import com.ordrit.database.OrdrItdataBaseHelper;
-import com.ordrit.model.ItemCategory;
+import com.ordrit.model.Address;
 import com.ordrit.model.Store;
+import com.ordrit.model.User;
 import com.ordrit.util.MapWebServiceProcessingTask;
 import com.ordrit.util.OrditJsonParser;
 import com.ordrit.util.OrdritConstants;
 import com.ordrit.util.OrdritJsonKeys;
 import com.ordrit.util.SharedPreferencesUtil;
-import com.ordrit.util.WebServiceProcessingTask;
 
 public class MapDetailFragment extends BaseFragment {
 	private final String tag = "MapDetailFragment";
@@ -105,7 +101,9 @@ public class MapDetailFragment extends BaseFragment {
 							if (list!=null) {
 								setupMapData(list);
 							}
-							
+							if(dashboardActivity.isUserProfileIncomplete()){
+							dashboardActivity.forceUserToCompleteProfile();
+							}
 						}
 						
 						@Override
@@ -138,8 +136,7 @@ public class MapDetailFragment extends BaseFragment {
 
 		return mapDetailFragment;
 	}
-   
-     
+
 	
 	private void initilizeMap() {
 		if (googleMap == null) {
@@ -210,8 +207,10 @@ public class MapDetailFragment extends BaseFragment {
 				
 				@Override
 				public void onInfoWindowClick(Marker marker) {
+				
 					tempStore=eventMarkerMap.get(marker.getTitle());
 					menuAddAddress.setVisibility(View.VISIBLE);
+				
 					//Toast.makeText(dashboardActivity,"Store selected. Now Add Store", Toast.LENGTH_SHORT).show();
 					/*View view=iconizedWindowAdapter.getInfoContents(marker);
 					final ImageView image= (ImageView) view.findViewById(R.id.image);

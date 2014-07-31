@@ -88,22 +88,7 @@ public class ForgotPasswordFragment extends Fragment {
 										Toast.LENGTH_LONG).show();
 								return;
 							}
-							/*// success
-							String id = null;
-							try {
-								id = jsonObject
-										.getString(OrdritJsonKeys.USER_ID);
-								if (id != null && !id.isEmpty()) {
-									redirectToLogin();
-									Toast.makeText(mainActivity,
-											R.string.sucess_regis,
-											Toast.LENGTH_LONG).show();
-
-								}
-							} catch (JSONException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}*/
+							
 							// error
 							try {
 								if (jsonObject
@@ -126,7 +111,7 @@ public class ForgotPasswordFragment extends Fragment {
 									alertDialogBuilder
 										.setMessage("Your password reset link is successfully delivered to your Email Id.")
 										.setCancelable(false)
-										.setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+										.setPositiveButton("OK",new DialogInterface.OnClickListener() {
 											public void onClick(DialogInterface dialog,int id) {
 												dialog.cancel();
 												redirectToLogin();

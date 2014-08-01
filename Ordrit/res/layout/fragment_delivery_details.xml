@@ -89,43 +89,38 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="50dp"
         android:orientation="vertical" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal"
+            android:weightSum="2"
             android:padding="5dp" >
 
             <com.ordrit.util.CalibriButton
                 android:id="@+id/paymentModeCashOnDelivery"
-                android:layout_width="130dp"
+                android:layout_width="0dp"
                 android:layout_height="35dp"
+                android:layout_weight="1"
                 android:layout_gravity="center_horizontal|bottom"
-                android:layout_marginTop="20dp"
                 android:background="@drawable/yellow_btn_style"
                 android:gravity="center"
                 android:padding="6dp"
+                android:layout_marginRight="1dp"
                 android:text="@string/cash_on_delivery "
                 android:textColor="@android:color/white"
                 android:textSize="15sp" />
 
-            <View
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
             <com.ordrit.util.CalibriButton
                 android:id="@+id/paymentModeCreditCard"
-                android:layout_width="130dp"
+                android:layout_width="0dp"
                 android:layout_height="35dp"
+                 android:layout_weight="1"
                 android:layout_gravity="center_horizontal|bottom"
-                android:layout_marginTop="20dp"
                 android:background="@drawable/grey_btn_style"
+                android:layout_marginLeft="1dp"
                 android:enabled="false"
                 android:gravity="center"
                 android:padding="6dp"
@@ -139,13 +134,14 @@
             android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|bottom"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/yellow_btn_style"
             android:gravity="center"
             android:padding="6dp"
             android:text="Place Order"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
+
     </LinearLayout>
 
 </LinearLayout>

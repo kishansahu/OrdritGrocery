@@ -22,16 +22,14 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
          >
 
-        <com.ordrit.util.CalibriTextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="5dp"
-            android:gravity="center_horizontal"
-            android:paddingBottom="30dp"
-            android:text="@string/app_name"
-            android:textColor="@color/actionbar_background"
-            android:textSize="40sp" />
+        <ImageView android:id="@+id/ImageView1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/ordrit_logo"
+        />
 
         <LinearLayout
             android:layout_width="match_parent"

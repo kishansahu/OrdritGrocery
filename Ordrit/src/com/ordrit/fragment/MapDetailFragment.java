@@ -295,6 +295,7 @@ googleMap.animateCamera(CameraUpdateFactory
 						Toast.makeText(dashboardActivity, "Store Added", Toast.LENGTH_LONG).show();
 						dashboardActivity.updateListView=true;
 						menuAddAddress.setVisibility(View.GONE);
+						dashboardActivity.clickMenu();
 					}else {
 						
 						Toast.makeText(dashboardActivity, "Store Already Added", Toast.LENGTH_LONG).show();

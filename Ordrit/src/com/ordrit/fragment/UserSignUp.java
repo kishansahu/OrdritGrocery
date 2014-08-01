@@ -61,9 +61,9 @@ public class UserSignUp extends Fragment {
 		signUpFragment = inflater.inflate(R.layout.fragment_signup, container,
 				false);
 		
-		TextView headingText = (TextView) signUpFragment
+	/*	TextView headingText = (TextView) signUpFragment
 				.findViewById(R.id.signupHeading);
-		headingText.setText(Html.fromHtml(getString(R.string.grocery_msg)));
+		headingText.setText(Html.fromHtml(getString(R.string.grocery_msg)));*/
 		// EditText
 		userNameEditText=  (EditText) signUpFragment.findViewById(R.id.editTextUserName);
 		passwordEditText=  (EditText) signUpFragment.findViewById(R.id.editTextPassword);

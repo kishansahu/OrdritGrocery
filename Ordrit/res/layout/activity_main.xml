@@ -1,5 +1,6 @@
 <android.support.v4.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:treeView="http://schemas.android.com/apk/res/pl.polidea.treeview"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -11,7 +12,7 @@
         android:layout_height="match_parent" />
 
     <!-- Listview to display slider menu -->
-    <ListView
+ <!--    <ListView
         android:id="@+id/list_slidermenu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,5 +20,15 @@
         android:choiceMode="singleChoice"
         android:divider="@color/list_divider"
         android:dividerHeight="1dp"        
-        android:background="@color/list_background"/>
+        android:background="@color/list_background"/> -->
+    <pl.polidea.treeview.TreeViewList
+        android:id="@+id/mainTreeView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        android:smoothScrollbar="true"
+         android:layout_gravity="start"
+         android:background="@color/blue"
+  />
+    
 </android.support.v4.widget.DrawerLayout>

@@ -30,6 +30,7 @@ import com.ordrit.adapter.ItemListAdapter;
 import com.ordrit.database.OrdrItdataBaseHelper;
 import com.ordrit.model.Item;
 import com.ordrit.model.ItemSubCategory;
+import com.ordrit.model.MenuData;
 import com.ordrit.util.CommonUtils;
 import com.ordrit.util.FragmentConstant;
 import com.ordrit.util.OrditJsonParser;
@@ -49,7 +50,8 @@ public class ItemListFragment extends BaseFragment {
     private ItemListAdapter itemListAdapter,itemListAdapterList;
     private List<Item> itemList;
     private String storeId;
-    private ItemSubCategory itemSubCategory;
+   // private ItemSubCategory itemSubCategory;
+    private MenuData menuData;
     private OrdrItdataBaseHelper ordrItdataBaseHelper;
 
 	@Override
@@ -57,8 +59,8 @@ public class ItemListFragment extends BaseFragment {
 			Bundle savedInstanceState) {
 		itemListFragment=inflater.inflate(R.layout.fragment_item_list, container,false);
 		Bundle bundle=getArguments();
-		itemSubCategory = (ItemSubCategory)bundle.getSerializable("data");
-		storeId=bundle.getString(OrdritConstants.STORE_ID);
+		menuData = (MenuData)bundle.getSerializable("data");
+		storeId=menuData.getStore();
 		setupUiComponent();
 		return itemListFragment;
 	}
@@ -191,7 +193,7 @@ public class ItemListFragment extends BaseFragment {
 								dashboardActivity, OrdritJsonKeys.TAG_TOKEN));
 			//	 Log.e(TAG,jSONString);
 				try {
-					itemList=OrditJsonParser.getItemsUnderSubCategory(storeId, itemSubCategory.getId(),jSONString);
+					itemList=OrditJsonParser.getItemsUnderSubCategory(storeId, menuData.getSubCategory(),jSONString);
 					 
 				} catch (JSONException e) {
 					

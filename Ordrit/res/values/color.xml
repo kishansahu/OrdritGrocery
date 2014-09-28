@@ -5,7 +5,7 @@
      <color name="blue">#0B9BDC</color> 
     <color name="light_green">#94C57E</color>
     <color name="yellow">#FFB240</color>
-   <color name="orange"> #FF6513</color>
+  <!--  <color name="orange"> #FF6513</color> -->
     <color name="deep_yellow">#FF9900</color>
     <color name="deep_grey">#343434</color>
     <color name="white">#ffffffff</color>
@@ -25,4 +25,6 @@
     <color name="counter_text_color">#c5c4c4</color>
     <color name="fragment_background_color">#E3E3E3</color>
     <color name="normal_text_color">#ff0099cc</color>
+    <color name="orange">#F9C330</color>
+     <color name="orange_light">#FFDE85</color>
 </resources>

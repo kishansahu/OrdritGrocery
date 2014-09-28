@@ -31,6 +31,7 @@ import com.ordrit.database.OrdrItdataBaseHelper;
 import com.ordrit.model.Item;
 import com.ordrit.model.ItemSubCategory;
 import com.ordrit.model.MenuData;
+import com.ordrit.newmodel.Store;
 import com.ordrit.util.CommonUtils;
 import com.ordrit.util.FragmentConstant;
 import com.ordrit.util.OrditJsonParser;
@@ -53,6 +54,8 @@ public class ItemListFragment extends BaseFragment {
    // private ItemSubCategory itemSubCategory;
     private MenuData menuData;
     private OrdrItdataBaseHelper ordrItdataBaseHelper;
+    
+    public static Store store;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -133,7 +136,7 @@ public class ItemListFragment extends BaseFragment {
 		});
 		 ordrItdataBaseHelper = new OrdrItdataBaseHelper(dashboardActivity);
 				TextView delevaryTime = (TextView)itemListFragment.findViewById(R.id.delevaryTime);
-				delevaryTime.setText(ordrItdataBaseHelper.getStoreSchedule(storeId));
+				// delevaryTime.setText(ordrItdataBaseHelper.getStoreSchedule(storeId));
 		         search=(EditText)itemListFragment.findViewById(R.id.edittextSearch);
 		       search.setHint("Search "+ordrItdataBaseHelper.getStoreName(storeId));
         search.addTextChangedListener(new TextWatcher() {

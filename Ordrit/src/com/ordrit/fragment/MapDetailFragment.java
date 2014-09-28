@@ -3,12 +3,6 @@ package com.ordrit.fragment;
 import java.util.HashMap;
 import java.util.List;
 
-import org.json.JSONException;
-
-import android.app.AlertDialog;
-import android.app.Fragment;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -29,15 +24,15 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.ordrit.R;
+import com.ordrit.activity.DashboardActivity;
 import com.ordrit.adapter.IconizedWindowAdapter;
 import com.ordrit.database.OrdrItdataBaseHelper;
-import com.ordrit.model.Address;
-import com.ordrit.model.Store;
-import com.ordrit.model.User;
+import com.ordrit.newmodel.NearByStore;
+import com.ordrit.newmodel.Store;
+import com.ordrit.newmodel.StoreDetail;
 import com.ordrit.util.MapWebServiceProcessingTask;
-import com.ordrit.util.OrditJsonParser;
 import com.ordrit.util.OrdritConstants;
 import com.ordrit.util.OrdritJsonKeys;
 import com.ordrit.util.SharedPreferencesUtil;
@@ -98,8 +93,8 @@ public class MapDetailFragment extends BaseFragment {
 						
 						@Override
 						public void postExecuteTask() {
-							if (list!=null) {
-								setupMapData(list);
+							if (nearByStore!=null) {
+								setupMapData(nearByStore.getResults());
 							}
 							if(dashboardActivity.isUserProfileIncomplete()){
 							dashboardActivity.forceUserToCompleteProfile();
@@ -118,9 +113,9 @@ public class MapDetailFragment extends BaseFragment {
 							
 							
 							try {
-								 list=OrditJsonParser.getAllStoresFromJSON(jSONString);
-							} catch (JSONException e) {
-								
+								nearByStore=gson.fromJson(jSONString, NearByStore.class);
+							} catch (JsonSyntaxException e) {
+								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 							
@@ -182,14 +177,14 @@ public class MapDetailFragment extends BaseFragment {
 		// lets place some 10 random markers
 		for (int i = 0; i < list.size(); i++) {
 			final Store store=list.get(i);
-			String locationLatLong= store.getLocationLatLong();
+			String locationLatLong= store.getLocation();
 			
 			double[] randomLocation = createRandLocation(locationLatLong);
 
 			// Adding a marker
 			 MarkerOptions marker = new MarkerOptions();
 			 marker.position(new LatLng(randomLocation[1], randomLocation[0]));
-			 marker.title(store.getStoreName());
+			 marker.title(store.getName());
 			 
 			 
 			
@@ -198,7 +193,7 @@ public class MapDetailFragment extends BaseFragment {
 			marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_red));
 			
 			googleMap.addMarker(marker);
-			eventMarkerMap.put(store.getStoreName(), store);
+			eventMarkerMap.put(store.getName(), store);
 			final IconizedWindowAdapter iconizedWindowAdapter=new IconizedWindowAdapter(
 	                dashboardActivity.getLayoutInflater());
 			googleMap.setInfoWindowAdapter(iconizedWindowAdapter);
@@ -212,9 +207,9 @@ public class MapDetailFragment extends BaseFragment {
 					menuAddAddress.setVisibility(View.VISIBLE);
 				
 					//Toast.makeText(dashboardActivity,"Store selected. Now Add Store", Toast.LENGTH_SHORT).show();
-					/*View view=iconizedWindowAdapter.getInfoContents(marker);
+					View view=iconizedWindowAdapter.getInfoContents(marker);
 					final ImageView image= (ImageView) view.findViewById(R.id.image);
-					image.setImageResource(R.drawable.ic_launcher);*/
+					image.setImageResource(R.drawable.ic_launcher);
 				}
 			});
 		
@@ -289,18 +284,47 @@ googleMap.animateCamera(CameraUpdateFactory
 			@Override
 			public void onClick(View v) {
 			    if (tempStore!=null) {
-			    	OrdrItdataBaseHelper ordrItdataBaseHelper=new OrdrItdataBaseHelper(dashboardActivity);
-					boolean isAdded=ordrItdataBaseHelper.insertStore(tempStore);
-					if (isAdded) {
-						Toast.makeText(dashboardActivity, "Store Added", Toast.LENGTH_LONG).show();
-						dashboardActivity.updateListView=true;
-						menuAddAddress.setVisibility(View.GONE);
-						dashboardActivity.clickMenu();
-					}else {
+			    
+					new MapWebServiceProcessingTask(dashboardActivity) {
+						StoreDetail storeDetail;
+						@Override
+						public void preExecuteTask() {
+							TAG = tag;
+
+						}
+
+						@Override
+						public void postExecuteTask() {
+
+						}
+
+						@Override
+						public void backgroundTask() {
+							jSONString = connection.getHttpUrlConnectionForArray(
+									OrdritConstants.SERVER_BASE_URL
+											+ "item_categories?store="+tempStore.getId(),
+									SharedPreferencesUtil.getStringPreferences(
+											dashboardActivity, OrdritJsonKeys.TAG_TOKEN));
+							     storeDetail= gson.fromJson(jSONString, StoreDetail.class);
+							     tempStore.setSub_categories(storeDetail.getSub_categories());
+								OrdrItdataBaseHelper ordrItdataBaseHelper=new OrdrItdataBaseHelper(dashboardActivity);
+								boolean isAdded=ordrItdataBaseHelper.insertStore(tempStore);
+								if (isAdded) {
+									Toast.makeText(dashboardActivity, "Store Added", Toast.LENGTH_LONG).show();
+									dashboardActivity.updateListView=true;
+									menuAddAddress.setVisibility(View.GONE);
+									dashboardActivity.clickMenu();
+								}else {
+									
+									Toast.makeText(dashboardActivity, "Store Already Added", Toast.LENGTH_LONG).show();
+									menuAddAddress.setVisibility(View.GONE);
+								}
 						
-						Toast.makeText(dashboardActivity, "Store Already Added", Toast.LENGTH_LONG).show();
-						menuAddAddress.setVisibility(View.GONE);
-					}	
+						}
+					}.execute();
+			    	
+			    	
+			    	
 					
 				}else {
 					Toast.makeText(dashboardActivity, "Select a Store", Toast.LENGTH_LONG).show();

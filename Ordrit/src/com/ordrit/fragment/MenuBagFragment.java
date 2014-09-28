@@ -134,7 +134,7 @@ public class MenuBagFragment extends BaseFragment {
 				float minimumOrder = 0.0f;
 				if (storeId!=null) {
 					 OrdrItdataBaseHelper ordrItdataBaseHelper= new OrdrItdataBaseHelper(dashboardActivity);
-					 minimumOrder= Float.parseFloat(ordrItdataBaseHelper.getStoreMinimumOrder(storeId)) ;
+					 //minimumOrder= Float.parseFloat(ordrItdataBaseHelper.getStoreMinimumOrder(storeId)) ;
 					
 				}
 				

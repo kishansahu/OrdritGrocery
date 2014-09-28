@@ -15,10 +15,10 @@ public class OrdrItDataBase extends SQLiteOpenHelper {
 	public static final String TABLE_STORE="Store";
 	
 	public static final String COLUMN_STORE_STORE_ID = "storeId";
-	public static final String COLUMN_STORE_NAME="storeName";
-	public static final String COLUMN_STORE_LOCATION_LATLONG="locationLatLong";
+	/*public static final String COLUMN_STORE_NAME="storeName";
+	public static final String COLUMN_STORE_LOCATION_LATLONG="locationLatLong";*/
 	public static final String COLUMN_STORE_ID="id";
-	public static final String COLUMN_STORE_URL="Url";
+	/*public static final String COLUMN_STORE_URL="Url";
 	public static final String COLUMN_STORE_PHONE_NUMBER_1="phoneNumber1";
 	public static final String COLUMN_STORE_PHONE_NUMBER_2="phoneNumber2";
 	public static final String COLUMN_STORE_OPEN_AT="openAt";
@@ -26,20 +26,24 @@ public class OrdrItDataBase extends SQLiteOpenHelper {
 	public static final String COLUMN_STORE_MINIMUM_ORDER="minimumOrder";
 	public static final String COLUMN_STORE_USER_ID="userId";
 	public static final String COLUMN_STORE__ADDRESS_ID= "addressId";
+	*/
+	public static final String COLUMN_STORE_OBJECT= "storeobject";
+	public static final String COLUMN_STORE_CATEGORY= "storeocatogery";
+	
 	
 	public static final String CREATE_TABLE_STORE = "CREATE TABLE " + TABLE_STORE + "("
 			+ COLUMN_STORE_STORE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-			+ COLUMN_STORE_NAME + " TEXT," 
-			+ COLUMN_STORE_LOCATION_LATLONG + " TEXT,"
+			/*+ COLUMN_STORE_NAME + " TEXT," 
+			+ COLUMN_STORE_LOCATION_LATLONG + " TEXT,"*/
 			+ COLUMN_STORE_ID + " TEXT,"
-			+ COLUMN_STORE_URL + " TEXT," 
+	/*		+ COLUMN_STORE_URL + " TEXT," 
 			+ COLUMN_STORE_PHONE_NUMBER_1 + " TEXT," 
 			+ COLUMN_STORE_PHONE_NUMBER_2 + " TEXT," 
 			+ COLUMN_STORE_OPEN_AT+ " TEXT," 
 			+ COLUMN_STORE_CLOSE_AT + " TEXT," 
 			+ COLUMN_STORE_MINIMUM_ORDER + " TEXT," 
-			+ COLUMN_STORE_USER_ID + " TEXT," 
-			+ COLUMN_STORE__ADDRESS_ID + " TEXT" + ")";
+			+ COLUMN_STORE_USER_ID + " TEXT," */
+			+ COLUMN_STORE_OBJECT + " TEXT" + ")";
 	
 	// Table Store end
 	

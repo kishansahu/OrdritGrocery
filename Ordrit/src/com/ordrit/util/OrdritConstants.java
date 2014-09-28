@@ -1,8 +1,9 @@
 package com.ordrit.util;
 
 public interface OrdritConstants {
-
-	public final static String SERVER_BASE_URL = "http://staging.ankursethi.in/";
+	//http://128.199.142.40/stores?distance=100000&point=POINT%2877.128036+28.694839%29
+	//public final static String SERVER_BASE_URL = "http://staging.ankursethi.in/";
+		public final static String SERVER_BASE_URL = "http://128.199.142.40/";
 	public final static String API_TOKEN_URL = SERVER_BASE_URL+"api-token/";
 	public final static String USERS = "users";
 	public final static String USERS_NAME = "username";

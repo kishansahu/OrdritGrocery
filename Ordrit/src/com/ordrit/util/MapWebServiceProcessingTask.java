@@ -1,6 +1,8 @@
 package com.ordrit.util;
 
+import com.google.gson.Gson;
 import com.ordrit.R;
+import com.ordrit.newmodel.NearByStore;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -21,11 +23,14 @@ public abstract class MapWebServiceProcessingTask extends AsyncTask<Void, Void, 
 	protected String TAG="WebServiceProcessingTask";
 	private Dialog progressDialog;
 	protected Activity mActivity;
+	protected NearByStore nearByStore;
+	protected Gson gson;
 	
 	
 	public MapWebServiceProcessingTask(Activity mActivity) {
 		super();
 		this.mActivity=mActivity;
+		gson= new Gson();
 	}
 
 	@Override

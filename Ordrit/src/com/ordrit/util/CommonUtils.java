@@ -23,8 +23,7 @@ import com.ordrit.model.City;
 import com.ordrit.model.Item;
 import com.ordrit.model.NavDrawerItem;
 import com.ordrit.model.SelectedItem;
-import com.ordrit.model.Store;
-
+import com.ordrit.newmodel.Store;
 public class CommonUtils {
 
 	private Context _context;
@@ -109,7 +108,7 @@ public class CommonUtils {
 		Iterator<Store> iterator = list.iterator();
 		while (iterator.hasNext()) {
 			Store store=iterator.next();
-			navDrawerItemList.add(new NavDrawerItem(store.getStoreName(), navMenuIcons
+			navDrawerItemList.add(new NavDrawerItem(store.getName(), navMenuIcons
 					.getResourceId(0, -1),store.getId()));
 		}
 		return navDrawerItemList;

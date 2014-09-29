@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import com.ordrit.R;
@@ -22,7 +23,7 @@ import com.ordrit.util.SharedPreferencesUtil;
 public class ManageUserInfoFragment extends BaseFragment {
 
 	private View manageUserInfoFragment;
-	private Button manageAccountMenu,btnManageAccountLogout;
+	private Button btnManageAccountLogout;
 	private LinearLayout containerLinkManageAccount,containerLinkManageAddress;
 
 	@Override
@@ -37,7 +38,7 @@ public class ManageUserInfoFragment extends BaseFragment {
 	@Override
 	void setupUiComponent() {
 
-		manageAccountMenu = (Button) manageUserInfoFragment
+		ImageButton manageAccountMenu = (ImageButton) manageUserInfoFragment
 				.findViewById(R.id.manageAccountMenu);
 		manageAccountMenu.setOnClickListener(new OnClickListener() {
 

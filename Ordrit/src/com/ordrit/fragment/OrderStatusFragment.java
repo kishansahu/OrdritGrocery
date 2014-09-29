@@ -2,7 +2,6 @@ package com.ordrit.fragment;
 
 import java.util.List;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -10,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -32,7 +31,6 @@ public class OrderStatusFragment extends BaseFragment {
 	private final String tag = "OrderStatusFragment";
 	private View orderStatusFragment;
 	private List<Order> ordersList;
-	private Button back;
 	private TextView textOrderStatus;
 	private ListView pendingOrdersListView;
 	private UILApplication uilApplication;
@@ -106,7 +104,7 @@ public void onActivityCreated(Bundle savedInstanceState) {
 
 	@Override
 	void setupUiComponent() {
-		back = (Button) orderStatusFragment.findViewById(R.id.back);
+		ImageButton back = (ImageButton) orderStatusFragment.findViewById(R.id.back);
 		boolean showBack = false;
 		try {
 			showBack = getArguments().getBoolean(

@@ -11,6 +11,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.ordrit.R;
+import com.ordrit.activity.DashboardActivity;
 import com.ordrit.activity.UILApplication;
 import com.ordrit.model.Item;
 import com.ordrit.model.SelectedItem;
@@ -28,8 +30,7 @@ public class ItemDetailFragment extends BaseFragment {
 	
 	private static final String tag="ItemListFragment";
 	private View itemDetailFragment;
-	private Button itemDetailBack,buttonAddToBagOrder;
-	private String storeId;
+	private Button itemDetailBack, buttonAddToBagOrder;
 	TextView textItemName,itemPrice;
 	ImageView imageViewItemImage;
     private Item item;
@@ -51,7 +52,6 @@ public class ItemDetailFragment extends BaseFragment {
 		itemDetailFragment=inflater.inflate(R.layout.fragment_item_details, container,false);
 		Bundle bundle=getArguments();
 		item = (Item)bundle.getSerializable(OrdritConstants.ITEM);
-		storeId=bundle.getString(OrdritConstants.STORE_ID);
 		setupUiComponent();
 		return itemDetailFragment;
 	}
@@ -61,7 +61,7 @@ public class ItemDetailFragment extends BaseFragment {
 		uilApplication =(UILApplication) dashboardActivity.getApplication();
 		selectedItemList=uilApplication.getSelectedItemList();
 		
-		itemDetailBack=(Button)itemDetailFragment.findViewById(R.id.itemDetailBack); 
+		itemDetailBack = (Button)itemDetailFragment.findViewById(R.id.itemDetailBack); 
 		itemDetailBack.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -87,21 +87,20 @@ public class ItemDetailFragment extends BaseFragment {
 			
 				if (previousStoreId!=null) {
 					
-					if (storeId.equals(previousStoreId)) {
+					if (DashboardActivity.store.getId().equals(previousStoreId)) {
 						int i=searchItem(selectedItemList, item);	
 						if (i!=-1) {
 							SelectedItem tempSelectedItem=selectedItemList.get(i);
 							tempSelectedItem.setQuantity(selectedItem.getQuantity());
 							dashboardActivity.popFragment(FragmentConstant.ITEM_DETAIL_FRAGMENT);
 							Toast.makeText(dashboardActivity, "Item successfully added to the cart", Toast.LENGTH_SHORT).show();
-							dashboardActivity.setSelectedStoreId(storeId);
-						}else {
+							}else {
 							selectedItemList.add(selectedItem);
 							uilApplication.setSelectedItemList(selectedItemList);
-							uilApplication.setStoreId(storeId);
+							uilApplication.setStoreId(DashboardActivity.store.getId());
 							dashboardActivity.popFragment(FragmentConstant.ITEM_DETAIL_FRAGMENT);
 							Toast.makeText(dashboardActivity, "Item successfully added to the cart", Toast.LENGTH_SHORT).show();
-							dashboardActivity.setSelectedStoreId(storeId);
+							
 						}
 						
 					} else {
@@ -114,9 +113,8 @@ public class ItemDetailFragment extends BaseFragment {
 				}else {
 					selectedItemList.add(selectedItem);
 					uilApplication.setSelectedItemList(selectedItemList);
-					uilApplication.setStoreId(storeId);
+					uilApplication.setStoreId(DashboardActivity.store.getId());
 					dashboardActivity.popFragment(FragmentConstant.ITEM_DETAIL_FRAGMENT);
-					dashboardActivity.setSelectedStoreId(storeId);
 					Toast.makeText(dashboardActivity, "Item successfully added to the cart", Toast.LENGTH_SHORT).show();
 				}
 				

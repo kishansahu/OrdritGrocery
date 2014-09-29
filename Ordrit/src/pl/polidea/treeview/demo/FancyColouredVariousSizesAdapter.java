@@ -30,7 +30,7 @@ public final class FancyColouredVariousSizesAdapter extends SimpleStandardAdapte
                 .findViewById(R.id.demo_list_item_description);
        /* final TextView levelView = (TextView) viewLayout
                 .findViewById(R.id.demo_list_item_level);*/
-        descriptionView.setTextSize(20 - 2 * treeNodeInfo.getLevel());
+        descriptionView.setTextSize(22 - 3 * treeNodeInfo.getLevel());
       //  levelView.setTextSize(20 - 2 * treeNodeInfo.getLevel());
         return viewLayout;
     }
@@ -39,11 +39,11 @@ public final class FancyColouredVariousSizesAdapter extends SimpleStandardAdapte
     public Drawable getBackgroundDrawable(final TreeNodeInfo<Long> treeNodeInfo) {
         switch (treeNodeInfo.getLevel()) {
         case 0:
-            return new ColorDrawable(Color.WHITE);
+            return new ColorDrawable(Color.parseColor("#FFFFFF"));
         case 1:
-            return new ColorDrawable(Color.GRAY);
+            return new ColorDrawable(Color.parseColor("#F2F1F0"));
         case 2:
-            return new ColorDrawable(Color.YELLOW);
+            return new ColorDrawable(Color.parseColor("#F7F6F4"));
         default:
             return null;
         }

@@ -27,8 +27,8 @@ import android.widget.ListView;
  * </pre>
  */
 public class TreeViewList extends ListView {
-    private static final int DEFAULT_COLLAPSED_RESOURCE = R.drawable.collapsed;
-    private static final int DEFAULT_EXPANDED_RESOURCE = R.drawable.expanded;
+    private static final int DEFAULT_COLLAPSED_RESOURCE = R.drawable.expend;
+    private static final int DEFAULT_EXPANDED_RESOURCE = R.drawable.colleps;
     private static final int DEFAULT_INDENT = 0;
     private static final int DEFAULT_GRAVITY = Gravity.LEFT
             | Gravity.CENTER_VERTICAL;

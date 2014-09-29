@@ -20,12 +20,14 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ordrit.R;
+import com.ordrit.activity.DashboardActivity;
 import com.ordrit.adapter.ItemListAdapter;
 import com.ordrit.database.OrdrItdataBaseHelper;
 import com.ordrit.model.Item;
@@ -44,14 +46,12 @@ public class ItemListFragment extends BaseFragment {
 	
 	private static final String tag="ItemListFragment";
 	private View itemListFragment;
-	private Button itemListBack,switchView;
+	private ImageButton switchView;
 	private EditText search;
     private GridView itemListListGridView;
     private ListView itemListListListView;
     private ItemListAdapter itemListAdapter,itemListAdapterList;
     private List<Item> itemList;
-    private String storeId;
-   // private ItemSubCategory itemSubCategory;
     private MenuData menuData;
     private OrdrItdataBaseHelper ordrItdataBaseHelper;
     
@@ -61,9 +61,6 @@ public class ItemListFragment extends BaseFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		itemListFragment=inflater.inflate(R.layout.fragment_item_list, container,false);
-		Bundle bundle=getArguments();
-		menuData = (MenuData)bundle.getSerializable("data");
-		storeId=menuData.getStore();
 		setupUiComponent();
 		return itemListFragment;
 	}
@@ -79,9 +76,6 @@ public class ItemListFragment extends BaseFragment {
 				ItemDetailFragment itemListFragment =new ItemDetailFragment();
 				Bundle bundle=new Bundle();
 				bundle.putSerializable(OrdritConstants.ITEM, itemListAdapter.getItem(position));
-				//TODO
-				// remove id
-				bundle.putString(OrdritConstants.STORE_ID, storeId);
 				itemListFragment.setArguments(bundle);
 				dashboardActivity.commitFragment(itemListFragment, FragmentConstant.ITEM_DETAIL_FRAGMENT);
 			}
@@ -95,22 +89,19 @@ public class ItemListFragment extends BaseFragment {
 				ItemDetailFragment itemListFragment =new ItemDetailFragment();
 				Bundle bundle=new Bundle();
 				bundle.putSerializable(OrdritConstants.ITEM, itemListAdapterList.getItem(position));
-				//TODO
-				// remove id
-				bundle.putString(OrdritConstants.STORE_ID, storeId);
 				itemListFragment.setArguments(bundle);
 				dashboardActivity.commitFragment(itemListFragment, FragmentConstant.ITEM_DETAIL_FRAGMENT);
 			}
 		});
-		itemListBack=(Button)itemListFragment.findViewById(R.id.itemListBack); 
+		ImageButton itemListBack = (ImageButton)itemListFragment.findViewById(R.id.itemListBack); 
 		itemListBack.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				dashboardActivity.popFragment(FragmentConstant.ITEM_LIST_FRAGMENT);
+				dashboardActivity.clickMenu();
 			}
 		});
-		switchView=(Button)itemListFragment.findViewById(R.id.switchView); 
+		switchView=(ImageButton)itemListFragment.findViewById(R.id.switchView); 
 		switchView.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -135,11 +126,14 @@ public class ItemListFragment extends BaseFragment {
 			}
 		});
 		 ordrItdataBaseHelper = new OrdrItdataBaseHelper(dashboardActivity);
-				TextView delevaryTime = (TextView)itemListFragment.findViewById(R.id.delevaryTime);
-				// delevaryTime.setText(ordrItdataBaseHelper.getStoreSchedule(storeId));
+				 TextView delevaryTime = (TextView)itemListFragment.findViewById(R.id.delevaryTime);
+				 String time="The next available delivery slot at "+DashboardActivity.store.getOpens_at()
+							+ " to "
+							+DashboardActivity.store.getCloses_at();
+				 delevaryTime.setText(time);
 		         search=(EditText)itemListFragment.findViewById(R.id.edittextSearch);
-		       search.setHint("Search "+ordrItdataBaseHelper.getStoreName(storeId));
-        search.addTextChangedListener(new TextWatcher() {
+		         search.setHint("Search "+DashboardActivity.store.getName());
+                 search.addTextChangedListener(new TextWatcher() {
 			
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -196,7 +190,7 @@ public class ItemListFragment extends BaseFragment {
 								dashboardActivity, OrdritJsonKeys.TAG_TOKEN));
 			//	 Log.e(TAG,jSONString);
 				try {
-					itemList=OrditJsonParser.getItemsUnderSubCategory(storeId, menuData.getSubCategory(),jSONString);
+					itemList=OrditJsonParser.getItemsUnderSubCategory(DashboardActivity.store.getId(), menuData.getSubCategory(),jSONString);
 					 
 				} catch (JSONException e) {
 					

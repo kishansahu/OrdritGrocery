@@ -1,5 +1,6 @@
 package com.ordrit.fragment;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -24,11 +26,13 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 import com.ordrit.R;
-import com.ordrit.activity.DashboardActivity;
 import com.ordrit.adapter.IconizedWindowAdapter;
 import com.ordrit.database.OrdrItdataBaseHelper;
+import com.ordrit.newmodel.Category;
 import com.ordrit.newmodel.NearByStore;
 import com.ordrit.newmodel.Store;
 import com.ordrit.newmodel.StoreDetail;
@@ -41,7 +45,8 @@ public class MapDetailFragment extends BaseFragment {
 	private final String tag = "MapDetailFragment";
 	private static View mapDetailFragment;
 	private GoogleMap googleMap;
-	private Button menu, menuShareWithFriends, menuAddAddress;
+	private Button  menuShareWithFriends, menuAddAddress;
+	ImageButton menu;
 	List<Store> list;
 	Store tempStore;
 	 private HashMap<String, Store> eventMarkerMap;
@@ -256,7 +261,8 @@ googleMap.animateCamera(CameraUpdateFactory
 	void setupUiComponent() {
 		
 		
-		menu = (Button) mapDetailFragment.findViewById(R.id.menu);
+		menu = (ImageButton) mapDetailFragment.findViewById(R.id.menu);
+		
 		
 		menu.setOnClickListener(new OnClickListener() {
 
@@ -286,7 +292,7 @@ googleMap.animateCamera(CameraUpdateFactory
 			    if (tempStore!=null) {
 			    
 					new MapWebServiceProcessingTask(dashboardActivity) {
-						StoreDetail storeDetail;
+						List <Category> storeDetail;
 						@Override
 						public void preExecuteTask() {
 							TAG = tag;
@@ -295,18 +301,7 @@ googleMap.animateCamera(CameraUpdateFactory
 
 						@Override
 						public void postExecuteTask() {
-
-						}
-
-						@Override
-						public void backgroundTask() {
-							jSONString = connection.getHttpUrlConnectionForArray(
-									OrdritConstants.SERVER_BASE_URL
-											+ "item_categories?store="+tempStore.getId(),
-									SharedPreferencesUtil.getStringPreferences(
-											dashboardActivity, OrdritJsonKeys.TAG_TOKEN));
-							     storeDetail= gson.fromJson(jSONString, StoreDetail.class);
-							     tempStore.setSub_categories(storeDetail.getSub_categories());
+							if (tempStore.getSub_categories()!=null&&tempStore.getSub_categories().size()>0) {
 								OrdrItdataBaseHelper ordrItdataBaseHelper=new OrdrItdataBaseHelper(dashboardActivity);
 								boolean isAdded=ordrItdataBaseHelper.insertStore(tempStore);
 								if (isAdded) {
@@ -318,6 +313,31 @@ googleMap.animateCamera(CameraUpdateFactory
 									
 									Toast.makeText(dashboardActivity, "Store Already Added", Toast.LENGTH_LONG).show();
 									menuAddAddress.setVisibility(View.GONE);
+								}	
+							}else {
+								Toast.makeText(dashboardActivity, "Can not add store.No category found", Toast.LENGTH_LONG).show();
+								
+							}
+							
+						}
+
+						@Override
+						public void backgroundTask() {
+							jSONString = connection.getHttpUrlConnectionForArray(
+									OrdritConstants.SERVER_BASE_URL
+											+ "item_categories?store="+tempStore.getId(),
+									SharedPreferencesUtil.getStringPreferences(
+											dashboardActivity, OrdritJsonKeys.TAG_TOKEN));
+							     try {
+							    	 Type type = new TypeToken<List<Category>>() {}.getType();
+									 storeDetail= gson.fromJson(jSONString, type);
+									
+								} catch (JsonSyntaxException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+								if (storeDetail!=null) {
+									 tempStore.setSub_categories(storeDetail);
 								}
 						
 						}
@@ -331,7 +351,7 @@ googleMap.animateCamera(CameraUpdateFactory
 					menuAddAddress.setVisibility(View.GONE);
 				}
 				
-			    tempStore=null;
+			  
 			    
              
 			}

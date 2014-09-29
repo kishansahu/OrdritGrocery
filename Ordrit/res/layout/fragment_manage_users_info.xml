@@ -11,12 +11,13 @@
         android:background="@color/actionbar_background"
         android:orientation="horizontal" >
 
-        <Button
+        <ImageButton
             android:id="@+id/manageAccountMenu"
-            android:layout_width="40dp"
-            android:layout_height="35dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/logo_ordrit" />
+            android:src="@drawable/menubar"
+            android:background="@drawable/button" />
 
         <TextView
             android:id="@+id/manageAccountTitle"
@@ -139,10 +140,9 @@
         android:layout_marginTop="30dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:background="@drawable/yellow_btn_style"
+        android:background="@drawable/signout"
         android:gravity="center"
         android:padding="6dp"
-        android:text="@string/log_out"
         android:textColor="@android:color/white"
         android:textSize="20sp" />
 

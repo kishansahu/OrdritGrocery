@@ -94,6 +94,29 @@ public class OrdrItdataBaseHelper {
 		close();
 		return list;
 	}
+	public Store getStore(String id) {
+		Store store= null;
+			open();
+			String whereClause = OrdrItDataBase.COLUMN_STORE_ID + "=\""
+					+ id + "\"";
+			String selectQuery = "SELECT  * FROM " + OrdrItDataBase.TABLE_STORE + " WHERE "
+					+ whereClause;
+
+			Cursor cursor = sqLiteDatabase.rawQuery(selectQuery, null);
+
+			if (cursor.moveToFirst()) {
+				try {
+					store=gson.fromJson(cursor.getString(cursor.getColumnIndex(OrdrItDataBase.COLUMN_STORE_OBJECT)), Store.class);
+					
+				} catch (JsonSyntaxException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				}
+			close();
+	  
+		return store;
+	}
 	public String getStoreName(String id) {
 		String storeName= null;
 			open();

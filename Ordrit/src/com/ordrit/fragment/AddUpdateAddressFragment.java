@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,7 +44,7 @@ import com.ordrit.util.WebServiceProcessingTask;
 public class AddUpdateAddressFragment extends BaseFragment {
 	private final String tag = "AddUpdateAddressFragment";
 	private View addUpdateAddressFragment;
-	private Button addUpdateAddressBack,btnAddUpdateAddressSaveOrUpdate;
+	private Button btnAddUpdateAddressSaveOrUpdate;
 	
 	private EditText etAddUpdateAddressHomeOrApartmentName,
 	/*etAddUpdateAddressStreet1,*/etAddUpdateAddressState,etAddUpdateAddressCity,
@@ -81,7 +82,7 @@ public void onActivityCreated(Bundle savedInstanceState) {
 }
 	@Override
 	void setupUiComponent() {
-		addUpdateAddressBack = (Button) addUpdateAddressFragment
+		ImageButton addUpdateAddressBack = (ImageButton) addUpdateAddressFragment
 				.findViewById(R.id.addUpdateAddressBack);
 		addUpdateAddressBack.setOnClickListener(new OnClickListener() {
 
@@ -94,9 +95,9 @@ public void onActivityCreated(Bundle savedInstanceState) {
 		btnAddUpdateAddressSaveOrUpdate = (Button) addUpdateAddressFragment
 				.findViewById(R.id.btnAddUpdateAddressSaveOrUpdate);
 		if (address==null) {
-			btnAddUpdateAddressSaveOrUpdate.setText("Save");
+			btnAddUpdateAddressSaveOrUpdate.setBackgroundResource(R.drawable.addaddress);
 		}else {
-			btnAddUpdateAddressSaveOrUpdate.setText("Update");
+			btnAddUpdateAddressSaveOrUpdate.setBackgroundResource(R.drawable.updateaddress);
 		}
 		btnAddUpdateAddressSaveOrUpdate.setOnClickListener(new OnClickListener() {
 

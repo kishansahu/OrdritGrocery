@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -42,7 +43,7 @@ import com.ordrit.util.WebServicesRawDataUtil;
 public class MenuBagFragment extends BaseFragment {
 
 	private View menuFragment;
-	private Button back, menuBagCheckout;
+	private Button menuBagCheckout;
 	private ListView menuBagListView;
 	private TextView textMerchantName, textItemTotal,textListStatus;
 	private LinearLayout menuBagTotalCountContainer;
@@ -80,7 +81,7 @@ public class MenuBagFragment extends BaseFragment {
 				.findViewById(R.id.menuBagListView);
 		menuBagListView.setAdapter(menuBagAdapter);
 		
-		back = (Button) menuFragment.findViewById(R.id.back);
+		ImageButton back = (ImageButton) menuFragment.findViewById(R.id.back);
 		boolean showBack=false;
 		try {
 			showBack=getArguments().getBoolean(OrdritConstants.SHOW_BACK_BUTTON);

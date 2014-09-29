@@ -16,6 +16,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,7 +36,7 @@ public class UpdateAccountFragment extends BaseFragment {
  
 	private final String tag = "UpdateAccountFragment";
 	private View updateAccountFragment;
-	private Button updateAccountBack,btnUpdateAccountUpdate;
+	private Button btnUpdateAccountUpdate;
 	private EditText etUpdateAccountFirstName, etUpdateAccountLastName,
 			etUpdateAccountMobileNumber, etUpdateAccountUserEmailId;
 	/*private TextView txtUpdateAccountFirstNameError,
@@ -61,7 +62,7 @@ public class UpdateAccountFragment extends BaseFragment {
 
 	@Override
 	void setupUiComponent() {
-			updateAccountBack = (Button) updateAccountFragment
+			ImageButton updateAccountBack = (ImageButton) updateAccountFragment
 				.findViewById(R.id.updateAccountBack);
 		updateAccountBack.setOnClickListener(new OnClickListener() {
 

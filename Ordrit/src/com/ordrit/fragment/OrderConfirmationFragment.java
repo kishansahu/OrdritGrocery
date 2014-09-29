@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.ordrit.R;
@@ -15,7 +16,7 @@ import com.ordrit.R;
 public class OrderConfirmationFragment extends BaseFragment {
 
 	private View orderConfirmationFragment;
-	private Button manageAccountMenu;
+	
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,7 +37,7 @@ public class OrderConfirmationFragment extends BaseFragment {
 
 	@Override
 	void setupUiComponent() {
-		manageAccountMenu = (Button) orderConfirmationFragment
+		ImageButton manageAccountMenu = (ImageButton) orderConfirmationFragment
 				.findViewById(R.id.manageAccountMenu);
 		manageAccountMenu.setOnClickListener(new OnClickListener() {
 

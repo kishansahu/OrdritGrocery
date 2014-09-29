@@ -27,4 +27,9 @@
     <color name="normal_text_color">#ff0099cc</color>
     <color name="orange">#F9C330</color>
      <color name="orange_light">#FFDE85</color>
+     <color name="button_normal">#00000000</color>
+	<color name="button_pressed">#FF2572AC</color>
+	<color name="parrent">#C4C2C2</color>
+	<color name="chield">#CECACA</color>
+	<color name="subchield">#DDD7D7</color>
 </resources>

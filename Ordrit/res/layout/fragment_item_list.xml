@@ -12,13 +12,13 @@
         android:background="@color/actionbar_background"
         android:orientation="horizontal" >
 
-        <Button
+        <ImageButton
             android:id="@+id/itemListBack"
-             android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
+             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/ic_action_previous_item" />
+            android:src="@drawable/menubar"
+            android:background="@drawable/button" />
 
         <LinearLayout
             android:id="@+id/searchContainer"
@@ -105,11 +105,12 @@
              android:layout_gravity="center_vertical"
             android:textSize="@dimen/small_text_size" />
 
-        <Button
+        <ImageButton
             android:id="@+id/switchView"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:background="@drawable/grid_ico"
+            android:src="@drawable/grid_ico"
+            android:background="@drawable/button"
             android:layout_gravity="center_vertical"
              />
 

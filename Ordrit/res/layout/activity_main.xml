@@ -28,7 +28,9 @@
         android:scrollbars="vertical"
         android:smoothScrollbar="true"
          android:layout_gravity="start"
-         android:background="@color/blue"
+         android:divider="#878787"
+         android:dividerHeight=".5dp"
+         android:background="@color/white"
   />
     
 </android.support.v4.widget.DrawerLayout>

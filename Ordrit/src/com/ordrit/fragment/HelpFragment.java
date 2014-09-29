@@ -6,14 +6,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.ordrit.R;
 
 public class HelpFragment extends BaseFragment {
 
 	private View helpFragment;
-	private Button btnBack;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -30,7 +29,7 @@ public void onActivityCreated(Bundle savedInstanceState) {
 }
 	@Override
 	void setupUiComponent() {
-		btnBack = (Button) helpFragment.findViewById(R.id.menu);
+		ImageButton btnBack = (ImageButton) helpFragment.findViewById(R.id.menu);
 		btnBack.setOnClickListener(new OnClickListener() {
 
 			@Override

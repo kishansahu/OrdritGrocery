@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,7 +52,7 @@ public void onActivityCreated(Bundle savedInstanceState) {
 	@Override
 	void setupUiComponent() {
 		
-		Button itemDetailBack= (Button) deliveryDetailsFragment.findViewById(R.id.itemDetailBack);
+		 ImageButton itemDetailBack = (ImageButton) deliveryDetailsFragment.findViewById(R.id.itemDetailBack);
 		itemDetailBack.setOnClickListener(new OnClickListener() {
 			
 			@Override

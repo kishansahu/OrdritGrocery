@@ -66,7 +66,9 @@ import com.ordrit.model.MenuData.MenuType;
 import com.ordrit.model.MenuItem;
 import com.ordrit.model.State;
 import com.ordrit.model.User;
+import com.ordrit.newmodel.Category;
 import com.ordrit.newmodel.Store;
+import com.ordrit.newmodel.SubCategory;
 import com.ordrit.util.OrditJsonParser;
 import com.ordrit.util.OrdritConstants;
 import com.ordrit.util.OrdritJsonKeys;
@@ -85,9 +87,9 @@ public class DashboardActivity extends Activity {
 	private List<State> statesList;
 	private List<City> cityList;
 	private User user;
-	private String selectedStoreId;
 	public static HashMap<Long, MenuItem> menuHash= new HashMap<Long, MenuItem>();
-	private Map itemCategoryMap;
+	public static Store store;
+	//private Map itemCategoryMap;
 	 private TreeViewList treeView;
 	
 	  private enum TreeType implements Serializable {
@@ -104,15 +106,17 @@ public class DashboardActivity extends Activity {
 	    private static final int LEVEL_NUMBER = 3;
 	    private TreeStateManager<Long> manager = null;
 	    private FancyColouredVariousSizesAdapter fancyAdapter;
-	    private TreeType treeType;
-	    private boolean collapsible;
+	    private OrdrItdataBaseHelper ordrItdataBaseHelper ;
+	  //  private TreeType treeType;
+	 //   private boolean collapsible;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
         context=this;
-
+        ordrItdataBaseHelper = new OrdrItdataBaseHelper(
+				context);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         treeView = (TreeViewList) findViewById(R.id.mainTreeView);
 		/*mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
@@ -229,10 +233,9 @@ public class DashboardActivity extends Activity {
 				break;
 			}
 		}else if(menuData.getSubCategory()!=null) {
+			
 			fragment =new ItemListFragment();
-			Bundle bundle=new Bundle();
-			bundle.putSerializable("data", menuData);
-			fragment.setArguments(bundle);
+			store=ordrItdataBaseHelper.getStore(menuData.getStore());
 		}
 		if (fragment != null) {
 			commitFragment(fragment, null);
@@ -425,13 +428,6 @@ public void popFragment(String tag) {
 			return retVal;
 		}
 
-	public String getSelectedStoreId() {
-		return selectedStoreId;
-	}
-
-	public void setSelectedStoreId(String selectedStoreId) {
-		this.selectedStoreId = selectedStoreId;
-	} 
 	
 	public boolean isUserProfileIncomplete(){
 		boolean isUserProfileIncomplete= false;
@@ -479,200 +475,97 @@ public void popFragment(String tag) {
    	 
    	
     }
-	 public void setValueInMap() {
-		 
-		   TreeType newTreeType = null;
-	        boolean newCollapsible;
-	        manager = new InMemoryTreeStateManager<Long>();
-	        final TreeBuilder<Long> treeBuilder = new TreeBuilder<Long>(manager);
-		List<ItemCategory> itemCategories=getItemCatogery(itemCategoryMap);
-		
-		 
-		 long index=6;
-			String[] navMenuTitles = context.getResources().getStringArray(
-					R.array.nav_drawer_items);
-			TypedArray navMenuIcons = context.getResources().obtainTypedArray(
-					R.array.nav_drawer_icons);
-		 for (long i = 0; i < 6; i++) {
-			 menuHash.put(i,new MenuItem(0, navMenuTitles[(int) i], navMenuIcons.getResourceId((int) i, -1), new MenuData((int) i, MenuType.Menu, null, null, null)));
+
+	public void setValueInMap() {
+
+		TreeType newTreeType = null;
+		boolean newCollapsible;
+		manager = new InMemoryTreeStateManager<Long>();
+		final TreeBuilder<Long> treeBuilder = new TreeBuilder<Long>(manager);
+		// List<ItemCategory> itemCategories=getItemCatogery(itemCategoryMap);
+
+		long index = 6;
+		String[] navMenuTitles = context.getResources().getStringArray(
+				R.array.nav_drawer_items);
+		TypedArray navMenuIcons = context.getResources().obtainTypedArray(
+				R.array.nav_drawer_icons);
+		for (long i = 0; i < 6; i++) {
+			menuHash.put(i, new MenuItem(0, navMenuTitles[(int) i],
+					navMenuIcons.getResourceId((int) i, -1), new MenuData(
+							(int) i, MenuType.Menu, null, null, null)));
 		}
-		   OrdrItdataBaseHelper ordrItdataBaseHelper=new OrdrItdataBaseHelper(context);
-			List<Store> list=ordrItdataBaseHelper.getAllAddedStore();
-			List<ItemCategory> categoryList;
-			List<ItemSubCategory> itemSubCategoryList;
+	
+		List<Store> list = ordrItdataBaseHelper.getAllAddedStore();
+		if (list != null && list.size() > 0) {
 			Iterator<Store> iterator = list.iterator();
 			while (iterator.hasNext()) {
-				 Store store=iterator.next();
-				 
-				 menuHash.put(index,new MenuItem(0, store.getName(), navMenuIcons.getResourceId(0, -1),new MenuData(-1, MenuType.Menu, store.getId(), null, null)));
-				 index++;
-				 // get categoryList for store
-				// categoryList=new ArrayList<ItemCategory>();
-				 Iterator<ItemCategory> iteratorCategory = itemCategories.iterator();
-					while (iteratorCategory.hasNext()) {
-						ItemCategory itemCategory=iteratorCategory.next();
-						 menuHash.put(index,new MenuItem(1, itemCategory.getName(), navMenuIcons.getResourceId(0, -1), new MenuData(-1, MenuType.Store, store.getId(), itemCategory.getId(), null)));
-						 index++;
-						 // get subCategory for category
-						 itemSubCategoryList=itemCategory.getItemSubCategory();
-						 Iterator<ItemSubCategory> iteratorSubCategory = itemSubCategoryList.iterator();
-						 while (iteratorSubCategory.hasNext()) {
-								ItemSubCategory itemSubCategory=iteratorSubCategory.next();
-								 menuHash.put(index,new MenuItem(2, itemSubCategory.getName(), navMenuIcons.getResourceId(0, -1), new MenuData(-1, MenuType.Store, store.getId(), itemCategory.getId(), itemSubCategory.getId())));
-								 index++;
-								
-								 
-							}
+				Store store = iterator.next();
+
+				menuHash.put(index, new MenuItem(0, store.getName(),
+						navMenuIcons.getResourceId(0, -1), new MenuData(-1,
+								MenuType.Menu, store.getId(), null, null)));
+				index++;
+				// get categoryList for store
+				List<Category> categories = store.getSub_categories();
+				Iterator<Category> iteratorCategory = categories.iterator();
+				while (iteratorCategory.hasNext()) {
+					Category itemCategory = iteratorCategory.next();
+					menuHash.put(
+							index,
+							new MenuItem(1, itemCategory.getName(),
+									navMenuIcons.getResourceId(0, -1),
+									new MenuData(-1, MenuType.Store, store
+											.getId(), itemCategory.getId(),
+											null)));
+					index++;
+					// get subCategory for category
+					List<SubCategory> sub_categories = itemCategory
+							.getSub_categories();
+					Iterator<SubCategory> iteratorSubCategory = sub_categories
+							.iterator();
+					while (iteratorSubCategory.hasNext()) {
+						SubCategory itemSubCategory = iteratorSubCategory
+								.next();
+						menuHash.put(
+								index,
+								new MenuItem(2, itemSubCategory.getName(),
+										navMenuIcons.getResourceId(0, -1),
+										new MenuData(-1, MenuType.Store, store
+												.getId(), itemCategory.getId(),
+												itemSubCategory.getId())));
+						index++;
+
 					}
-					
+				}
+
 			}
-		
-			  Iterator it = menuHash.entrySet().iterator();
-		        while (it.hasNext()) {
-		            Map.Entry pairs = (Map.Entry)it.next();
-		            MenuItem menuItem=(MenuItem) pairs.getValue();
-		            treeBuilder.sequentiallyAddNextNode((Long) pairs.getKey(), menuItem.getNodeLevel());
-		       /* for (int i = 0; i < DEMO_NODES.length; i++) {
-		            treeBuilder.sequentiallyAddNextNode((long) i, DEMO_NODES[i]);*/
-		        }
-		       
-		        Log.d(TAG, manager.toString());
-		        newTreeType = TreeType.SIMPLE;
-		        newCollapsible = true;
-		        
-		      
-		       
-		        fancyAdapter = new FancyColouredVariousSizesAdapter(DashboardActivity.this, selected, manager,
-		                LEVEL_NUMBER);
-		        treeView.setAdapter(fancyAdapter);
-		        manager.collapseChildren(null);
-		        treeView.setOnItemClickListener(new SlideMenuClickListener());
-		       // treeView.setCollapsible(false);
-		 
-		 
-		 
-			
-/*		 new WebServiceProcessingTask(this) {
-				
-				@Override
-				public void preExecuteTask() {
-				
-				
-					
-				}
-				
-				@Override
-				public void postExecuteTask() {
-					  TreeType newTreeType = null;
-				        boolean newCollapsible;
-				        manager = new InMemoryTreeStateManager<Long>();
-				        final TreeBuilder<Long> treeBuilder = new TreeBuilder<Long>(manager);
-					List<ItemCategory> itemCategories=getItemCatogery(itemCategoryMap);
-					
-					 
-					 long index=6;
-						String[] navMenuTitles = context.getResources().getStringArray(
-								R.array.nav_drawer_items);
-						TypedArray navMenuIcons = context.getResources().obtainTypedArray(
-								R.array.nav_drawer_icons);
-					 for (long i = 0; i < 6; i++) {
-						 menuHash.put(i,new MenuItem(0, navMenuTitles[(int) i], navMenuIcons.getResourceId((int) i, -1), new MenuData((int) i, MenuType.Menu, null, null, null)));
-					}
-					    OrdrItdataBaseHelper ordrItdataBaseHelper=new OrdrItdataBaseHelper(context);
-						List<Store> list=ordrItdataBaseHelper.getAllAddedStore();
-						List<ItemCategory> categoryList;
-						List<ItemSubCategory> itemSubCategoryList;
-						Iterator<Store> iterator = list.iterator();
-						while (iterator.hasNext()) {
-							 Store store=iterator.next();
-							 
-							 menuHash.put(index,new MenuItem(0, store.getStoreName(), navMenuIcons.getResourceId(0, -1),new MenuData(-1, MenuType.Menu, store.getId(), null, null)));
-							 index++;
-							 // get categoryList for store
-							// categoryList=new ArrayList<ItemCategory>();
-							 Iterator<ItemCategory> iteratorCategory = itemCategories.iterator();
-								while (iteratorCategory.hasNext()) {
-									ItemCategory itemCategory=iteratorCategory.next();
-									 menuHash.put(index,new MenuItem(1, itemCategory.getName(), navMenuIcons.getResourceId(0, -1), new MenuData(-1, MenuType.Store, store.getId(), itemCategory.getId(), null)));
-									 index++;
-									 // get subCategory for category
-									 itemSubCategoryList=itemCategory.getItemSubCategory();
-									 Iterator<ItemSubCategory> iteratorSubCategory = itemSubCategoryList.iterator();
-									 while (iteratorSubCategory.hasNext()) {
-											ItemSubCategory itemSubCategory=iteratorSubCategory.next();
-											 menuHash.put(index,new MenuItem(2, itemSubCategory.getName(), navMenuIcons.getResourceId(0, -1), new MenuData(-1, MenuType.Store, store.getId(), itemCategory.getId(), itemSubCategory.getId())));
-											 index++;
-											
-											 
-										}
-								}
-								
-						}
-			 		
-						  Iterator it = menuHash.entrySet().iterator();
-					        while (it.hasNext()) {
-					            Map.Entry pairs = (Map.Entry)it.next();
-					            MenuItem menuItem=(MenuItem) pairs.getValue();
-					            treeBuilder.sequentiallyAddNextNode((Long) pairs.getKey(), menuItem.getNodeLevel());
-					        for (int i = 0; i < DEMO_NODES.length; i++) {
-					            treeBuilder.sequentiallyAddNextNode((long) i, DEMO_NODES[i]);
-					        }
-					       
-					        Log.d(TAG, manager.toString());
-					        newTreeType = TreeType.SIMPLE;
-					        newCollapsible = true;
-					        
-					      
-					       
-					        fancyAdapter = new FancyColouredVariousSizesAdapter(DashboardActivity.this, selected, manager,
-					                LEVEL_NUMBER);
-					        treeView.setAdapter(fancyAdapter);
-					        manager.collapseChildren(null);
-					        treeView.setOnItemClickListener(new SlideMenuClickListener());
-					       // treeView.setCollapsible(false);
-				}
-				
-				@Override
-				public void backgroundTask() {
-				
-					jSONString = connection.getHttpUrlConnectionForArray(
-							OrdritConstants.SERVER_BASE_URL
-									+ "item_categories?store=4"+storeId,
-							SharedPreferencesUtil.getStringPreferences(
-									DashboardActivity.this, OrdritJsonKeys.TAG_TOKEN));
-				
-					// Log.e(TAG,jSONString);
-					try {
-						 itemCategoryMap=OrditJsonParser.getItemCategoryMap(jSONString);
-						  Log.e(TAG, ""+itemCategoryMap.size());
-					} catch (JSONException e) {
-						
-						e.printStackTrace();
-					}
-				
-					
-				}
-			}.execute();*/
-		 
-	
-		 
-	}
-		private List<ItemCategory> getItemCatogery(Map<String, ItemCategory> itemCategoryMap) {
-			List<ItemCategory> listItemvCategories = new ArrayList<ItemCategory>();
-			
-			 Iterator it = itemCategoryMap.entrySet().iterator();
-			    while (it.hasNext()) {
-			        Map.Entry pairs = (Map.Entry)it.next();
-			        if (!listItemvCategories.contains((ItemCategory) pairs.getValue())) {
-			        	 listItemvCategories.add((ItemCategory) pairs.getValue());
-					}
-			       
-			       // it.remove(); // avoids a ConcurrentModificationException
-			    }
-			
-			return listItemvCategories;
-			
 		}
+
+		Iterator it = menuHash.entrySet().iterator();
+		while (it.hasNext()) {
+			Map.Entry pairs = (Map.Entry) it.next();
+			MenuItem menuItem = (MenuItem) pairs.getValue();
+			treeBuilder.sequentiallyAddNextNode((Long) pairs.getKey(),
+					menuItem.getNodeLevel());
+			/*
+			 * for (int i = 0; i < DEMO_NODES.length; i++) {
+			 * treeBuilder.sequentiallyAddNextNode((long) i, DEMO_NODES[i]);
+			 */
+		}
+
+		Log.d(TAG, manager.toString());
+		newTreeType = TreeType.SIMPLE;
+		newCollapsible = true;
+
+		fancyAdapter = new FancyColouredVariousSizesAdapter(
+				DashboardActivity.this, selected, manager, LEVEL_NUMBER);
+		treeView.setAdapter(fancyAdapter);
+		manager.collapseChildren(null);
+		treeView.setOnItemClickListener(new SlideMenuClickListener());
+		// treeView.setCollapsible(false);
+
+	}
+	
 
 		
 		

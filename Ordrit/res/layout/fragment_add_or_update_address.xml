@@ -11,13 +11,13 @@
         android:background="@color/actionbar_background"
         android:orientation="horizontal" >
 
-        <Button
+        <ImageButton
             android:id="@+id/addUpdateAddressBack"
-             android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
+             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/ic_action_previous_item" />
+            android:src="@drawable/previous" 
+            android:background="@drawable/button"/>
 
         <com.ordrit.util.CalibriTextView
             android:id="@+id/addUpdateAddressTitle"
@@ -204,13 +204,11 @@
     <com.ordrit.util.CalibriButton
         android:id="@+id/btnAddUpdateAddressSaveOrUpdate"
         android:layout_height="wrap_content"
-        android:layout_width="220dp"
+        android:layout_width="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:background="@drawable/yellow_btn_style"
         android:gravity="center"
-        android:padding="6dp"
-        android:text="@string/save"
         android:textColor="@android:color/white"
         android:textSize="20sp" />
 

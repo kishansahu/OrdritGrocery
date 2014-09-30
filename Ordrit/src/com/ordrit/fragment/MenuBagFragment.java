@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.ordrit.R;
+import com.ordrit.activity.DashboardActivity;
 import com.ordrit.activity.UILApplication;
 import com.ordrit.adapter.MenuBagAdapter;
 import com.ordrit.adapter.MenuBagAdapter.SetTotalCost;
@@ -130,14 +131,14 @@ public class MenuBagFragment extends BaseFragment {
 			public void onClick(View v) {
 				
 				
-					storeId=dashboardActivity.getSelectedStoreId();
+					//storeId=dashboardActivity.getSelectedStoreId();
 				
 				float minimumOrder = 0.0f;
-				if (storeId!=null) {
+				//if (storeId!=null) {
 					 OrdrItdataBaseHelper ordrItdataBaseHelper= new OrdrItdataBaseHelper(dashboardActivity);
-					 //minimumOrder= Float.parseFloat(ordrItdataBaseHelper.getStoreMinimumOrder(storeId)) ;
+					 minimumOrder= Float.parseFloat(DashboardActivity.store.getMinimum_order()) ;
 					
-				}
+				//}
 				
 				if (minimumOrder> CommonUtils.countTotalPrice(selectedItemList)) {
 					Toast.makeText(dashboardActivity, "Minimum order should be "+minimumOrder, Toast.LENGTH_LONG).show();

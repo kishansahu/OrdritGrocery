@@ -188,6 +188,10 @@ public class ItemListFragment extends BaseFragment {
 								+ "inventory_items",
 						SharedPreferencesUtil.getStringPreferences(
 								dashboardActivity, OrdritJsonKeys.TAG_TOKEN));
+					/*	OrdritConstants.SERVER_BASE_URL
+						+"item_categories/"+ "item_sub_categories?store="+DashboardActivity.store.getId(),
+				SharedPreferencesUtil.getStringPreferences(
+						dashboardActivity, OrdritJsonKeys.TAG_TOKEN));*/
 			//	 Log.e(TAG,jSONString);
 				try {
 					itemList=OrditJsonParser.getItemsUnderSubCategory(DashboardActivity.store.getId(), menuData.getSubCategory(),jSONString);

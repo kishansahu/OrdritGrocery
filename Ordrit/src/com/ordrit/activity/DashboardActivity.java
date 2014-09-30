@@ -147,10 +147,10 @@ public class DashboardActivity extends Activity {
 
 			public void onDrawerOpened(View drawerView) {
 				isMenuOpen=true;
-				/*if (updateListView) {
+				if (updateListView) {
 					updateMenu();
 					updateListView=false;
-				}*/
+				}
 				
 			}
 		};
@@ -295,16 +295,8 @@ public void popFragment(String tag) {
 		
 	}
 	private void updateMenu() {
-		
-		    /*    adapter=null;
-		        mDrawerList.setAdapter(null);
-				adapter =new SeparatedListAdapter(context);
-				adapter.addSection("Menu", new NavDrawerListAdapter(context, CommonUtils.getNavDrawerItem(context)));
-				adapter.addSection("Stores", new NavDrawerListAdapter(context, CommonUtils.getNavDrawerItemStore(context)));
-				mDrawerList.setAdapter(adapter);
-				adapter.notifyDataSetChanged();
-				*/
-				
+		setValueInMap();
+		    
 	}
 
 	public Gson getGson() {
@@ -502,7 +494,7 @@ public void popFragment(String tag) {
 				Store store = iterator.next();
 
 				menuHash.put(index, new MenuItem(0, store.getName(),
-						navMenuIcons.getResourceId(0, -1), new MenuData(-1,
+						-1, new MenuData(-1,
 								MenuType.Menu, store.getId(), null, null)));
 				index++;
 				// get categoryList for store
@@ -513,7 +505,7 @@ public void popFragment(String tag) {
 					menuHash.put(
 							index,
 							new MenuItem(1, itemCategory.getName(),
-									navMenuIcons.getResourceId(0, -1),
+									-1,
 									new MenuData(-1, MenuType.Store, store
 											.getId(), itemCategory.getId(),
 											null)));
@@ -529,7 +521,7 @@ public void popFragment(String tag) {
 						menuHash.put(
 								index,
 								new MenuItem(2, itemSubCategory.getName(),
-										navMenuIcons.getResourceId(0, -1),
+										-1,
 										new MenuData(-1, MenuType.Store, store
 												.getId(), itemCategory.getId(),
 												itemSubCategory.getId())));

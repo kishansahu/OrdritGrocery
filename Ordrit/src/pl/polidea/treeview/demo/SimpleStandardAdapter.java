@@ -7,11 +7,13 @@ import pl.polidea.treeview.AbstractTreeViewAdapter;
 import pl.polidea.treeview.TreeNodeInfo;
 import pl.polidea.treeview.TreeStateManager;
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
@@ -61,7 +63,12 @@ public class SimpleStandardAdapter extends AbstractTreeViewAdapter<Long> {
       return menuItem.getTitle();
      //   return "Node " + id + Arrays.asList(hierarchy);
     }
-
+	private int getMenuDrawable(final long id) {
+        final Integer[] hierarchy = getManager().getHierarchyDescription(id);
+      MenuItem menuItem=  DashboardActivity.menuHash.get(id);
+      return menuItem.getIcon();
+     //   return "Node " + id + Arrays.asList(hierarchy);
+    }
     @Override
     public View getNewChildView(final TreeNodeInfo<Long> treeNodeInfo) {
         final LinearLayout viewLayout = (LinearLayout) getActivity()
@@ -75,10 +82,19 @@ public class SimpleStandardAdapter extends AbstractTreeViewAdapter<Long> {
         final LinearLayout viewLayout = (LinearLayout) view;
         final TextView descriptionView = (TextView) viewLayout
                 .findViewById(R.id.demo_list_item_description);
-        /*final TextView levelView = (TextView) viewLayout
-                .findViewById(R.id.demo_list_item_level);*/
+        final ImageView icon = (ImageView) viewLayout
+                .findViewById(R.id.icon);
         
         descriptionView.setText(getDescription(treeNodeInfo.getId()));
+        int drawableId=getMenuDrawable(treeNodeInfo.getId());
+        if (drawableId!=-1) {
+        	icon.setImageResource(getMenuDrawable(treeNodeInfo.getId()));
+        	 
+		}else {
+			icon.setVisibility(View.INVISIBLE);
+		}
+       
+        
        // levelView.setText(Integer.toString(treeNodeInfo.getLevel()));
        /* final CheckBox box = (CheckBox) viewLayout
                 .findViewById(R.id.demo_list_checkbox);

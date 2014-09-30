@@ -247,6 +247,7 @@ public abstract class AbstractTreeViewAdapter<T> extends BaseAdapter implements
         image.setScaleType(ScaleType.CENTER);
         image.setTag(nodeInfo.getId());
         if (nodeInfo.isWithChildren() && collapsible) {
+        	//indicatorLayout.setOnClickListener(indicatorClickListener);
             image.setOnClickListener(indicatorClickListener);
            
         } else {
@@ -266,7 +267,15 @@ public abstract class AbstractTreeViewAdapter<T> extends BaseAdapter implements
             frameLayout.addView(childView, childParams);
         }
         frameLayout.setTag(nodeInfo.getId());
-       /* TextView textView=(TextView) layout
+       /* if (nodeInfo.isWithChildren() && collapsible) {
+        	frameLayout.setOnClickListener(indicatorClickListener);
+           
+        } else {
+        	frameLayout.setOnClickListener(null);
+        }*/
+        
+        
+      /*  TextView textView=(TextView) layout
                 .findViewById(R.id.demo_list_item_description);
        if (nodeInfo.isWithChildren() && collapsible) {
         	textView.setOnClickListener(indicatorClickListener);

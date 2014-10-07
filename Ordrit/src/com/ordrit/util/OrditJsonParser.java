@@ -11,15 +11,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.ClipData.Item;
+
 import com.ordrit.model.Address;
 import com.ordrit.model.City;
-import com.ordrit.model.Item;
 import com.ordrit.model.ItemCategory;
 import com.ordrit.model.ItemSubCategory;
 import com.ordrit.model.Order;
 import com.ordrit.model.State;
 import com.ordrit.model.Store;
 import com.ordrit.model.User;
+import com.ordrit.newmodel.SubCategoryItem;
 
 public class OrditJsonParser {
 
@@ -196,7 +198,7 @@ public class OrditJsonParser {
 
 		return city;
 	}
-	public static List<Item> getItemsUnderSubCategory(String storeId, String itemSubCategoryId,String jSONString) throws JSONException{
+/*	public static List<Item> getItemsUnderSubCategory(String storeId, String itemSubCategoryId,String jSONString) throws JSONException{
 	
 		List<Item> itemList= new ArrayList<Item>();
 		JSONObject jsonObj = new JSONObject(jSONString);
@@ -218,7 +220,7 @@ public class OrditJsonParser {
 			}
 		}
 		return itemList;
-	}
+	}*/
 	
 	public static User updateUserWithAddress(User user, String jsonString) throws JSONException{
 		if(jsonString!=null && !jsonString.isEmpty()){
@@ -292,13 +294,13 @@ public class OrditJsonParser {
 				order.setStatus(OrdritJsonKeys.TAG_PENDING);
 				order.setCreationDate(itemOrdersJsonObj.getString(OrdritJsonKeys.TAG_CREATED_ON));
 				JSONArray itemOrdersJSONArray = itemOrdersJsonObj.getJSONArray(OrdritJsonKeys.TAG_ITEM_ORDERS);
-				List<Item> itemsInOrder= new ArrayList<Item>();
+				List<SubCategoryItem> itemsInOrder= new ArrayList<SubCategoryItem>();
 				for (int j = 0; j < itemOrdersJSONArray.length(); j++) {
 					JSONObject itemJsonObj = itemOrdersJSONArray.getJSONObject(j);
-					Item item = new Item();
+					SubCategoryItem item = new SubCategoryItem();
 					item.setItemQuantity(itemJsonObj.getString(OrdritJsonKeys.TAG_QUANTITY));
 					item.setName(itemJsonObj.getJSONObject(OrdritJsonKeys.TAG_ITEM).getString(OrdritJsonKeys.TAG_NAME));
-					item.setPricePerUnit(itemJsonObj.getJSONObject(OrdritJsonKeys.TAG_ITEM).getString(OrdritJsonKeys.TAG_PRICE));
+					item.setPrice(itemJsonObj.getJSONObject(OrdritJsonKeys.TAG_ITEM).getString(OrdritJsonKeys.TAG_PRICE));
 					itemsInOrder.add(item);
 				}
 				order.setItemsInOrder(itemsInOrder);
@@ -337,13 +339,13 @@ public class OrditJsonParser {
 					order.setStatus(itemOrdersJsonObj.getString(OrdritJsonKeys.TAG_STATUS));
 					order.setCreationDate(itemOrdersJsonObj.getString(OrdritJsonKeys.TAG_CREATED_ON));
 					JSONArray itemOrdersJSONArray = itemOrdersJsonObj.getJSONArray(OrdritJsonKeys.TAG_ITEM_ORDERS);
-					List<Item> itemsInOrder= new ArrayList<Item>();
+					List<SubCategoryItem> itemsInOrder= new ArrayList<SubCategoryItem>();
 					for (int j = 0; j < itemOrdersJSONArray.length(); j++) {
 						JSONObject itemJsonObj = itemOrdersJSONArray.getJSONObject(j);
-						Item item = new Item();
+						SubCategoryItem item = new SubCategoryItem();
 						item.setItemQuantity(itemJsonObj.getString(OrdritJsonKeys.TAG_QUANTITY));
 						item.setName(itemJsonObj.getJSONObject(OrdritJsonKeys.TAG_ITEM).getString(OrdritJsonKeys.TAG_NAME));
-						item.setPricePerUnit(itemJsonObj.getJSONObject(OrdritJsonKeys.TAG_ITEM).getString(OrdritJsonKeys.TAG_PRICE));
+						item.setPrice(itemJsonObj.getJSONObject(OrdritJsonKeys.TAG_ITEM).getString(OrdritJsonKeys.TAG_PRICE));
 						itemsInOrder.add(item);
 					}
 					order.setItemsInOrder(itemsInOrder);

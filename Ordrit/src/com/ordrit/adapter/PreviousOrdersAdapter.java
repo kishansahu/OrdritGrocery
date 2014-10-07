@@ -2,6 +2,7 @@ package com.ordrit.adapter;
 
 import java.util.List;
 
+import android.content.ClipData.Item;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ordrit.R;
-import com.ordrit.model.Item;
 import com.ordrit.model.Order;
+import com.ordrit.newmodel.SubCategoryItem;
 
 public class PreviousOrdersAdapter extends ArrayAdapter<Order> {
 
@@ -72,15 +73,19 @@ public class PreviousOrdersAdapter extends ArrayAdapter<Order> {
 		});
 		holder.orderId.setText(order.getId());
 		holder.orderCreationDate.setText(order.getCreationDate());
-		for(Item item: order.getItemsInOrder()){
-	    View itemSubDetail=	inflater.inflate(R.layout.item_sub_detail, null);
-	    TextView itemName= (TextView) itemSubDetail.findViewById(R.id.itemName);
-	    itemName.setText(item.getName());
-	    TextView itemQuantity= (TextView) itemSubDetail.findViewById(R.id.itemQuantity);
-	    itemQuantity.setText(item.getItemQuantity());
-	    TextView itemPrice= (TextView) itemSubDetail.findViewById(R.id.itemPrice);
-	    itemPrice.setText(item.getPricePerUnit());
-	    holder.itemDetailsSubContainer.addView(itemSubDetail);
+		for (SubCategoryItem item : order.getItemsInOrder()) {
+			View itemSubDetail = inflater.inflate(R.layout.item_sub_detail,
+					null);
+			TextView itemName = (TextView) itemSubDetail
+					.findViewById(R.id.itemName);
+			itemName.setText(item.getName());
+			TextView itemQuantity = (TextView) itemSubDetail
+					.findViewById(R.id.itemQuantity);
+			itemQuantity.setText(item.getItemQuantity());
+			TextView itemPrice = (TextView) itemSubDetail
+					.findViewById(R.id.itemPrice);
+			itemPrice.setText(item.getPrice());
+			holder.itemDetailsSubContainer.addView(itemSubDetail);
 		}
 		return convertView;
 	}

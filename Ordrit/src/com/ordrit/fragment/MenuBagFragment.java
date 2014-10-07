@@ -5,10 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,16 +26,14 @@ import com.ordrit.adapter.MenuBagAdapter;
 import com.ordrit.adapter.MenuBagAdapter.SetTotalCost;
 import com.ordrit.database.OrdrItdataBaseHelper;
 import com.ordrit.model.Address;
-import com.ordrit.model.Item;
 import com.ordrit.model.Items;
 import com.ordrit.model.SelectedItem;
 import com.ordrit.model.User;
+import com.ordrit.newmodel.SubCategoryItem;
 import com.ordrit.util.CommonUtils;
 import com.ordrit.util.FragmentConstant;
 import com.ordrit.util.OrdritConstants;
-import com.ordrit.util.OrdritJsonKeys;
 import com.ordrit.util.SharedPreferencesUtil;
-import com.ordrit.util.WebServiceProcessingTask;
 import com.ordrit.util.WebServicesRawDataUtil;
 
 public class MenuBagFragment extends BaseFragment {
@@ -166,7 +161,7 @@ public class MenuBagFragment extends BaseFragment {
 				Iterator<SelectedItem> iterator = selectedItemList.iterator();
 				while (iterator.hasNext()) {
 					SelectedItem selectedItem = iterator.next();
-					Item item = selectedItem.getItem();
+					SubCategoryItem item = selectedItem.getItem();
 					Items orderedItem = new Items();
 					orderedItem.setItem("/inventory_items/" + item.getId());
 					orderedItem.setQuantity(selectedItem.getQuantity());

@@ -3,13 +3,15 @@ package com.ordrit.model;
 import java.io.Serializable;
 import java.util.List;
 
+import com.ordrit.newmodel.SubCategoryItem;
+
 public class Order implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	private String id;
 	private String status;
 	private String creationDate;
-	private List<Item> itemsInOrder;
+	private List<SubCategoryItem> itemsInOrder;
 	
 	public String getId() {
 		return id;
@@ -17,16 +19,7 @@ public class Order implements Serializable{
 	public void setId(String id) {
 		this.id = id;
 	}
-	@Override
-	public String toString() {
-		return "Order [id=" + id + ", status=" + status + ", creationDate="
-				+ creationDate + ", itemsInOrder=" + itemsInOrder
-				+ ", getId()=" + getId() + ", getStatus()=" + getStatus()
-				+ ", getCreationDate()=" + getCreationDate()
-				+ ", getItemsInOrder()=" + getItemsInOrder() + ", getClass()="
-				+ getClass() + ", hashCode()=" + hashCode() + ", toString()="
-				+ super.toString() + "]";
-	}
+
 	public String getStatus() {
 		return status;
 	}
@@ -39,10 +32,10 @@ public class Order implements Serializable{
 	public void setCreationDate(String creationDate) {
 		this.creationDate = creationDate;
 	}
-	public List<Item> getItemsInOrder() {
+	public List<SubCategoryItem> getItemsInOrder() {
 		return itemsInOrder;
 	}
-	public void setItemsInOrder(List<Item> itemsInOrder) {
+	public void setItemsInOrder(List<SubCategoryItem> itemsInOrder) {
 		this.itemsInOrder = itemsInOrder;
 	}
 	public static long getSerialversionuid() {

@@ -21,8 +21,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.ordrit.R;
 import com.ordrit.activity.DashboardActivity;
 import com.ordrit.activity.UILApplication;
-import com.ordrit.model.Item;
 import com.ordrit.model.SelectedItem;
+import com.ordrit.newmodel.SubCategoryItem;
 import com.ordrit.util.FragmentConstant;
 import com.ordrit.util.OrdritConstants;
 
@@ -33,7 +33,7 @@ public class ItemDetailFragment extends BaseFragment {
 	private Button itemDetailBack, buttonAddToBagOrder;
 	TextView textItemName,itemPrice;
 	ImageView imageViewItemImage;
-    private Item item;
+    private SubCategoryItem item;
     private UILApplication uilApplication;
     private	List<SelectedItem> selectedItemList;
     private int qaintity=1;
@@ -51,7 +51,7 @@ public class ItemDetailFragment extends BaseFragment {
 			Bundle savedInstanceState) {
 		itemDetailFragment=inflater.inflate(R.layout.fragment_item_details, container,false);
 		Bundle bundle=getArguments();
-		item = (Item)bundle.getSerializable(OrdritConstants.ITEM);
+		item = (SubCategoryItem)bundle.getSerializable(OrdritConstants.ITEM);
 		setupUiComponent();
 		return itemDetailFragment;
 	}
@@ -127,10 +127,10 @@ public class ItemDetailFragment extends BaseFragment {
 		textItemName=(TextView)itemDetailFragment.findViewById(R.id.textItemName); 
 		textItemName.setText(item.getName());
 		itemPrice=(TextView)itemDetailFragment.findViewById(R.id.itemPrice); 
-		itemPrice.setText(item.getPricePerUnit());
+		itemPrice.setText(item.getPrice());
 		imageViewItemImage=(ImageView)itemDetailFragment.findViewById(R.id.imageViewItemImage);
 		ImageLoader imageLoader = ImageLoader.getInstance();
-		imageLoader.displayImage(item.getImageURL(), imageViewItemImage);
+		imageLoader.displayImage(item.getImage().getImage(), imageViewItemImage);
 	/*	NumberPicker numberPicker = (NumberPicker)itemDetailFragment.findViewById(R.id.numberPicker);
 	        numberPicker.setMaxValue(100);    
 	        numberPicker.setMinValue(1);        
@@ -146,12 +146,12 @@ public class ItemDetailFragment extends BaseFragment {
 	        nunberPicker();
 	        dashboardActivity.checkCartItems(itemDetailFragment);
 	}
-private int searchItem(List<SelectedItem> selectedItemList,Item item){
+private int searchItem(List<SelectedItem> selectedItemList,SubCategoryItem item){
 	int i =-1;
 	if (selectedItemList!=null&&selectedItemList.size()>0) {
 		for (int j = 0; j < selectedItemList.size(); j++) {
 			SelectedItem selectedItem=selectedItemList.get(j);
-			Item temp=selectedItem.getItem();
+			SubCategoryItem temp=selectedItem.getItem();
 			if (item.getId().equals(temp.getId())) {
 				i=j;
 				break;

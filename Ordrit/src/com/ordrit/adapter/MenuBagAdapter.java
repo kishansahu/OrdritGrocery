@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ClipData.Item;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
@@ -15,14 +16,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.ordrit.R;
 import com.ordrit.activity.UILApplication;
-import com.ordrit.model.Item;
 import com.ordrit.model.SelectedItem;
+import com.ordrit.newmodel.SubCategoryItem;
 
 public class MenuBagAdapter extends ArrayAdapter<SelectedItem>{
 	
@@ -77,14 +77,14 @@ public class MenuBagAdapter extends ArrayAdapter<SelectedItem>{
 	}
 	
 	final SelectedItem selectedItem =selectedItemList.get(position);
-	final Item item =selectedItem.getItem();
+	final SubCategoryItem item =selectedItem.getItem();
 	
-	float totalprice=Float.parseFloat(item.getPricePerUnit());
+	float totalprice=Float.parseFloat(item.getPrice());
 	totalprice=totalprice*(Integer.parseInt(selectedItem.getQuantity()));
 	holder.itemPrice.setText(String.valueOf(totalprice));
 	holder.textItemTotal.setText(selectedItem.getQuantity());
 	holder.textProductName.setText(item.getName());
-	imageLoader.displayImage(item.getImageURL(), holder.imageViewItemImage);
+	imageLoader.displayImage(item.getImage().getImage(), holder.imageViewItemImage);
 	holder.buttonDelete.setOnClickListener(new OnClickListener() {
 		
 		@Override
@@ -143,10 +143,10 @@ public class MenuBagAdapter extends ArrayAdapter<SelectedItem>{
 				TextView textItemName = (TextView)dialog.findViewById(R.id.textItemName); 
 				textItemName.setText(item.getName());
 				TextView itemPrice = (TextView)dialog.findViewById(R.id.itemPrice); 
-				itemPrice.setText(item.getPricePerUnit());
+				itemPrice.setText(item.getPrice());
 				ImageView imageViewItemImage = (ImageView)dialog.findViewById(R.id.imageViewItemImage);
 				ImageLoader imageLoader = ImageLoader.getInstance();
-				imageLoader.displayImage(item.getImageURL(), imageViewItemImage);
+				imageLoader.displayImage(item.getImage().getImage(), imageViewItemImage);
 				/*NumberPicker numberPicker = (NumberPicker)dialog.findViewById(R.id.numberPicker);
 			        numberPicker.setMaxValue(100);    
 			        numberPicker.setMinValue(1);

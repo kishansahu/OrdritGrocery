@@ -236,6 +236,12 @@ public class DashboardActivity extends Activity {
 			
 			fragment =new ItemListFragment();
 			store=ordrItdataBaseHelper.getStore(menuData.getStore());
+			Bundle bundle=new Bundle();
+			bundle.putString("storeId", menuData.getStore());
+			bundle.putString("catogeryId", menuData.getCategory());
+			bundle.putString("subCategoryId", menuData.getSubCategory());
+			fragment.setArguments(bundle);
+			
 		}
 		if (fragment != null) {
 			commitFragment(fragment, null);

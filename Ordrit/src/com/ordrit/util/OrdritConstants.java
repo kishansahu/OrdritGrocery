@@ -22,6 +22,7 @@ public interface OrdritConstants {
 	public final static String GO_LOGIN = "gologin";
 	public final static String USER_FORGOT_PASSWORD = "users/password/forgot";
 	
+	
 	//doc
 	public final static String SUPER_USER_TOKEN_ID = "f8217f2bfca176c7c2ef6c45a7c582d17668a0ec";
 	//current

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Locale;
 
 import android.app.Activity;
+import android.content.ClipData.Item;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,22 +16,22 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.ordrit.R;
-import com.ordrit.model.Item;
+import com.ordrit.newmodel.SubCategoryItem;
 
-public class ItemListAdapter extends ArrayAdapter<Item>{
+public class ItemListAdapter extends ArrayAdapter<SubCategoryItem>{
 
-	private List<Item> itemList;
-	private List<Item> tempItemList;
+	private List<SubCategoryItem> itemList;
+	private List<SubCategoryItem> tempItemList;
 	private Context context;
 	private int textViewResourceId;
 	
 	public ItemListAdapter(Activity context, int textViewResourceId,
-			List<Item> applicationList) {
+			List<SubCategoryItem> applicationList) {
 		super(context, textViewResourceId, applicationList);
 		this.context = context;
 		this.textViewResourceId=textViewResourceId;
 		this.itemList=applicationList;
-		this.tempItemList=new ArrayList<Item>();
+		this.tempItemList=new ArrayList<SubCategoryItem>();
         this.tempItemList.addAll(itemList);
 		this.context =  context;
 	}
@@ -46,7 +47,7 @@ public class ItemListAdapter extends ArrayAdapter<Item>{
 	public View getView(int position, View convertView, ViewGroup parent) {
 
 		ViewHolder holder = null;
-		final Item item = itemList.get(position);
+		final SubCategoryItem item = itemList.get(position);
 		//Log.v("ConvertView", String.valueOf(position));
 
 		if (convertView == null) {
@@ -70,7 +71,7 @@ public class ItemListAdapter extends ArrayAdapter<Item>{
 
 		
 		String productName = item.getName();
-		String productPrice = item.getPricePerUnit();
+		String productPrice = item.getPrice();
 		
 	if (holder!=null) {
 		
@@ -83,7 +84,7 @@ public class ItemListAdapter extends ArrayAdapter<Item>{
 			
 		}
 		ImageLoader imageLoader = ImageLoader.getInstance();
-		imageLoader.displayImage(item.getImageURL(), holder.productItemImage);
+		imageLoader.displayImage(item.getImage().getImage(), holder.productItemImage);
 		//displayImage(item.getImageURL(), holder.productItemImage, null);
 	}
 		return convertView;
@@ -95,7 +96,7 @@ public class ItemListAdapter extends ArrayAdapter<Item>{
 		if (charText.length() == 0) {
 			itemList.addAll(tempItemList);
 		} else {
-			for (Item item : tempItemList) {
+			for (SubCategoryItem item : tempItemList) {
 				if (item.getName().toLowerCase().contains(charText.toLowerCase())) {
 					itemList.add(item);
 				}

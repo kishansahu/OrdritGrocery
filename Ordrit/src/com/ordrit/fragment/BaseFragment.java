@@ -24,14 +24,14 @@ import android.os.Bundle;
 public abstract class BaseFragment extends Fragment{
 	
 	public DashboardActivity dashboardActivity;
-	
+	protected Gson gson;
 
 	@Override
 	public void onAttach(Activity activity) {
 		
 		super.onAttach(activity);
 		dashboardActivity=(DashboardActivity) activity;
-		
+		gson=new Gson();
 		
 	}
 	

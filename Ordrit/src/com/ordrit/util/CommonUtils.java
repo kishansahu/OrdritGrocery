@@ -8,7 +8,7 @@ import org.apache.http.NameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
+import android.content.ClipData.Item;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.net.ConnectivityManager;
@@ -20,10 +20,10 @@ import com.ordrit.R;
 import com.ordrit.activity.DashboardActivity;
 import com.ordrit.database.OrdrItdataBaseHelper;
 import com.ordrit.model.City;
-import com.ordrit.model.Item;
 import com.ordrit.model.NavDrawerItem;
 import com.ordrit.model.SelectedItem;
 import com.ordrit.newmodel.Store;
+import com.ordrit.newmodel.SubCategoryItem;
 public class CommonUtils {
 
 	private Context _context;
@@ -119,8 +119,8 @@ public class CommonUtils {
 		Iterator<SelectedItem> iterator = selectedItemList.iterator();
 		while (iterator.hasNext()) {
 			SelectedItem selectedItem = iterator.next();
-			final Item item = selectedItem.getItem();
-			float totalprice = Float.parseFloat(item.getPricePerUnit());
+			final SubCategoryItem item = selectedItem.getItem();
+			float totalprice = Float.parseFloat(item.getPrice());
 			totalprice = totalprice
 					* (Integer.parseInt(selectedItem.getQuantity()));
 			total = total + totalprice;

@@ -7,12 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.ordrit.R;
-import com.ordrit.activity.UILApplication;
-import com.ordrit.model.Item;
 import com.ordrit.model.Order;
 
 public class OrderStatusAdapter extends ArrayAdapter<Order> {

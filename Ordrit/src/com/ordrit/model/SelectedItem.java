@@ -1,7 +1,9 @@
 package com.ordrit.model;
 
+import com.ordrit.newmodel.SubCategoryItem;
+
 public class SelectedItem {
-	private Item item;
+	private SubCategoryItem item;
 	private String quantity;
 	
 	
@@ -13,11 +15,11 @@ public class SelectedItem {
 		this.quantity = quantity;
 	}
 
-	public Item getItem() {
+	public SubCategoryItem getItem() {
 		return item;
 	}
 
-	public void setItem(Item item) {
+	public void setItem(SubCategoryItem item) {
 		this.item = item;
 	}
 

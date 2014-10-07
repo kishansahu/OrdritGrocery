@@ -3,13 +3,9 @@ package com.ordrit.fragment;
 import java.util.List;
 import java.util.Locale;
 
-import org.json.JSONException;
-
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,26 +13,22 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ordrit.R;
 import com.ordrit.activity.DashboardActivity;
 import com.ordrit.adapter.ItemListAdapter;
 import com.ordrit.database.OrdrItdataBaseHelper;
-import com.ordrit.model.Item;
-import com.ordrit.model.ItemSubCategory;
 import com.ordrit.model.MenuData;
-import com.ordrit.newmodel.Store;
+import com.ordrit.newmodel.SubCategoryData;
+import com.ordrit.newmodel.SubCategoryItem;
 import com.ordrit.util.CommonUtils;
 import com.ordrit.util.FragmentConstant;
-import com.ordrit.util.OrditJsonParser;
 import com.ordrit.util.OrdritConstants;
 import com.ordrit.util.OrdritJsonKeys;
 import com.ordrit.util.SharedPreferencesUtil;
@@ -51,18 +43,24 @@ public class ItemListFragment extends BaseFragment {
     private GridView itemListListGridView;
     private ListView itemListListListView;
     private ItemListAdapter itemListAdapter,itemListAdapterList;
-    private List<Item> itemList;
+    private List<SubCategoryItem> itemList;
     private MenuData menuData;
     private OrdrItdataBaseHelper ordrItdataBaseHelper;
+    SubCategoryData subCategoryData;
     
-    public static Store store;
+    //public static Store store;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		itemListFragment=inflater.inflate(R.layout.fragment_item_list, container,false);
-		setupUiComponent();
+		
 		return itemListFragment;
+	}
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		setupUiComponent();
 	}
 	@Override
 	void setupUiComponent() {
@@ -173,19 +171,28 @@ public class ItemListFragment extends BaseFragment {
 			
 			@Override
 			public void postExecuteTask() {
-				itemListAdapter = new ItemListAdapter(dashboardActivity, R.layout.product_item, itemList);
-				itemListAdapterList = new ItemListAdapter(dashboardActivity, R.layout.product_item_list, itemList);
-				itemListListGridView.setAdapter(itemListAdapter);
-				itemListListListView.setAdapter(itemListAdapterList);
+				if (subCategoryData!=null) {
+					itemList=subCategoryData.getResults();
+					itemListAdapter = new ItemListAdapter(dashboardActivity, R.layout.product_item, itemList);
+					itemListAdapterList = new ItemListAdapter(dashboardActivity, R.layout.product_item_list, itemList);
+					itemListListGridView.setAdapter(itemListAdapter);
+					itemListListListView.setAdapter(itemListAdapterList);
+				}
+			
 				
 			}
 			
 			@Override
 			public void backgroundTask() {
 			
+				Bundle bundle=getArguments();
+				String storeId=bundle.getString("storeId");
+				String catogeryId=bundle.getString("catogeryId");
+				String subCategoryId=bundle.getString("subCategoryId");
+			
 				jSONString = connection.getHttpUrlConnectionForArray(
 						OrdritConstants.SERVER_BASE_URL
-								+ "inventory_items",
+								+ "inventory_items?store="+storeId+"&sub_category="+subCategoryId,
 						SharedPreferencesUtil.getStringPreferences(
 								dashboardActivity, OrdritJsonKeys.TAG_TOKEN));
 					/*	OrdritConstants.SERVER_BASE_URL
@@ -194,9 +201,10 @@ public class ItemListFragment extends BaseFragment {
 						dashboardActivity, OrdritJsonKeys.TAG_TOKEN));*/
 			//	 Log.e(TAG,jSONString);
 				try {
-					itemList=OrditJsonParser.getItemsUnderSubCategory(DashboardActivity.store.getId(), menuData.getSubCategory(),jSONString);
-					 
-				} catch (JSONException e) {
+					//itemList=OrditJsonParser.getItemsUnderSubCategory(DashboardActivity.store.getId(), menuData.getSubCategory(),jSONString);
+					 subCategoryData= gson.fromJson(jSONString, SubCategoryData.class);
+				
+				} catch (Exception e) {
 					
 					e.printStackTrace();
 				}

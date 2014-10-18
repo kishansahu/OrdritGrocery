@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.ordrit.R;
 import com.ordrit.newmodel.SubCategoryItem;
+import com.ordrit.util.OrdritConstants;
 
 public class ItemListAdapter extends ArrayAdapter<SubCategoryItem>{
 
@@ -83,8 +84,7 @@ public class ItemListAdapter extends ArrayAdapter<SubCategoryItem>{
 			holder.productItemPrice.setText(""+productPrice);
 			
 		}
-		ImageLoader imageLoader = ImageLoader.getInstance();
-		imageLoader.displayImage(item.getImage().getImage(), holder.productItemImage);
+		ImageLoader.getInstance().displayImage(OrdritConstants.SERVER_BASE_URL+item.getImage().getImage(), holder.productItemImage);
 		//displayImage(item.getImageURL(), holder.productItemImage, null);
 	}
 		return convertView;

@@ -16,7 +16,7 @@
              android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/previous" 
+            android:src="@drawable/ic_action_previous_item" 
             android:background="@drawable/button"/>
 
         <com.ordrit.util.CalibriTextView

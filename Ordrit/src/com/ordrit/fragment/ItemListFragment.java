@@ -1,7 +1,11 @@
 package com.ordrit.fragment;
 
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Locale;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -20,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.gson.reflect.TypeToken;
 import com.ordrit.R;
 import com.ordrit.activity.DashboardActivity;
 import com.ordrit.adapter.ItemListAdapter;
@@ -202,7 +207,13 @@ public class ItemListFragment extends BaseFragment {
 			//	 Log.e(TAG,jSONString);
 				try {
 					//itemList=OrditJsonParser.getItemsUnderSubCategory(DashboardActivity.store.getId(), menuData.getSubCategory(),jSONString);
-					 subCategoryData= gson.fromJson(jSONString, SubCategoryData.class);
+		/*			JSONObject jsonObject=new JSONObject(jSONString);
+					JSONArray jsonObject1=	jsonObject.getJSONArray("results");
+					 Type type = new TypeToken<List<SubCategoryItem>>() {}.getType();
+					
+					List<SubCategoryItem> results=gson.fromJson(jsonObject1.toString(), type);*/
+					
+					subCategoryData= gson.fromJson(jSONString, SubCategoryData.class);
 				
 				} catch (Exception e) {
 					

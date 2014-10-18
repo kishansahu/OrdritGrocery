@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="dummy_text">Dummy Text</string>
-  <!--  <string name="map_key">AIzaSyCybv14nEvb6UtJxDFSVm867TzthVEsmSA</string> 
-   -->  <string name="app_name">OrdrIt</string>
+ <!--   <string name="map_key">AIzaSyAleOnL7flEIPmUnpGoc5Rjc-ilawzemQA</string>  -->
+   <!--linex qait  -->
+    <string name="map_key">AIzaSyAruKS-sn2lf95mUQhOaqryyNS4tX_UnGM</string> 
+   <string name="app_name">OrdrIt</string>
     <string name="action_settings">Settings</string>
     <string name="get_started">Get Started</string>
     <string name="username">User Name</string>

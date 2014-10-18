@@ -30,7 +30,8 @@ public class ItemDetailFragment extends BaseFragment {
 	
 	private static final String tag="ItemListFragment";
 	private View itemDetailFragment;
-	private Button itemDetailBack, buttonAddToBagOrder;
+	private ImageButton itemDetailBack;
+	private Button buttonAddToBagOrder;
 	TextView textItemName,itemPrice;
 	ImageView imageViewItemImage;
     private SubCategoryItem item;
@@ -61,7 +62,7 @@ public class ItemDetailFragment extends BaseFragment {
 		uilApplication =(UILApplication) dashboardActivity.getApplication();
 		selectedItemList=uilApplication.getSelectedItemList();
 		
-		itemDetailBack = (Button)itemDetailFragment.findViewById(R.id.itemDetailBack); 
+		itemDetailBack = (ImageButton)itemDetailFragment.findViewById(R.id.itemDetailBack); 
 		itemDetailBack.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -130,7 +131,7 @@ public class ItemDetailFragment extends BaseFragment {
 		itemPrice.setText(item.getPrice());
 		imageViewItemImage=(ImageView)itemDetailFragment.findViewById(R.id.imageViewItemImage);
 		ImageLoader imageLoader = ImageLoader.getInstance();
-		imageLoader.displayImage(item.getImage().getImage(), imageViewItemImage);
+		imageLoader.displayImage(OrdritConstants.SERVER_BASE_URL+item.getImage().getImage(), imageViewItemImage);
 	/*	NumberPicker numberPicker = (NumberPicker)itemDetailFragment.findViewById(R.id.numberPicker);
 	        numberPicker.setMaxValue(100);    
 	        numberPicker.setMinValue(1);        

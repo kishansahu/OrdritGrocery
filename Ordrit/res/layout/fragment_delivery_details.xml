@@ -18,7 +18,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
             android:background="@drawable/button"
-            android:src="@drawable/previous" />
+            android:src="@drawable/ic_action_previous_item" />
 
         <com.ordrit.util.CalibriTextView
             android:id="@+id/catogeryTitle"

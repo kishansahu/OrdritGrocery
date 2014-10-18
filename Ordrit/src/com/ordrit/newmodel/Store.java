@@ -24,8 +24,8 @@ public class Store {
 	private String minimum_order;
 	@Expose
 	private String estimated_delivery_time;
-	@Expose
-	private String sub_category;
+	/*@Expose
+	private String sub_category;*/
 	@Expose
 	private String created_on;
 	@Expose
@@ -101,13 +101,13 @@ public class Store {
 	this.estimated_delivery_time = estimated_delivery_time;
 	}
 
-	public String getSub_category() {
+/*	public String getSub_category() {
 	return sub_category;
 	}
 
 	public void setSub_category(String sub_category) {
 	this.sub_category = sub_category;
-	}
+	}*/
 
 	public String getCreated_on() {
 	return created_on;
@@ -159,15 +159,5 @@ public class Store {
 		this.sub_categories = sub_categories;
 	}
 
-	@Override
-	public String toString() {
-		return "Store [name=" + name + ", merchant=" + merchant + ", address="
-				+ address + ", location=" + location + ", opens_at=" + opens_at
-				+ ", closes_at=" + closes_at + ", minimum_order="
-				+ minimum_order + ", estimated_delivery_time="
-				+ estimated_delivery_time + ", sub_category=" + sub_category
-				+ ", created_on=" + created_on + ", id=" + id + ", url=" + url
-				+ ", phone_number_1=" + phone_number_1 + ", phone_number_2="
-				+ phone_number_2 + ", sub_categories=" + sub_categories + "]";
-	}
+
 }

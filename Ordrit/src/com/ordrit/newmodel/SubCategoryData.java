@@ -6,16 +6,16 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 
 public class SubCategoryData {
-/*	@Expose
+	@Expose
 	private String count;
 	@Expose
 	private String next;
 	@Expose
-	private String previous;*/
+	private String previous;
 	@Expose
 	private List<SubCategoryItem> results = new ArrayList<SubCategoryItem>();
 
-	/*public String getCount() {
+	public String getCount() {
 	return count;
 	}
 
@@ -37,7 +37,7 @@ public class SubCategoryData {
 
 	public void setPrevious(String previous) {
 	this.previous = previous;
-	}*/
+	}
 
 	public List<SubCategoryItem> getResults() {
 	return results;

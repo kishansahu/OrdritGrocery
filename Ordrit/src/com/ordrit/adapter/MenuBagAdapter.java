@@ -23,6 +23,7 @@ import com.ordrit.R;
 import com.ordrit.activity.UILApplication;
 import com.ordrit.model.SelectedItem;
 import com.ordrit.newmodel.SubCategoryItem;
+import com.ordrit.util.OrdritConstants;
 
 public class MenuBagAdapter extends ArrayAdapter<SelectedItem>{
 	
@@ -84,7 +85,7 @@ public class MenuBagAdapter extends ArrayAdapter<SelectedItem>{
 	holder.itemPrice.setText(String.valueOf(totalprice));
 	holder.textItemTotal.setText(selectedItem.getQuantity());
 	holder.textProductName.setText(item.getName());
-	imageLoader.displayImage(item.getImage().getImage(), holder.imageViewItemImage);
+	imageLoader.displayImage(OrdritConstants.SERVER_BASE_URL+item.getImage().getImage(), holder.imageViewItemImage);
 	holder.buttonDelete.setOnClickListener(new OnClickListener() {
 		
 		@Override
@@ -146,7 +147,7 @@ public class MenuBagAdapter extends ArrayAdapter<SelectedItem>{
 				itemPrice.setText(item.getPrice());
 				ImageView imageViewItemImage = (ImageView)dialog.findViewById(R.id.imageViewItemImage);
 				ImageLoader imageLoader = ImageLoader.getInstance();
-				imageLoader.displayImage(item.getImage().getImage(), imageViewItemImage);
+				imageLoader.displayImage(OrdritConstants.SERVER_BASE_URL+item.getImage().getImage(), imageViewItemImage);
 				/*NumberPicker numberPicker = (NumberPicker)dialog.findViewById(R.id.numberPicker);
 			        numberPicker.setMaxValue(100);    
 			        numberPicker.setMinValue(1);
